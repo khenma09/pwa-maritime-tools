@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    background-color: #009688;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .container {
+    width: 400px;
+    margin: 100px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px #000;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out;
+    animation-fill-mode: both;
+  }
+  .center-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .create-account-container a:last-of-type {
+    margin-left: 20px;
+}
+
+/* Keyframe animation to fade-in the container */
+@keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateX(50%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
+  
+  .fade-in {
+    animation-name: fade-in;
+  }
+  
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  label {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  label, input {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="date"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    font-size: 15px;
+  }
+  
+  input[type="submit"] {
+    width: 100%;
+    background-color: #009688;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0 10px #000;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #009688;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+  }
+
+  .create-account-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+  a {
+    color: #009688;
+    text-decoration: none;
+    font-size: 16px;
+    margin-left: 15px;
+    margin-top: 15px;
+    display: inline-block;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Media Queries */
+@media (max-width: 768px) {
+    .container {
+      width: 85%;
+      margin: 80px auto;
+      padding: 25px;
+    }
+    h1 {
+      font-size: 26px;
+    }
+    label {
+      font-size: 15px;
+    }
+   input[type="text"],
+   input[type="password"],
+   input[type="email"],
+   input[type="date"],
+   input[type="tel"] {
+      font-size: 15px;
+      padding: 10px 16px;
+    }
+    input[type="submit"] {
+      font-size: 15px;
+      padding: 12px 18px;
+    }
+    a {
+      font-size: 14px;
+    }
+  }
+
+@media (max-width: 600px) {
+    .container {
+      width: 90%;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 24px;
+    }
+    label {
+      font-size: 14px;
+    }
+   input[type="text"],
+   input[type="password"],
+   input[type="email"],
+   input[type="date"],
+   input[type="tel"] {
+      font-size: 14px;
+      padding: 10px 15px;
+    }
+    input[type="submit"] {
+      font-size: 14px;
+      padding: 12px 16px;
+    }
+    a {
+      font-size: 13px;
+    }
+  }
+
+@media (max-width: 480px) {
+    .container {
+      width: 95%;
+      margin: 30px auto;
+      padding: 15px;
+    }
+    h1 {
+      font-size: 22px;
+    }
+    label {
+      font-size: 13px;
+    }
+   input[type="text"],
+   input[type="password"],
+   input[type="email"],
+   input[type="date"],
+   input[type="tel"] {
+      font-size: 13px;
+      padding: 9px 14px;
+    }
+    input[type="submit"] {
+      font-size: 13px;
+      padding: 11px 15px;
+    }
+    a {
+      font-size: 12px;
+    }
+    .create-account-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .create-account-container a:last-of-type {
+      margin-left: 0;
+    }
+  }
+
+@media (max-width: 375px) {
+    .container {
+      width: 98%;
+      margin: 20px auto;
+      padding: 12px;
+    }
+    h1 {
+      font-size: 20px;
+    }
+  }
+  
+.center-container a {
+    margin-top: 15px;
+  }
+
+.center-container #loginLink {
+    margin-top: 0px;
+  }
+
+.center-container p {
+    margin-top: 15px;
+  }
+
+
+.question-img {
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+    .question-img {
+        max-width: 100%;
+    }
+}
+
+
+

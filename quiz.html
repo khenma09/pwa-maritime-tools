@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Reviewer</title>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+		/>
+		<link rel="stylesheet" href="css/style.css" />
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<style>
+			/* Responsive improvements */
+			body {
+				padding: 10px;
+			}
+			@media (max-width: 768px) {
+				body {
+					padding: 5px;
+				}
+				.custom-box {
+					padding: 20px 15px;
+					margin: 20px auto;
+				}
+				.home-box h2 {
+					font-size: 24px !important;
+				}
+				.home-box p {
+					font-size: 13px !important;
+				}
+				#category-select {
+					font-size: 14px !important;
+				}
+				.total-available-questions {
+					font-size: 24px !important;
+				}
+			}
+			@media (max-width: 480px) {
+				.custom-box {
+					padding: 15px 10px;
+				}
+				.home-box h2 {
+					font-size: 20px !important;
+				}
+				button {
+					padding: 12px 25px !important;
+					font-size: 14px !important;
+				}
+			}
+			/* Hide background images on mobile */
+			@media (max-width: 1024px) {
+				body img[alt="Background decoration"] {
+					display: none !important;
+				}
+			}
+			/* Responsive grid for result cards */
+			@media (max-width: 768px) {
+				div[style*="grid-template-columns"] {
+					grid-template-columns: repeat(2, 1fr) !important;
+				}
+			}
+			@media (max-width: 480px) {
+				div[style*="grid-template-columns"] {
+					grid-template-columns: 1fr !important;
+				}
+			}
+			/* Category select - simplified */
+			#category-select {
+				height: auto !important;
+				min-height: 48px !important;
+			}
+		</style>
+	</head>
+	<body class="page-bg-green">
+		<!-- Background image LEFT - comment out this line to remove -->
+		<img
+			id="bg-img-left"
+			src="img/rick.jpg"
+			alt="Background decoration"
+			class="bg-decoration left"
+		/>
+
+		<!-- Background image RIGHT - comment out this line to remove -->
+		<img
+			id="bg-img-right"
+			src="img/rick2.JPG"
+			alt="Background decoration"
+			class="bg-decoration right"
+		/>
+
+		<div class="home-box custom-box">
+			<div class="centered-intro">
+				<h2 class="intro-title">Welcome to the Quiz</h2>
+				<p class="intro-subtitle">Test your knowledge and challenge yourself</p>
+			</div>
+
+			<div class="info-box">
+				<div class="info-header">
+					<span class="info-icon">📚</span>
+					<h5 class="info-title">Instructions</h5>
+				</div>
+				<ul class="info-list">
+					<li>Select a category to focus on a specific topic</li>
+					<li>Read each question carefully before selecting your answer</li>
+					<li>You must answer each question to proceed to the next one</li>
+					<li>Choose the number of questions you want to answer below</li>
+					<li>Minimum 5 questions required to start the quiz</li>
+				</ul>
+			</div>
+
+			<div class="mb-30">
+				<label for="category-select" class="form-label"
+					>🎯 Select Quiz Category</label
+				>
+				<select id="category-select" class="form-control custom-select">
+					<option value="All Categories">All Categories</option>
+					<option value="GMDSS">GMDSS & Communications</option>
+					<option value="Navigation">Navigation & Buoyage</option>
+					<option value="IMDG">IMDG Code & Dangerous Goods</option>
+					<option value="COLREG">COLREG & Rules of the Road</option>
+					<option value="Safety">Safety & Security</option>
+					<option value="Chartwork">Chartwork & Calculations</option>
+					<option value="Signals">Signals & Flags</option>
+				</select>
+				<small id="category-info" class="category-info"
+					>💡
+					<i
+						><span id="category-count" class="category-count"></span> questions
+						available in this category</i
+					></small
+				>
+			</div>
+
+			<div class="stats-box">
+				<div class="stats-label">Total Available Questions</div>
+				<div class="stats-number">
+					<span class="total-available-questions"></span>
+				</div>
+			</div>
+
+			<div class="mb-30">
+				<label for="question-count" class="form-label"
+					>📝 How many questions would you like to answer?</label
+				>
+				<div class="input-wrapper">
+					<input
+						type="number"
+						id="question-count"
+						class="form-control input-number"
+						min="5"
+						placeholder="Enter number (minimum 5)"
+					/>
+				</div>
+				<small class="note-small"
+					>💡 <i>Leave empty to answer all available questions</i></small
+				>
+			</div>
+
+			<div class="text-center">
+				<button type="button" class="btn start-quiz-btn start-cta">
+					🚀 Start the Quiz
+				</button>
+			</div>
+		</div>
+
+		<!-- Start of quiz-box -->
+		<div class="quiz-box custom-box hide">
+			<div class="flex-row-gap">
+				<!-- Left Image (Change display: none to display: block to show) -->
+				<div class="flex-fixed">
+					<img
+						src="img/side-image-left.png"
+						alt="Left decoration"
+						class="side-image"
+					/>
+				</div>
+
+				<!-- Main Content -->
+				<div class="flex-grow">
+					<div class="question-number"></div>
+					<div class="question-text"></div>
+					<div class="option-container"></div>
+					<!-- Next button added -->
+					<div class="next-question-btn">
+						<button type="button" class="btn next-cta">Next</button>
+					</div>
+				</div>
+
+				<!-- Right Image (Change display: none to display: block to show) -->
+				<div class="flex-fixed">
+					<img
+						src="img/side-image-right.png"
+						alt="Right decoration"
+						class="side-image"
+					/>
+				</div>
+			</div>
+		</div>
+		<!-- End of quiz-box -->
+		<!-- Start of result-box -->
+		<div class="result-box custom-box hide" id="resultBox">
+			<div class="text-center mb-30">
+				<h1 class="intro-title">🎉 Quiz Results</h1>
+				<p class="note-small">Here's how you performed</p>
+			</div>
+
+			<!-- Results Cards -->
+			<div class="summary-grid">
+				<!-- Total Questions Card -->
+				<div class="summary-card total">
+					<div class="stats-label">Total Questions</div>
+					<div class="stats-number"><span class="total-question"></span></div>
+				</div>
+
+				<!-- Attempted Questions Card -->
+				<div class="summary-card attempted">
+					<div class="stats-label">Attempted</div>
+					<div class="stats-number"><span id="attempted-questions"></span></div>
+				</div>
+
+				<!-- Correct Answers Card -->
+				<div class="summary-card correct">
+					<div class="stats-label">✓ Correct</div>
+					<div class="stats-number"><span id="correct-answers"></span></div>
+				</div>
+
+				<!-- Wrong Answers Card -->
+				<div class="summary-card wrong">
+					<div class="stats-label">✗ Wrong</div>
+					<div class="stats-number"><span id="wrong-answers"></span></div>
+				</div>
+			</div>
+
+			<!-- Percentage Display -->
+			<div class="percentage-card">
+				<div class="stats-label">Your Score</div>
+				<div class="score-number"><span id="percentage"></span></div>
+				<div class="note-small">Keep practicing to improve!</div>
+			</div>
+
+			<!-- Action Buttons -->
+			<div class="action-group">
+				<button type="button" id="restart-btn" class="btn start-cta action-btn">
+					🔄 Restart Quiz
+				</button>
+				<button type="button" id="review-btn" class="btn start-cta action-btn">
+					📝 Review Answers
+				</button>
+				<button
+					type="button"
+					id="home-btn"
+					class="btn-neutral btn-home action-btn"
+				>
+					🏠 Home
+				</button>
+			</div>
+		</div>
+
+		<!-- End of result-box -->
+
+		<!-- Rest of the code remains the same -->
+		<script src="js/question.js"></script>
+		<script src="js/question-categories.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>

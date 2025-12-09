@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+		/>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="styles.css" />
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		/>
+		<title>Review Results</title>
+		<style>
+			body {
+				background-color: #009688;
+				padding: 20px;
+			}
+			.review-container {
+				max-width: 1200px;
+				margin: 0 auto;
+				background-color: white;
+				padding: 40px;
+				border-radius: 8px;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			}
+			/* Responsive styles */
+			@media (max-width: 768px) {
+				body {
+					padding: 10px;
+				}
+				.review-container {
+					padding: 20px;
+				}
+				.review-container h1 {
+					font-size: 28px !important;
+				}
+				.question-title {
+					font-size: 14px !important;
+				}
+				.option-review {
+					padding: 10px 12px;
+					font-size: 14px;
+				}
+			}
+			@media (max-width: 480px) {
+				.review-container {
+					padding: 15px;
+				}
+				.review-container h1 {
+					font-size: 24px !important;
+				}
+				.question-title {
+					font-size: 13px !important;
+				}
+				.filter-btn {
+					padding: 8px 15px !important;
+					font-size: 12px !important;
+				}
+				.back-button {
+					padding: 10px 20px !important;
+					font-size: 14px !important;
+				}
+			}
+			.review-container h1 {
+				text-align: center;
+				color: #009688;
+				margin-bottom: 30px;
+			}
+			.question-accordion {
+				margin-bottom: 10px;
+			}
+			.question-header {
+				padding: 15px 20px;
+				background-color: #f9f9f9;
+				border: 1px solid #ddd;
+				border-radius: 5px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.question-header:hover {
+				background-color: #e8e8e8;
+			}
+			.question-header.correct-answer {
+				border-left: 5px solid #28a745;
+			}
+			.question-header.incorrect-answer {
+				border-left: 5px solid #dc3545;
+			}
+			.question-title {
+				flex: 1;
+				font-size: 15px;
+				color: #333;
+				padding-right: 15px;
+			}
+			.question-number {
+				font-weight: bold;
+				color: #009688;
+				margin-right: 10px;
+			}
+			.expand-icon {
+				font-size: 18px;
+				color: #009688;
+				transition: transform 0.3s ease;
+			}
+			.expand-icon.expanded {
+				transform: rotate(180deg);
+			}
+			.question-content {
+				max-height: 0;
+				overflow: hidden;
+				transition: max-height 0.3s ease;
+				background-color: white;
+				border: 1px solid #ddd;
+				border-top: none;
+				border-radius: 0 0 5px 5px;
+			}
+			.question-content.show {
+				max-height: 1000px;
+				padding: 20px;
+				border-top: 1px solid #ddd;
+				margin-top: -5px;
+			}
+			.option-review {
+				padding: 12px 15px;
+				margin: 10px 0;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+				background-color: #f9f9f9;
+			}
+			.option-review.correct {
+				background-color: #d4edda;
+				border-color: #28a745;
+				color: #155724;
+				font-weight: bold;
+			}
+			.option-review.incorrect {
+				background-color: #f8d7da;
+				border-color: #dc3545;
+				color: #721c24;
+				font-weight: bold;
+			}
+			.back-button {
+				display: inline-block;
+				margin-top: 20px;
+				padding: 12px 30px;
+				background-color: #009688;
+				color: white;
+				text-decoration: none;
+				border-radius: 4px;
+				border: none;
+				cursor: pointer;
+				font-size: 16px;
+			}
+			.back-button:hover {
+				background-color: #00796b;
+				text-decoration: none;
+				color: white;
+			}
+			.summary {
+				margin-bottom: 30px;
+			}
+			.status-badge {
+				display: inline-block;
+				padding: 4px 12px;
+				border-radius: 12px;
+				font-size: 12px;
+				font-weight: bold;
+				margin-left: 10px;
+			}
+			.status-badge.correct {
+				background-color: #28a745;
+				color: white;
+			}
+			.status-badge.incorrect {
+				background-color: #dc3545;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="review-container">
+			<div class="centered-intro">
+				<h1>📊 Review Results</h1>
+				<p class="intro-subtitle">
+					Review your answers and see where you can improve
+				</p>
+			</div>
+			<div class="summary" id="summary"></div>
+
+			<!-- Filter Options -->
+			<div class="text-center mb-30">
+				<div class="filter-group">
+					<button id="filter-correct" class="filter-btn">✓ Correct Only</button>
+					<button id="filter-incorrect" class="filter-btn">
+						✗ Incorrect Only
+					</button>
+				</div>
+			</div>
+
+			<div id="incorrect-questions"></div>
+			<div class="text-center mt-30">
+				<button id="back-btn" class="back-button">🏠 Back to Quiz</button>
+			</div>
+		</div>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const quizData = JSON.parse(sessionStorage.getItem("quizData"));
+
+				if (!quizData || !quizData.userAnswers) {
+					document.getElementById("incorrect-questions").innerHTML =
+						"<p>No review data available. Please complete the quiz first.</p>";
+					return;
+				}
+
+				// Display summary
+				const summaryDiv = document.getElementById("summary");
+				summaryDiv.innerHTML = `
+					<div class="summary-grid">
+						<div class="summary-card total">
+							<div class="stats-label">Total Questions</div>
+							<div class="stats-number">${quizData.questionLimit}</div>
+						</div>
+
+						<div class="summary-card attempted">
+							<div class="stats-label">Attempted</div>
+							<div class="stats-number">${quizData.attempt}</div>
+						</div>
+
+						<div class="summary-card correct">
+							<div class="stats-label">✓ Correct</div>
+							<div class="stats-number">${quizData.correctAnswers}</div>
+						</div>
+
+						<div class="summary-card wrong">
+							<div class="stats-label">✗ Wrong</div>
+							<div class="stats-number">${quizData.attempt - quizData.correctAnswers}</div>
+						</div>
+					</div>
+
+					<div class="percentage-card">
+						<div class="stats-label">Your Score</div>
+						<div class="score-number">${quizData.percentage}%</div>
+						<div class="note-small">Review your answers below to improve!</div>
+					</div>
+				`;
+
+				// Function to render questions based on filter
+				function renderQuestions(filter = "all") {
+					const reviewDiv = document.getElementById("incorrect-questions");
+					let html = "";
+
+					quizData.userAnswers.forEach((answer, index) => {
+						const isCorrect = answer.isCorrect;
+
+						// Apply filter
+						if (filter === "correct" && !isCorrect) return;
+						if (filter === "incorrect" && isCorrect) return;
+
+						const statusClass = isCorrect
+							? "correct-answer"
+							: "incorrect-answer";
+						const statusBadge = isCorrect
+							? '<span class="status-badge correct">✓ CORRECT</span>'
+							: '<span class="status-badge incorrect">✗ INCORRECT</span>';
+
+						html += `
+							<div class="question-accordion" data-correct="${isCorrect}">
+								<div class="question-header ${statusClass}" data-index="${index}">
+									<div class="question-title">
+										<span class="question-number">Q${index + 1}:</span>
+										${answer.question}
+										${statusBadge}
+									</div>
+									<div class="expand-icon" id="icon-${index}">▼</div>
+								</div>
+								<div class="question-content" id="content-${index}">
+						`;
+
+						answer.options.forEach((option, optionIndex) => {
+							let className = "option-review";
+							let optionLabel = "";
+
+							if (optionIndex === answer.correctAnswer) {
+								className += " correct";
+								optionLabel = "✓ Correct Answer: ";
+							} else if (optionIndex === answer.userAnswer && !isCorrect) {
+								className += " incorrect";
+								optionLabel = "✗ Your Answer: ";
+							} else if (optionIndex === answer.userAnswer && isCorrect) {
+								optionLabel = "✓ Your Answer: ";
+							}
+
+							html += `<div class="${className}">
+									${optionLabel}${option}
+								</div>`;
+						});
+
+						html += `
+								</div>
+							</div>
+						`;
+					});
+
+					reviewDiv.innerHTML = html;
+				}
+
+				// Initial render - show all questions
+				renderQuestions("all");
+
+				// Make renderQuestions available globally
+				window.renderQuestions = renderQuestions;
+				window.quizData = quizData;
+
+				// Hook up filter buttons and back button with event listeners (replace inline handlers)
+				const correctBtn = document.getElementById("filter-correct");
+				const incorrectBtn = document.getElementById("filter-incorrect");
+				const backBtn = document.getElementById("back-btn");
+
+				if (correctBtn)
+					correctBtn.addEventListener("click", () =>
+						filterQuestions("correct")
+					);
+				if (incorrectBtn)
+					incorrectBtn.addEventListener("click", () =>
+						filterQuestions("incorrect")
+					);
+				if (backBtn)
+					backBtn.addEventListener("click", () => {
+						window.location.href = "quiz.html";
+					});
+
+				// Add delegation for question header toggles
+				const reviewDiv = document.getElementById("incorrect-questions");
+				if (reviewDiv) {
+					reviewDiv.addEventListener("click", function (e) {
+						const header = e.target.closest(".question-header");
+						if (!header) return;
+						const idx = header.getAttribute("data-index");
+						if (idx !== null) toggleQuestion(parseInt(idx, 10));
+					});
+				}
+			});
+
+			// Toggle accordion function
+			function toggleQuestion(index) {
+				const content = document.getElementById(`content-${index}`);
+				const icon = document.getElementById(`icon-${index}`);
+
+				if (content.classList.contains("show")) {
+					content.classList.remove("show");
+					icon.classList.remove("expanded");
+				} else {
+					content.classList.add("show");
+					icon.classList.add("expanded");
+				}
+			}
+
+			// Filter questions function
+			function filterQuestions(filter) {
+				const correctBtn = document.getElementById("filter-correct");
+				const incorrectBtn = document.getElementById("filter-incorrect");
+
+				// Check if we're toggling off the same filter
+				const isTogglingOff =
+					(filter === "correct" && correctBtn.classList.contains("active")) ||
+					(filter === "incorrect" && incorrectBtn.classList.contains("active"));
+
+				// Reset all buttons (remove any active/correct/incorrect classes)
+				[correctBtn, incorrectBtn].forEach((btn) => {
+					if (!btn) return;
+					btn.classList.remove("active", "correct", "incorrect");
+				});
+
+				// If toggling off, show all questions
+				if (isTogglingOff) {
+					window.renderQuestions("all");
+					return;
+				}
+
+				// Activate selected button by adding semantic classes
+				let activeBtn;
+				if (filter === "correct") activeBtn = correctBtn;
+				else if (filter === "incorrect") activeBtn = incorrectBtn;
+
+				if (activeBtn) {
+					activeBtn.classList.add("active");
+					if (filter === "correct") activeBtn.classList.add("correct");
+					if (filter === "incorrect") activeBtn.classList.add("incorrect");
+				}
+
+				// Render questions with the selected filter
+				window.renderQuestions(filter);
+			}
+		</script>
+	</body>
+</html>
