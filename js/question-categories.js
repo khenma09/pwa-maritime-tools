@@ -2,11 +2,10 @@
 const CATEGORIES = {
   ALL: 'All Categories',
   GMDSS: 'GMDSS & Communications',
-  NAVIGATION: 'Navigation & Buoyage',
+  NAVIGATION: 'Navigation',
   IMDG: 'IMDG Code & Dangerous Goods',
   COLREG: 'COLREG & Rules of the Road',
   SAFETY: 'Safety & Security',
-  CHARTWORK: 'Chartwork & Calculations',
   SIGNALS: 'Signals & Flags'
 };
 

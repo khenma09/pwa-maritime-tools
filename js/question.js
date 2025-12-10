@@ -204,7 +204,7 @@
     q:'What is a nautical mile?',
     options:['A nautical mile is the length of one minute of latitude','A nautical mile is 8,232 feet','A nautical mile is the length of one minute of longitude','A nautical mile is the lengthof one minute of latitude added to one minute of longitude'],
     answer:0,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'What are the 3 frequencies we can use in receiving NAVTEX messages?',
@@ -216,7 +216,7 @@
     q:"Calculate the Rhumb Line Course from Lat 18° 25' N ; Long 060° 41' W to Lat 50° 17' N ; Long 007° 14' W.",
     options:['080.0° T','053.6° T','120.0° T','270.0° T'],
     answer:1,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'It is a maritime mobile system broadcasting on VHF band which can automatically exchange static, dynamic and voyage data on a ship-to-ship and ship-to-shore basis.',
@@ -258,27 +258,27 @@
     q:'In the following case, please find your final position using plane sailing:',
     options:['Lat 08° 04N ; Long 002° 08E','Lat 05° 48.1N ; Long 062° 28E','Lat 04° 31.9S ; Long 002° 08E','Lat 11° 31S ; Long 007° 39W'],
     answer:1,
-    category:'Chartwork',
+    category:'Navigation',
     img: 'img/planesailing1.png'
   },
   {
     q:'Find the GCD, I.Co., and F.Co., from 10° 25S, 90° 12E to 39° 27N, 55° 10E, in which the GC track crosses the Equator and the course then.',
     options:['GCD=3572.3nm, I.Co=329° T, F.Co=319° T','GCD=1126.1nm, I.Co=319° T, F.Co=329° T','GCD=4292.5nm, I.Co=102° T, F.Co=59° T','GCD=3112.1nm, I.Co=319° T, F.Co=329° T'],
     answer:0,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'What do we mean by the following navigational chart symbol?',
     options:['Wreck, depth unknown, which is considered dangerous to surface navigation','Wreck','Wreck, depth unknown, which is not considered dangerous to surface navigation','Wreck which has been swept by the wire to the depth shown'],
     answer:0,
-    category:'Chartwork',
+    category:'Navigation',
     img: 'img/wreckdepthunknown.png'
   },
   {
     q:'What do we mean by the following navigational chart symbol?',
     options:['Wreck, depth unknown, which is considered dangerous to surface navigation','Wreck','Wreck, depth unknown, which is not considered dangerous to surface navigation','Wreck which has been swept by the wire to the depth shown'],
     answer:2,
-    category:'Chartwork',
+    category:'Navigation',
     img: 'img/wreckunknownnotdanger.png'
   },
   {
@@ -489,49 +489,49 @@
     q:'Using mean latitude and middle latitude to find the course and distance between:35°15N 62°23W B: 30°25N 70°18W',
     options:['234.1°T; 494.8mi','231°T; 494.8mi','231°; 489.8mi','234.1°; 949.8mi'],
     answer:0,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'A vessel steams a course 050°T, distance 500 miles, from position 40°25S 175°50E. Find final position:',
     options:['35°03.61S ; 176°05.66W','36°03.61S ; 176°05.66W','35°03.61S ; 175°05.66W','35°15.61S ; 176°05.66W'],
     answer:0,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'You made a route from the positions: WP1-59°13.956N;019°04.161E WP2-59°12.486N;019°07.926E , WP 3-59°09.3N;019°13.288E. On reaching WP3, you saw a light on a bearing 263.7°T / 2.7nm range. What is the name of that light?',
     options:['Almagrundet','Prejaren','Sodergrundan','Revengegrundet'],
     answer:0,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'You made a route from the positions: WP1-59°13.956N;019°04.161E WP2-59°12.486N;019°07.926E , WP3-59°09.3N;019°13.288E. On reaching WP3, you saw a light on a bearing 263.7°T / 2.7nm range. What is the characteristic of that light?',
     options:['Fl(4) WR 12s','FL(4) WR 18s','F W 3 nM','LFl(2) WRG 16nM'],
     answer:0,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'You made a route from the positions: WP1-59°13.956N;019°04.161E WP 2-59°12.486N;019°07.926E , WP3-59°09.3N;019°13.288E. On reaching WP3, you saw a light on a bearing 263.7°T / 2.7nm range. What is the Intensity of that light?',
     options:['5,900cd','4,900cd','3200cd','8900cd'],
     answer:0,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'You made a route from the positions: WP1-59°13.956N;019°04.161E WP2-59°12.486N;019°07.926E , WP3-59°09.3N;019°13.288E. On reaching WP3, you saw a light on a bearing 263.7°T / 2.7nm range. What is the Nominal Range of that light?',
     options:['W13 nM, R13 nM','W12 nM, R12 nM','W11 nM, R11 nM','W14 nM, R14 nM'],
     answer:0,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'You made a route from the positions: WP1-59°13.956N;019°04.161E WP2-59°12.486N;019°07.926E , WP3-59°09.3N;019°13.288E. On reaching WP3, you saw a light on a bearing 263.7°T / 2.7nm range. What is the Geographical Range of that light?',
     options:['12nM','10nM','11nM','14nM'],
     answer:2,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'You made a route from the ff. positions: WP1-59°13.956N;019°04.161E WP2-59°12.486N;019°07.926E , WP3-59°09.3N;019°13.288E. On reaching WP3, you saw a light on a bearing 263.7°T / 2.7nm range. You can say that the light is not a RACON light.',
     options:['True','False'],
     answer:1,
-    category:'Chartwork'
+    category:'Navigation'
   },
   {
     q:'A vessel or object being towed, other than those mentioned in paragraph (g) of this Rule, shall exhibit the following except:',
