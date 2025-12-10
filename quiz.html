@@ -15,67 +15,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<style>
-			/* Responsive improvements */
-			body {
-				padding: 10px;
-			}
-			@media (max-width: 768px) {
-				body {
-					padding: 5px;
-				}
-				.custom-box {
-					padding: 20px 15px;
-					margin: 20px auto;
-				}
-				.home-box h2 {
-					font-size: 24px !important;
-				}
-				.home-box p {
-					font-size: 13px !important;
-				}
-				#category-select {
-					font-size: 14px !important;
-				}
-				.total-available-questions {
-					font-size: 24px !important;
-				}
-			}
-			@media (max-width: 480px) {
-				.custom-box {
-					padding: 15px 10px;
-				}
-				.home-box h2 {
-					font-size: 20px !important;
-				}
-				button {
-					padding: 12px 25px !important;
-					font-size: 14px !important;
-				}
-			}
-			/* Hide background images on mobile */
-			@media (max-width: 1024px) {
-				body img[alt="Background decoration"] {
-					display: none !important;
-				}
-			}
-			/* Responsive grid for result cards */
-			@media (max-width: 768px) {
-				div[style*="grid-template-columns"] {
-					grid-template-columns: repeat(2, 1fr) !important;
-				}
-			}
-			@media (max-width: 480px) {
-				div[style*="grid-template-columns"] {
-					grid-template-columns: 1fr !important;
-				}
-			}
-			/* Category select - simplified */
-			#category-select {
-				height: auto !important;
-				min-height: 48px !important;
-			}
-		</style>
+		<link rel="stylesheet" href="css/quiz.css" />
 	</head>
 	<body class="page-bg-green">
 		<!-- Background image LEFT - comment out this line to remove -->
@@ -121,9 +61,9 @@
 				<select id="category-select" class="form-control custom-select">
 					<option value="All Categories">All Categories</option>
 					<option value="GMDSS">GMDSS & Communications</option>
-					<option value="Navigation">Navigation & Buoyage</option>
-					<option value="IMDG">IMDG Code & Dangerous Goods</option>
-					<option value="COLREG">COLREG & Rules of the Road</option>
+					<option value="Navigation">Navigation & IALA Buoyage</option>
+					<option value="IMDG">IMDG Code</option>
+					<option value="COLREG">COLREGS</option>
 					<option value="Safety">Safety & Security</option>
 					<option value="Chartwork">Chartwork & Calculations</option>
 					<option value="Signals">Signals & Flags</option>
@@ -187,7 +127,7 @@
 					<div class="question-text"></div>
 					<div class="option-container"></div>
 					<!-- Next button added -->
-					<div class="next-question-btn">
+					<div class="next-question-btn" style="text-align: right;">
 						<button type="button" class="btn next-cta">Next</button>
 					</div>
 				</div>
@@ -229,9 +169,11 @@
 					<div class="stats-label">✓ Correct</div>
 					<div class="stats-number"><span id="correct-answers"></span></div>
 				</div>
+			</div>
 
-				<!-- Wrong Answers Card -->
-				<div class="summary-card wrong">
+			<!-- Wrong Answers Card - Centered Below -->
+			<div class="text-center" style="margin-top: 20px;">
+				<div class="summary-card wrong" style="display: inline-block; width: calc((100% - 30px) / 3); min-width: 180px;">
 					<div class="stats-label">✗ Wrong</div>
 					<div class="stats-number"><span id="wrong-answers"></span></div>
 				</div>
