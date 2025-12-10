@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	let availableOptions = [];
 	let correctAnswers = 0;
 	let attempt = 0;
+	let wrongAnswers = 0; // Track cumulative wrong answers for progressive reveal
 	let userAnswers = []; // Track user answers for review
 	let selectedCategory = "All Categories"; // Track selected category
 	let categoryQuestions = []; // Store questions for selected category
@@ -128,23 +129,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			element.classList.add("wrong");
 			updateAnswerIndicator("wrong");
 
-			// Show background images with smooth animation when answer is incorrect
-			const bgLeft = document.getElementById("bg-img-left");
-			const bgRight = document.getElementById("bg-img-right");
-			if (bgLeft) {
-				bgLeft.style.display = "block";
-				setTimeout(() => {
-					bgLeft.style.opacity = "0.85";
-					bgLeft.style.transform = "translateY(-50%) scale(1)";
-				}, 10);
-			}
-			if (bgRight) {
-				bgRight.style.display = "block";
-				setTimeout(() => {
-					bgRight.style.opacity = "0.85";
-					bgRight.style.transform = "translateY(-50%) scale(1)";
-				}, 10);
-			}
+			// Increment wrong answer counter and update progressive reveal
+			wrongAnswers++;
+			updateBackgroundReveal();
 		}
 		attempt++;
 
@@ -192,24 +179,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		if (questionCounter === questionLimit) {
 			quizOver();
 		} else {
-			// Hide background images with smooth animation when moving to next question
-			const bgLeft = document.getElementById("bg-img-left");
-			const bgRight = document.getElementById("bg-img-right");
-			if (bgLeft) {
-				bgLeft.style.opacity = "0";
-				bgLeft.style.transform = "translateY(-50%) scale(0.95)";
-				setTimeout(() => {
-					bgLeft.style.display = "none";
-				}, 500);
-			}
-			if (bgRight) {
-				bgRight.style.opacity = "0";
-				bgRight.style.transform = "translateY(-50%) scale(0.95)";
-				setTimeout(() => {
-					bgRight.style.display = "none";
-				}, 500);
-			}
-
 			// Reset unclickable options before getting the new question
 			const optionLen = optionContainer.children.length;
 			for (let i = 0; i < optionLen; i++) {
@@ -251,8 +220,89 @@ document.addEventListener("DOMContentLoaded", function () {
 		questionCounter = 0;
 		correctAnswers = 0;
 		attempt = 0;
+		wrongAnswers = 0;
 		availableQuestions = [];
 		userAnswers = [];
+
+		// Reset background reveal overlays to fully covering
+		const wrapLeft = document.getElementById("bg-wrap-left");
+		const wrapRight = document.getElementById("bg-wrap-right");
+		if (wrapLeft && wrapRight) {
+			const overlayTopL = document.getElementById("overlay-top-left");
+			const overlayBotL = document.getElementById("overlay-bottom-left");
+			const overlayTopR = document.getElementById("overlay-top-right");
+			const overlayBotR = document.getElementById("overlay-bottom-right");
+			if (overlayTopL && overlayBotL && overlayTopR && overlayBotR) {
+				overlayTopL.style.height = "50%";
+				overlayBotL.style.height = "50%";
+				overlayTopR.style.height = "50%";
+				overlayBotR.style.height = "50%";
+			}
+			wrapLeft.style.opacity = "0";
+			wrapRight.style.opacity = "0";
+			wrapLeft.style.display = "none";
+			wrapRight.style.display = "none";
+		}
+	}
+
+	function updateBackgroundReveal() {
+		const wrapLeft = document.getElementById("bg-wrap-left");
+		const wrapRight = document.getElementById("bg-wrap-right");
+		if (!wrapLeft || !wrapRight) {
+			console.warn("Wrappers not found");
+			return;
+		}
+
+		// Get overlay elements
+		const overlayTopL = document.getElementById("overlay-top-left");
+		const overlayBotL = document.getElementById("overlay-bottom-left");
+		const overlayTopR = document.getElementById("overlay-top-right");
+		const overlayBotR = document.getElementById("overlay-bottom-right");
+		if (!overlayTopL || !overlayBotL || !overlayTopR || !overlayBotR) {
+			console.warn("Overlay elements not found");
+			return;
+		}
+
+		// Show wrappers
+		wrapLeft.style.display = "block";
+		wrapRight.style.display = "block";
+		wrapLeft.style.opacity = wrongAnswers > 0 ? "0.95" : "0";
+		wrapRight.style.opacity = wrongAnswers > 0 ? "0.95" : "0";
+
+		// Calculate how many slices to reveal from top vs bottom
+		let topSlices = 0;
+		let bottomSlices = 0;
+		for (let i = 1; i <= wrongAnswers; i++) {
+			if (i % 2 === 1) topSlices++; // Odd = reveal from top
+			else bottomSlices++; // Even = reveal from bottom
+		}
+
+		// Each slice reveals (100 / questionLimit) percent of image height
+		const sliceSize = 100 / questionLimit;
+		const topReveal = topSlices * sliceSize;
+		const bottomReveal = bottomSlices * sliceSize;
+
+		// Calculate overlay heights (they start at 50% and shrink as we reveal)
+		const topOverlayHeight = Math.max(0, 50 - topReveal);
+		const bottomOverlayHeight = Math.max(0, 50 - bottomReveal);
+
+		overlayTopL.style.height = topOverlayHeight + "%";
+		overlayBotL.style.height = bottomOverlayHeight + "%";
+		overlayTopR.style.height = topOverlayHeight + "%";
+		overlayBotR.style.height = bottomOverlayHeight + "%";
+
+		console.log(
+			"Wrong answers:",
+			wrongAnswers,
+			"topSlices:",
+			topSlices,
+			"bottomSlices:",
+			bottomSlices,
+			"topHeight:",
+			topOverlayHeight + "%",
+			"bottomHeight:",
+			bottomOverlayHeight + "%"
+		);
 	}
 
 	function tryAgainQuiz() {

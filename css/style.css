@@ -539,7 +539,7 @@ body {
 	position: fixed;
 	top: 50%;
 	right: 20px;
-	transform: translateY(-50%) scale(0.95);
+	transform: translateY(-50%) scale(1);
 	max-width: 450px;
 	height: auto;
 	opacity: 0;
@@ -548,7 +548,84 @@ body {
 	border-radius: 20px;
 	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2);
 	border: 4px solid rgba(255, 255, 255, 0.9);
-	transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	clip-path: inset(100% 0 0 0);
+	transition: opacity 0.5s ease, clip-path 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reveal wrapper + overlays for alternating top/bottom reveal */
+.bg-reveal-wrapper {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 450px;
+	width: 90vw;
+	opacity: 0;
+	z-index: 10;
+	display: none;
+	border-radius: 20px;
+	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2);
+	border: 4px solid rgba(255, 255, 255, 0.9);
+	overflow: hidden;
+	transition: opacity 220ms linear;
+}
+.bg-reveal-wrapper > * {
+	display: block;
+}
+.bg-wrap-img {
+	display: block;
+	width: 100%;
+	height: auto;
+	vertical-align: middle;
+}
+.reveal-overlay {
+	position: absolute;
+	left: 0;
+	right: 0;
+	background-color: #009688;
+	transition: height 220ms linear;
+	pointer-events: none;
+	z-index: 5;
+}
+.reveal-overlay.top {
+	top: 0;
+	height: 50%;
+}
+.reveal-overlay.bottom {
+	bottom: 0;
+	height: 50%;
+}
+.bg-reveal-wrapper.left {
+	left: 20px;
+	transform: translateY(-50%);
+	right: auto;
+}
+.bg-reveal-wrapper.right {
+	right: 20px;
+	transform: translateY(-50%);
+	left: auto;
+}
+.bg-wrap-img {
+	display: block;
+	width: 100%;
+	height: auto;
+	vertical-align: middle;
+}
+.reveal-mask {
+	display: none; /* masks no longer used — clip-path handles reveal */
+}
+.reveal-mask.top {
+	display: none;
+}
+.reveal-mask.bottom {
+	display: none;
+}
+
+/* Make sure smaller screens don't show oversized decorations */
+@media (max-width: 1024px) {
+	.bg-reveal-wrapper {
+		display: none !important;
+	}
 }
 
 /* Review page helpers */

@@ -18,21 +18,29 @@
 		<link rel="stylesheet" href="css/quiz.css" />
 	</head>
 	<body class="page-bg-green">
-		<!-- Background image LEFT - comment out this line to remove -->
-		<img
-			id="bg-img-left"
-			src="img/rick.jpg"
-			alt="Background decoration"
-			class="bg-decoration left"
-		/>
+		<!-- Background image LEFT - with reveal overlays -->
+		<div id="bg-wrap-left" class="bg-reveal-wrapper left">
+			<img
+				id="bg-img-left"
+				src="img/rick.jpg"
+				alt="Background decoration"
+				class="bg-wrap-img"
+			/>
+			<div id="overlay-top-left" class="reveal-overlay top"></div>
+			<div id="overlay-bottom-left" class="reveal-overlay bottom"></div>
+		</div>
 
-		<!-- Background image RIGHT - comment out this line to remove -->
-		<img
-			id="bg-img-right"
-			src="img/rick2.JPG"
-			alt="Background decoration"
-			class="bg-decoration right"
-		/>
+		<!-- Background image RIGHT - with reveal overlays -->
+		<div id="bg-wrap-right" class="bg-reveal-wrapper right">
+			<img
+				id="bg-img-right"
+				src="img/rick2.JPG"
+				alt="Background decoration"
+				class="bg-wrap-img"
+			/>
+			<div id="overlay-top-right" class="reveal-overlay top"></div>
+			<div id="overlay-bottom-right" class="reveal-overlay bottom"></div>
+		</div>
 
 		<div class="home-box custom-box">
 			<div class="centered-intro">
@@ -126,7 +134,7 @@
 					<div class="question-text"></div>
 					<div class="option-container"></div>
 					<!-- Next button added -->
-					<div class="next-question-btn" style="text-align: right;">
+					<div class="next-question-btn" style="text-align: right">
 						<button type="button" class="btn next-cta">Next</button>
 					</div>
 				</div>
@@ -171,15 +179,22 @@
 			</div>
 
 			<!-- Wrong Answers Card - Centered Below -->
-			<div class="text-center" style="margin-top: 20px; padding-bottom: 30px;">
-				<div class="summary-card wrong" style="display: inline-block; width: calc((100% - 30px) / 3); min-width: 180px;">
+			<div class="text-center" style="margin-top: 20px; padding-bottom: 30px">
+				<div
+					class="summary-card wrong"
+					style="
+						display: inline-block;
+						width: calc((100% - 30px) / 3);
+						min-width: 180px;
+					"
+				>
 					<div class="stats-label">✗ Wrong</div>
 					<div class="stats-number"><span id="wrong-answers"></span></div>
 				</div>
 			</div>
 
 			<!-- Percentage Display -->
-			<div class="percentage-card" style="margin-top: 30px;">
+			<div class="percentage-card" style="margin-top: 30px">
 				<div class="stats-label">Your Score</div>
 				<div class="score-number"><span id="percentage"></span></div>
 				<div class="note-small">Keep practicing to improve!</div>
