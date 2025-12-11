@@ -1,29 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+		/>
 		<title>Start Quiz - Quiz Application</title>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
-		<link rel="stylesheet" href="css/login.css">
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+		/>
+		<link rel="stylesheet" href="css/login.css" />
 	</head>
 	<body>
 		<div class="container">
 			<div class="center-container">
 				<form id="startForm">
-					<div style="text-align: left; margin-bottom: 15px;">
-						<a href="index.html" style="color: #009688; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 5px;">
+					<div style="text-align: left; margin-bottom: 15px">
+						<a
+							href="index.html"
+							style="
+								color: #009688;
+								text-decoration: none;
+								font-size: 14px;
+								display: inline-flex;
+								align-items: center;
+								gap: 5px;
+							"
+						>
 							← Back to Home
 						</a>
 					</div>
 					<h1>Welcome!</h1>
-					<p style="text-align: center; color: #666; margin-bottom: 25px; font-size: 14px;">Please enter your details to start the quiz</p>
+					<p
+						style="
+							text-align: center;
+							color: #666;
+							margin-bottom: 25px;
+							font-size: 14px;
+						"
+					>
+						Please enter your details to start the quiz
+					</p>
 					<label for="userName">Name:</label>
-					<input type="text" id="userName" name="userName" placeholder="Enter your full name" required />
-					<label for="userAge">Age:</label>
-					<input type="number" id="userAge" name="userAge" placeholder="Enter your age" min="1" max="120" required />
+					<input
+						type="text"
+						id="userName"
+						name="userName"
+						placeholder="Enter your name"
+						required
+					/>
+					<label for="userDob">Date of Birth:</label>
+					<input type="date" id="userDob" name="userDob" required />
 					<input type="submit" value="Start Quiz" />
-					<div class="create-account-container" style="justify-content: center;">
+					<div class="create-account-container" style="justify-content: center">
 						<a href="leaderboard.html">🏆 View Leaderboard</a>
 					</div>
 				</form>
@@ -32,7 +63,9 @@
 					<script>
 						const startYear = 2022;
 						const currentYear = new Date().getFullYear();
-						document.write(startYear + (startYear < currentYear ? '-' + currentYear : ''));
+						document.write(
+							startYear + (startYear < currentYear ? "-" + currentYear : "")
+						);
 					</script>
 					<br />
 					2/OFF John Paulo C. Magpantay<br />All Rights Reserved.

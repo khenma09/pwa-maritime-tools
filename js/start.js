@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// Get the form values
 		const userName = document.getElementById('userName').value.trim();
-		const userAge = document.getElementById('userAge').value;
+		const userDob = document.getElementById('userDob').value;
 
 		// Validate inputs
 		if (!userName) {
@@ -17,16 +17,36 @@ document.addEventListener('DOMContentLoaded', function() {
 			return;
 		}
 
-		if (!userAge || userAge < 1 || userAge > 120) {
-			alert('Please enter a valid age (1-120)');
+		if (!userDob) {
+			alert('Please enter your date of birth');
+			return;
+		}
+
+		// Validate date of birth is not in the future
+		const dobDate = new Date(userDob);
+		const today = new Date();
+		today.setHours(0, 0, 0, 0); // Reset time to start of day for accurate comparison
+
+		if (dobDate >= today) {
+			alert('Date of birth cannot be today or in the future');
+			return;
+		}
+
+		// Validate person is not too old (e.g., max 120 years)
+		const maxAge = 120;
+		const minDate = new Date();
+		minDate.setFullYear(minDate.getFullYear() - maxAge);
+
+		if (dobDate < minDate) {
+			alert('Please enter a valid date of birth');
 			return;
 		}
 
 		// Store user information in sessionStorage
 		sessionStorage.setItem('userName', userName);
-		sessionStorage.setItem('userAge', userAge);
+		sessionStorage.setItem('userDob', userDob);
 
-		console.log('User info stored:', { name: userName, age: userAge });
+		console.log('User info stored:', { name: userName, dob: userDob });
 
 		// Redirect to quiz page
 		window.location.href = 'quiz.html';

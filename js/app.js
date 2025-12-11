@@ -219,11 +219,29 @@ document.addEventListener("DOMContentLoaded", function () {
 		saveToLeaderboard(percentage);
 	}
 
+	// Calculate age from date of birth
+	function calculateAge(dob) {
+		const birthDate = new Date(dob);
+		const today = new Date();
+		let age = today.getFullYear() - birthDate.getFullYear();
+		const monthDiff = today.getMonth() - birthDate.getMonth();
+
+		// Adjust age if birthday hasn't occurred yet this year
+		if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+			age--;
+		}
+
+		return age;
+	}
+
 	// Save quiz result to leaderboard
 	function saveToLeaderboard(percentage) {
 		// Get user info from sessionStorage
 		const userName = sessionStorage.getItem('userName') || 'Anonymous';
-		const userAge = sessionStorage.getItem('userAge') || '';
+		const userDob = sessionStorage.getItem('userDob') || '';
+
+		// Calculate age from date of birth
+		const userAge = userDob ? calculateAge(userDob) : '';
 
 		// Create leaderboard entry
 		const entry = {

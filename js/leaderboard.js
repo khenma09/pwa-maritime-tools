@@ -76,23 +76,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Calculate and display stats
 	function displayStats(data) {
 		const totalQuizzesEl = document.getElementById('total-quizzes');
-		const avgScoreEl = document.getElementById('avg-score');
 		const topScoreEl = document.getElementById('top-score');
 
 		if (data.length === 0) {
 			totalQuizzesEl.textContent = '0';
-			avgScoreEl.textContent = '0%';
 			topScoreEl.textContent = '0%';
 			return;
 		}
 
 		// Total quizzes
 		totalQuizzesEl.textContent = data.length;
-
-		// Average score
-		const totalScore = data.reduce((sum, entry) => sum + entry.percentage, 0);
-		const avgScore = (totalScore / data.length).toFixed(1);
-		avgScoreEl.textContent = avgScore + '%';
 
 		// Top score
 		const topScore = Math.max(...data.map(entry => entry.percentage));
@@ -110,9 +103,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		// Clear table
 		leaderboardBody.innerHTML = '';
 
-		// Check if there's ANY data at all (not just filtered data)
-		// Show "no data" message ONLY when leaderboard is completely empty
-		if (allData.length === 0) {
+		// Check if there's no data to display (either no data at all or filtered data is empty)
+		if (allData.length === 0 || filteredData.length === 0) {
 			if (leaderboardTable) leaderboardTable.style.display = 'none';
 			if (noDataMessage) {
 				noDataMessage.classList.remove('hide');
@@ -121,16 +113,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			return;
 		}
 
-		// Always hide the no-data message when there's data in leaderboard
+		// Hide the no-data message when there's data to display
 		if (noDataMessage) {
 			noDataMessage.classList.add('hide');
 			noDataMessage.style.display = 'none';
-		}
-
-		// If filtered data is empty but overall data exists, show empty table
-		if (filteredData.length === 0) {
-			if (leaderboardTable) leaderboardTable.style.display = 'table';
-			return;
 		}
 
 		// Show table with data
