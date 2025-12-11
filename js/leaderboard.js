@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 	const leaderboardBody = document.getElementById('leaderboard-body');
+	const leaderboardTable = document.getElementById('leaderboard-table');
 	const categoryFilter = document.getElementById('category-filter');
 	const sortFilter = document.getElementById('sort-filter');
 	const backBtn = document.getElementById('back-btn');
@@ -109,13 +110,31 @@ document.addEventListener('DOMContentLoaded', function() {
 		// Clear table
 		leaderboardBody.innerHTML = '';
 
-		// Check if there's data to display
-		if (filteredData.length === 0) {
-			noDataMessage.classList.remove('hide');
+		// Check if there's ANY data at all (not just filtered data)
+		// Show "no data" message ONLY when leaderboard is completely empty
+		if (allData.length === 0) {
+			if (leaderboardTable) leaderboardTable.style.display = 'none';
+			if (noDataMessage) {
+				noDataMessage.classList.remove('hide');
+				noDataMessage.style.display = 'block';
+			}
 			return;
 		}
 
-		noDataMessage.classList.add('hide');
+		// Always hide the no-data message when there's data in leaderboard
+		if (noDataMessage) {
+			noDataMessage.classList.add('hide');
+			noDataMessage.style.display = 'none';
+		}
+
+		// If filtered data is empty but overall data exists, show empty table
+		if (filteredData.length === 0) {
+			if (leaderboardTable) leaderboardTable.style.display = 'table';
+			return;
+		}
+
+		// Show table with data
+		if (leaderboardTable) leaderboardTable.style.display = 'table';
 
 		// Populate table
 		filteredData.forEach((entry, index) => {
