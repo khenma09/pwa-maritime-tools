@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Leaderboard - Quiz Application</title>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+		/>
+		<link rel="stylesheet" href="css/style.css" />
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+		/>
+		<link rel="stylesheet" href="css/quiz.css" />
+		<link rel="stylesheet" href="css/leaderboard.css" />
+	</head>
+	<body class="page-bg-green">
+		<div class="leaderboard-container custom-box">
+			<!-- Header -->
+			<div class="text-center mb-30">
+				<h1 class="intro-title">🏆 Leaderboard</h1>
+				<p class="note-small">Top scores from all quiz participants</p>
+			</div>
+
+			<!-- Filter Section -->
+			<div class="filter-section">
+				<div class="filter-group">
+					<label for="category-filter" class="filter-label">Filter by Category:</label>
+					<select id="category-filter" class="form-control custom-select">
+						<option value="All Categories">All Categories</option>
+						<option value="GMDSS">GMDSS & Communications</option>
+						<option value="Navigation">Navigation</option>
+						<option value="IMDG">IMDG Code</option>
+						<option value="COLREG">COLREGS</option>
+						<option value="Safety">Safety & Security</option>
+						<option value="Signals">Signals & Flags</option>
+					</select>
+				</div>
+				<div class="filter-group">
+					<label for="sort-filter" class="filter-label">Sort by:</label>
+					<select id="sort-filter" class="form-control custom-select">
+						<option value="score">Highest Score</option>
+						<option value="recent">Most Recent</option>
+						<option value="questions">Most Questions</option>
+					</select>
+				</div>
+			</div>
+
+			<!-- Stats Summary -->
+			<div class="stats-summary">
+				<div class="stat-item">
+					<div class="stat-label">Total Quizzes</div>
+					<div class="stat-value" id="total-quizzes">0</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-label">Average Score</div>
+					<div class="stat-value" id="avg-score">0%</div>
+				</div>
+				<div class="stat-item">
+					<div class="stat-label">Top Score</div>
+					<div class="stat-value" id="top-score">0%</div>
+				</div>
+			</div>
+
+			<!-- Leaderboard Table -->
+			<div class="leaderboard-table-container">
+				<table class="leaderboard-table" id="leaderboard-table">
+					<thead>
+						<tr>
+							<th>Rank</th>
+							<th>Name</th>
+							<th>Score</th>
+							<th>Questions</th>
+							<th>Category</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody id="leaderboard-body">
+						<!-- Populated by JavaScript -->
+					</tbody>
+				</table>
+				<div id="no-data-message" class="no-data-message hide">
+					<p>📊 No quiz results yet. Be the first to take the quiz!</p>
+				</div>
+			</div>
+
+			<!-- Action Buttons -->
+			<div class="action-group">
+				<button type="button" id="back-btn" class="btn start-cta action-btn">
+					🏠 Back to Home
+				</button>
+				<button type="button" id="clear-leaderboard-btn" class="btn-neutral btn-home action-btn">
+					🗑️ Clear Leaderboard
+				</button>
+			</div>
+		</div>
+
+		<script src="js/leaderboard.js"></script>
+	</body>
+</html>

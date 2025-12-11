@@ -214,6 +214,38 @@ document.addEventListener("DOMContentLoaded", function () {
 		const percentage = (correctAnswers / questionLimit) * 100;
 		document.getElementById("percentage").innerHTML =
 			percentage.toFixed(2) + "%";
+
+		// Save to leaderboard
+		saveToLeaderboard(percentage);
+	}
+
+	// Save quiz result to leaderboard
+	function saveToLeaderboard(percentage) {
+		// Get user info from sessionStorage
+		const userName = sessionStorage.getItem('userName') || 'Anonymous';
+		const userAge = sessionStorage.getItem('userAge') || '';
+
+		// Create leaderboard entry
+		const entry = {
+			name: userName,
+			age: userAge,
+			percentage: percentage,
+			correctAnswers: correctAnswers,
+			totalQuestions: questionLimit,
+			category: selectedCategory,
+			date: new Date().toISOString()
+		};
+
+		// Get existing leaderboard data
+		const leaderboardData = JSON.parse(localStorage.getItem('quizLeaderboard') || '[]');
+
+		// Add new entry
+		leaderboardData.push(entry);
+
+		// Save back to localStorage
+		localStorage.setItem('quizLeaderboard', JSON.stringify(leaderboardData));
+
+		console.log('Saved to leaderboard:', entry);
 	}
 
 	function resetQuiz() {
@@ -317,8 +349,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	function goToHome() {
 		// hide result Box
 		resultBox.classList.add("hide");
-		// redirect to login.html
-		window.location.href = "login.html";
+		// redirect to start.html
+		window.location.href = "start.html";
 		resetQuiz();
 	}
 
@@ -336,6 +368,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		);
 		// Redirect to review page
 		window.location.href = "review.html";
+	}
+
+	function viewLeaderboard() {
+		// Redirect to leaderboard page
+		window.location.href = "leaderboard.html";
 	}
 
 	// #### STARTING POINT ####
@@ -449,6 +486,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const restartBtn = document.querySelector("#restart-btn");
 	const homeBtn = document.querySelector("#home-btn");
 	const reviewBtn = document.querySelector("#review-btn");
+	const leaderboardBtn = document.querySelector("#leaderboard-btn");
 
 	// Add focus/blur listeners for accessibility (replace inline handlers)
 	const categorySelectEl = document.getElementById("category-select");
@@ -477,4 +515,5 @@ document.addEventListener("DOMContentLoaded", function () {
 	if (restartBtn) restartBtn.addEventListener("click", tryAgainQuiz);
 	if (homeBtn) homeBtn.addEventListener("click", goToHome);
 	if (reviewBtn) reviewBtn.addEventListener("click", reviewAnswers);
+	if (leaderboardBtn) leaderboardBtn.addEventListener("click", viewLeaderboard);
 });
