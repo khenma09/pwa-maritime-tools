@@ -42,20 +42,8 @@ function handleCreateAccountFormSubmit() {
 	submitBtn.addEventListener("click", function (event) {
 		event.preventDefault();
 
-		const nameValue = name.value;
-		const usernameValue = username.value;
-		const passwordValue = password.value;
-		const emailValue = email.value;
-		const contactNumberValue = contactNumber.value;
-		const dobValue = dob.value;
-
-		localStorage.setItem("name", nameValue);
-		localStorage.setItem("username", usernameValue);
-		localStorage.setItem("password", passwordValue);
-		localStorage.setItem("email", emailValue);
-		localStorage.setItem("contactNumber", contactNumberValue);
-		localStorage.setItem("dob", dobValue);
-
+		// Do NOT store sensitive personal data or credentials on the client.
+		// Just clear the form and show a success message for demo purposes.
 		name.value = "";
 		username.value = "";
 		password.value = "";

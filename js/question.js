@@ -69,6 +69,13 @@
     category:'Navigation'
   },
   {
+    q:'What do you call the section inside the rectangle?',
+    options:['Ship Motion Parameters Section','Caution Status Section','Control Panel Section','Alarm Status and Acknowledgement Section'],
+    answer:0,
+    category:'Navigation',
+    img:'img/Transas.png'
+  },
+  {
     q:'Which statement about the Williamson turn is FALSE?',
     options:['It is the slowest of the methods used in turning the vessel.','It is the best turn to use when the victim is not in sight due to reduced visibility.','It requires the highest degree of shiphandling skills to accomplish.','It returns the vessel to the original track-line on a reciprocal course.'],
     answer:2,

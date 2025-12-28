@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	const clearBtn = document.getElementById("clearBtn");
 	const resultsContainer = document.getElementById("results");
 	const errorMessage = document.getElementById("errorMessage");
+	const modeRadios = document.querySelectorAll('input[name="calcMode"]');
+	const modeOptions = document.querySelectorAll(".mode-option");
 
 	// Debug: Check if elements exist
 	console.log("Form:", etaForm);
@@ -21,6 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
 	const defaultDateTime = now.toISOString().slice(0, 16);
 	document.getElementById("departureTime").value = defaultDateTime;
 
+	// Default target arrival: 3 days after departure for convenience
+	const defaultArrival = new Date(now.getTime() + 72 * 3600000);
+	const targetArrivalInput = document.getElementById("targetArrivalTime");
+	if (targetArrivalInput) {
+		targetArrivalInput.value = defaultArrival.toISOString().slice(0, 16);
+	}
+
 	// Input field references
 	const inputs = {
 		departurePort: document.getElementById("departurePort"),
@@ -28,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		departureTimeZone: document.getElementById("departureTimeZone"),
 		arrivalPort: document.getElementById("arrivalPort"),
 		arrivalTimeZone: document.getElementById("arrivalTimeZone"),
+		targetArrivalTime: document.getElementById("targetArrivalTime"),
 		distance: document.getElementById("distance"),
 		averageSpeed: document.getElementById("averageSpeed"),
 		weatherFactor: document.getElementById("weatherFactor"),
@@ -37,9 +47,81 @@ document.addEventListener("DOMContentLoaded", function () {
 	};
 
 	// Validate inputs
+	function getMode() {
+		const checked = document.querySelector('input[name="calcMode"]:checked');
+		return checked ? checked.value : "eta";
+	}
+
+	function updateModeUI() {
+		const mode = getMode();
+		const isSpeedMode = mode === "speed";
+
+		// Toggle active styling on labels
+		modeOptions.forEach((opt) => {
+			opt.classList.toggle("active", opt.querySelector("input").checked);
+		});
+
+		// Show/hide relevant inputs
+		const speedOnly = document.querySelectorAll(".speed-only");
+		const etaOnly = document.querySelectorAll(".eta-only");
+
+		speedOnly.forEach((el) => {
+			el.style.display = isSpeedMode ? "block" : "none";
+		});
+		etaOnly.forEach((el) => {
+			el.style.display = isSpeedMode ? "none" : "block";
+			if (el.tagName === "INPUT") {
+				el.required = !isSpeedMode;
+			}
+		});
+
+		if (inputs.targetArrivalTime) {
+			inputs.targetArrivalTime.required = isSpeedMode;
+		}
+
+		// Update title and description
+		const titleEl = document.getElementById("calcTitle");
+		const descEl = document.getElementById("calcDescription");
+		if (titleEl) {
+			titleEl.textContent = isSpeedMode
+				? "Calculate Required Speed"
+				: "Calculate Estimated Time of Arrival (ETA)";
+		}
+		if (descEl) {
+			descEl.textContent = isSpeedMode
+				? "Enter departure time, target arrival time, distance, and delays to calculate the required speed"
+				: "Enter vessel information to calculate ETA based on distance, speed, and operational factors";
+		}
+
+		// Button text for clarity
+		if (calculateBtn) {
+			calculateBtn.textContent = isSpeedMode
+				? "📊 Calculate Required Speed"
+				: "📊 Calculate ETA";
+		}
+
+		// Show/hide result cards based on mode
+		const speedResultCard = document.querySelectorAll(
+			".result-card.speed-only"
+		);
+		const etaResultCard = document.querySelectorAll(".result-card.eta-only");
+		speedResultCard.forEach(
+			(card) => (card.style.display = isSpeedMode ? "block" : "none")
+		);
+		etaResultCard.forEach(
+			(card) => (card.style.display = isSpeedMode ? "none" : "block")
+		);
+
+		// Hide results and errors when toggling modes
+		resultsContainer.classList.remove("show");
+		errorMessage.classList.remove("show");
+	}
+
 	function validateInputs() {
 		const distance = parseFloat(inputs.distance.value);
 		const averageSpeed = parseFloat(inputs.averageSpeed.value);
+		const mode = getMode();
+		const isSpeedMode = mode === "speed";
 
 		// Clear previous errors
 		errorMessage.classList.remove("show");
@@ -51,10 +133,20 @@ document.addEventListener("DOMContentLoaded", function () {
 			return false;
 		}
 
-		// Validate speed
-		if (isNaN(averageSpeed) || averageSpeed <= 0) {
-			showError("Please enter a valid average speed greater than 0");
-			return false;
+		// Validate speed when in ETA mode
+		if (!isSpeedMode) {
+			if (isNaN(averageSpeed) || averageSpeed <= 0) {
+				showError("Please enter a valid average speed greater than 0");
+				return false;
+			}
+		}
+
+		// Validate target arrival when in speed mode
+		if (isSpeedMode) {
+			if (!inputs.targetArrivalTime.value) {
+				showError("Please select a target arrival (ETA) time");
+				return false;
+			}
 		}
 
 		// Validate departure time
@@ -86,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			// Get input values
 			const departureTime = new Date(inputs.departureTime.value);
 			const distance = parseFloat(inputs.distance.value);
-			const averageSpeed = parseFloat(inputs.averageSpeed.value);
+			const averageSpeedInput = parseFloat(inputs.averageSpeed.value);
 			const weatherFactor = parseFloat(inputs.weatherFactor.value) || 0;
 			const portDelay = parseFloat(inputs.portDelay.value) || 0;
 			const canalDelay = parseFloat(inputs.canalDelay.value) || 0;
@@ -94,29 +186,71 @@ document.addEventListener("DOMContentLoaded", function () {
 				inputs.departureTimeZone.value
 			);
 			const arrivalTimeZoneOffset = parseFloat(inputs.arrivalTimeZone.value);
+			const targetArrivalInput = inputs.targetArrivalTime.value
+				? new Date(inputs.targetArrivalTime.value)
+				: null;
+			const mode = getMode();
+			const isSpeedMode = mode === "speed";
 
 			console.log("Inputs:", {
 				departureTime,
 				distance,
-				averageSpeed,
+				averageSpeedInput,
 				weatherFactor,
 				portDelay,
 				canalDelay,
+				targetArrivalInput,
 			});
 
 			// Calculate steaming time (sailing time in hours)
-			const steamingTimeHours = distance / averageSpeed;
+			let steamingTimeHours;
+			let avgSpeed = averageSpeedInput;
+			let etaDate;
 
 			// Calculate total delays
 			const totalDelays = weatherFactor + portDelay + canalDelay;
 
-			// Calculate total transit time
-			const totalTransitHours = steamingTimeHours + totalDelays;
+			if (isSpeedMode) {
+				// Compute required speed to hit target arrival
+				const depTimeGMT = new Date(
+					departureTime.getTime() - departureTimeZoneOffset * 3600000
+				);
+				const targetArrivalGMT = new Date(
+					targetArrivalInput.getTime() - arrivalTimeZoneOffset * 3600000
+				);
 
-			// Calculate ETA (arrival in local time of departure)
-			const etaDate = new Date(
-				departureTime.getTime() + totalTransitHours * 3600000
-			);
+				const totalWindowHours =
+					(targetArrivalGMT.getTime() - depTimeGMT.getTime()) / 3600000;
+				steamingTimeHours = totalWindowHours - totalDelays;
+
+				if (steamingTimeHours <= 0) {
+					showError(
+						"Insufficient transit time after delays. Adjust ETA or delays."
+					);
+					return;
+				}
+
+				avgSpeed = distance / steamingTimeHours;
+
+				// For downstream formatting, reconstruct ETA as departure-local time
+				const etaTimeGMT = targetArrivalGMT; // already GMT
+				etaDate = new Date(
+					etaTimeGMT.getTime() + departureTimeZoneOffset * 3600000
+				);
+			} else {
+				steamingTimeHours = distance / avgSpeed;
+
+				// Calculate total transit time
+				const totalTransitHours = steamingTimeHours + totalDelays;
+
+				// Calculate ETA (arrival in local time of departure)
+				etaDate = new Date(
+					departureTime.getTime() + totalTransitHours * 3600000
+				);
+			}
+
+			// Total transit hours common
+			const totalTransitHours = steamingTimeHours + totalDelays;
 
 			console.log("Calculation Results:", {
 				steamingTimeHours,
@@ -129,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			formatResults(
 				departureTime,
 				distance,
-				averageSpeed,
+				avgSpeed,
 				steamingTimeHours,
 				weatherFactor,
 				portDelay,
@@ -240,16 +374,44 @@ document.addEventListener("DOMContentLoaded", function () {
 				")";
 		}
 
-		// Update calculation breakdown
-		const formulaText = `T = D ÷ S = ${distance.toFixed(
-			2
-		)} ÷ ${avgSpeed.toFixed(2)} = ${steamingTime.toFixed(2)} hours`;
-		document.getElementById("formulaDisplay").textContent = formulaText;
+		// Required Speed (speed mode only)
+		const requiredSpeedEl = document.getElementById("requiredSpeed");
+		if (requiredSpeedEl) {
+			requiredSpeedEl.textContent = avgSpeed.toFixed(2);
+		}
 
-		const hoursText = `${steamingTime.toFixed(2)} hours × 1 day/24 hours = ${(
-			steamingTime / 24
-		).toFixed(2)} days`;
-		document.getElementById("hoursDisplay").textContent = hoursText;
+		// Update calculation breakdown
+		// Mode-specific breakdown
+		const mode = getMode();
+		const isSpeedMode = mode === "speed";
+
+		if (isSpeedMode) {
+			// Speed mode breakdown
+			const speedFormulaText = `S = D ÷ T = ${distance.toFixed(
+				2
+			)} ÷ ${steamingTime.toFixed(2)} = ${avgSpeed.toFixed(2)} knots`;
+			const speedFormulaEl = document.getElementById("speedFormulaDisplay");
+			if (speedFormulaEl) speedFormulaEl.textContent = speedFormulaText;
+
+			const availableText = `Total window: ${totalTransitHours.toFixed(
+				2
+			)} hours - Delays: ${totalDelays.toFixed(
+				2
+			)} hours = ${steamingTime.toFixed(2)} hours available for steaming`;
+			const availableEl = document.getElementById("availableTimeDisplay");
+			if (availableEl) availableEl.textContent = availableText;
+		} else {
+			// ETA mode breakdown
+			const formulaText = `T = D ÷ S = ${distance.toFixed(
+				2
+			)} ÷ ${avgSpeed.toFixed(2)} = ${steamingTime.toFixed(2)} hours`;
+			document.getElementById("formulaDisplay").textContent = formulaText;
+
+			const hoursText = `${steamingTime.toFixed(2)} hours × 1 day/24 hours = ${(
+				steamingTime / 24
+			).toFixed(2)} days`;
+			document.getElementById("hoursDisplay").textContent = hoursText;
+		}
 
 		const days = Math.floor(steamingTime / 24);
 		const remainingHours = steamingTime % 24;
@@ -297,6 +459,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	// Event listeners
+	updateModeUI();
+	modeRadios.forEach((radio) => {
+		radio.addEventListener("change", updateModeUI);
+	});
+
 	if (calculateBtn) {
 		calculateBtn.addEventListener("click", function (e) {
 			e.preventDefault();
@@ -316,6 +483,17 @@ document.addEventListener("DOMContentLoaded", function () {
 		const now = new Date();
 		const defaultDateTime = now.toISOString().slice(0, 16);
 		document.getElementById("departureTime").value = defaultDateTime;
+		// Reset target arrival time to +3 days
+		const defaultArrival = new Date(now.getTime() + 72 * 3600000);
+		if (inputs.targetArrivalTime) {
+			inputs.targetArrivalTime.value = defaultArrival
+				.toISOString()
+				.slice(0, 16);
+		}
+		// Reset mode to ETA
+		const etaRadio = document.getElementById("modeEta");
+		if (etaRadio) etaRadio.checked = true;
+		updateModeUI();
 	});
 
 	// Allow Enter key to trigger calculation
@@ -342,6 +520,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (data.arrivalTimeZone)
 				inputs.arrivalTimeZone.value = data.arrivalTimeZone;
 			if (data.notes) inputs.notes.value = data.notes;
+			if (data.targetArrivalTime && inputs.targetArrivalTime)
+				inputs.targetArrivalTime.value = data.targetArrivalTime;
+			if (data.calcMode && data.calcMode === "speed") {
+				const speedRadio = document.getElementById("modeSpeed");
+				if (speedRadio) speedRadio.checked = true;
+				updateModeUI();
+			}
 		} catch (e) {
 			console.warn("Could not load saved calculator data");
 		}
@@ -365,6 +550,10 @@ document.addEventListener("DOMContentLoaded", function () {
 				departureTimeZone: inputs.departureTimeZone.value,
 				arrivalTimeZone: inputs.arrivalTimeZone.value,
 				notes: inputs.notes.value,
+				targetArrivalTime: inputs.targetArrivalTime
+					? inputs.targetArrivalTime.value
+					: "",
+				calcMode: getMode(),
 			};
 			localStorage.setItem("etaCalculatorData", JSON.stringify(dataToSave));
 		});

@@ -39,6 +39,16 @@ document.addEventListener("DOMContentLoaded", function () {
 		</div>
 	`;
 
+	// Simple HTML escape to prevent DOM injection when rendering text
+	function escapeHTML(str) {
+		return String(str)
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			.replace(/'/g, "&#39;");
+	}
+
 	// Function to render questions based on filter
 	function renderQuestions(filter = "all") {
 		const reviewDiv = document.getElementById("incorrect-questions");
@@ -51,9 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (filter === "correct" && !isCorrect) return;
 			if (filter === "incorrect" && isCorrect) return;
 
-			const statusClass = isCorrect
-				? "correct-answer"
-				: "incorrect-answer";
+			const statusClass = isCorrect ? "correct-answer" : "incorrect-answer";
 			const statusBadge = isCorrect
 				? '<span class="status-badge correct">✓ CORRECT</span>'
 				: '<span class="status-badge incorrect">✗ INCORRECT</span>';
@@ -63,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					<div class="question-header ${statusClass}" data-index="${index}">
 						<div class="question-title">
 							<span class="question-number">Q${index + 1}:</span>
-							${answer.question}
+							${escapeHTML(answer.question)}
 							${statusBadge}
 						</div>
 						<div class="expand-icon" id="icon-${index}">▼</div>
@@ -86,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				}
 
 				html += `<div class="${className}">
-						${optionLabel}${option}
+						${optionLabel}${escapeHTML(option)}
 					</div>`;
 			});
 
@@ -112,13 +120,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	const backBtn = document.getElementById("back-btn");
 
 	if (correctBtn)
-		correctBtn.addEventListener("click", () =>
-			filterQuestions("correct")
-		);
+		correctBtn.addEventListener("click", () => filterQuestions("correct"));
 	if (incorrectBtn)
-		incorrectBtn.addEventListener("click", () =>
-			filterQuestions("incorrect")
-		);
+		incorrectBtn.addEventListener("click", () => filterQuestions("incorrect"));
 	if (backBtn)
 		backBtn.addEventListener("click", () => {
 			window.location.href = "quiz.html";

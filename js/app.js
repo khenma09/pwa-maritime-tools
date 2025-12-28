@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 
 		// set question number
-		questionNumber.innerHTML =
+		questionNumber.textContent =
 			"Question " + (questionCounter + 1) + " of " + questionLimit;
 
 		// set question text
@@ -53,7 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		const questionIndex =
 			availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
 		currentQuestion = questionIndex;
-		questionText.innerHTML = currentQuestion.q;
+		// Render question text safely
+		questionText.textContent = currentQuestion.q;
 		// get the position of 'questionIndex' from the availableQuestion Array
 		const index1 = availableQuestions.indexOf(questionIndex);
 		// remove the 'questionIndex' from the availableQuestion Array, so that the question does not repeat
@@ -84,7 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			// remove the  'optonIndex' from the availableOptions Array , so that the option does not repeat
 			availableOptions.splice(index2, 1);
 			const option = document.createElement("div");
-			option.innerHTML = currentQuestion.options[optonIndex];
+			// Render option text safely
+			option.textContent = currentQuestion.options[optonIndex];
 			option.id = optonIndex;
 			option.style.animationDelay = animationDelay + "s";
 			animationDelay = animationDelay + 0.15;
@@ -219,29 +221,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		saveToLeaderboard(percentage);
 	}
 
-	// Calculate age from date of birth
-	function calculateAge(dob) {
-		const birthDate = new Date(dob);
-		const today = new Date();
-		let age = today.getFullYear() - birthDate.getFullYear();
-		const monthDiff = today.getMonth() - birthDate.getMonth();
-
-		// Adjust age if birthday hasn't occurred yet this year
-		if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-			age--;
-		}
-
-		return age;
-	}
-
 	// Save quiz result to leaderboard
 	function saveToLeaderboard(percentage) {
 		// Get user info from sessionStorage
-		const userName = sessionStorage.getItem('userName') || 'Anonymous';
-		const userDob = sessionStorage.getItem('userDob') || '';
-
-		// Calculate age from date of birth
-		const userAge = userDob ? calculateAge(userDob) : '';
+		const userName = sessionStorage.getItem("userName") || "Anonymous";
+		const userAge = sessionStorage.getItem("userAge") || "";
 
 		// Create leaderboard entry
 		const entry = {
@@ -251,19 +235,21 @@ document.addEventListener("DOMContentLoaded", function () {
 			correctAnswers: correctAnswers,
 			totalQuestions: questionLimit,
 			category: selectedCategory,
-			date: new Date().toISOString()
+			date: new Date().toISOString(),
 		};
 
 		// Get existing leaderboard data
-		const leaderboardData = JSON.parse(localStorage.getItem('quizLeaderboard') || '[]');
+		const leaderboardData = JSON.parse(
+			localStorage.getItem("quizLeaderboard") || "[]"
+		);
 
 		// Add new entry
 		leaderboardData.push(entry);
 
 		// Save back to localStorage
-		localStorage.setItem('quizLeaderboard', JSON.stringify(leaderboardData));
+		localStorage.setItem("quizLeaderboard", JSON.stringify(leaderboardData));
 
-		console.log('Saved to leaderboard:', entry);
+		console.log("Saved to leaderboard:", entry);
 	}
 
 	function resetQuiz() {
