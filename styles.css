@@ -2,7 +2,7 @@
 
 body {
     background-color: #009688;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-family-primary);
   }
   .container {
     width: 400px;

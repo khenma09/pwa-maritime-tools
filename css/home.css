@@ -5,7 +5,7 @@
 }
 
 body {
-	font-family: 'Montserrat', sans-serif;
+	font-family: var(--font-family-primary);
 	background: linear-gradient(135deg, #009688 0%, #00796b 100%);
 	min-height: 100vh;
 	padding: 0;
@@ -176,7 +176,7 @@ body {
 	text-decoration: none;
 	cursor: pointer;
 	transition: all 0.3s ease;
-	font-family: 'Montserrat', sans-serif;
+	font-family: var(--font-family-primary);
 }
 
 .available-btn {
