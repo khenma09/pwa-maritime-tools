@@ -1,0 +1,648 @@
+/**
+ * Enhanced Components - Maritime Tools
+ * Modern interactions, animations, and micro-interactions
+ * Requires: design-tokens.css
+ */
+
+/* ========================================
+   ENHANCED BUTTONS
+   ======================================== */
+
+.btn-enhanced,
+.btn {
+	position: relative;
+	overflow: hidden;
+	transition: var(--transition-normal);
+	box-shadow: var(--shadow-sm);
+}
+
+.btn-enhanced:hover,
+.btn:hover:not(:disabled) {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-primary-md);
+}
+
+.btn-enhanced:active,
+.btn:active:not(:disabled) {
+	transform: translateY(0);
+	box-shadow: var(--shadow-sm);
+	transition-duration: var(--duration-fast);
+}
+
+/* Ripple effect on click */
+.btn-enhanced::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border-radius: var(--radius-full);
+	background: rgba(255, 255, 255, 0.5);
+	transform: translate(-50%, -50%);
+	transition: width var(--duration-medium) var(--ease-out),
+	            height var(--duration-medium) var(--ease-out),
+	            opacity var(--duration-medium) var(--ease-out);
+	opacity: 0;
+	pointer-events: none;
+}
+
+.btn-enhanced:active::after {
+	width: 300px;
+	height: 300px;
+	opacity: 0.3;
+	transition-duration: 0s;
+}
+
+/* Button variants with elevation */
+.btn-primary {
+	box-shadow: var(--shadow-primary-sm);
+}
+
+.btn-primary:hover:not(:disabled) {
+	box-shadow: var(--shadow-primary-md);
+}
+
+.btn-success {
+	box-shadow: var(--shadow-success);
+}
+
+.btn-error {
+	box-shadow: var(--shadow-error);
+}
+
+.btn-info {
+	box-shadow: var(--shadow-info);
+}
+
+/* Disabled state */
+.btn:disabled,
+.btn-enhanced:disabled {
+	cursor: not-allowed;
+	opacity: 0.6;
+	transform: none;
+	box-shadow: var(--shadow-none);
+}
+
+/* ========================================
+   FOCUS INDICATORS (Accessibility)
+   ======================================== */
+
+/* Remove default outline, add custom focus ring */
+*:focus {
+	outline: none;
+}
+
+/* Visible focus ring for keyboard navigation */
+*:focus-visible {
+	outline: var(--focus-ring-width) solid var(--focus-ring-color);
+	outline-offset: var(--focus-ring-offset);
+	border-radius: var(--radius-sm);
+}
+
+/* Enhanced focus for buttons */
+.btn:focus-visible,
+button:focus-visible,
+a.btn:focus-visible {
+	outline: var(--focus-ring-width) solid var(--focus-ring-color);
+	outline-offset: var(--focus-ring-offset);
+	box-shadow: var(--shadow-primary-md),
+	            0 0 0 4px rgba(0, 150, 136, 0.2);
+}
+
+/* Enhanced focus for inputs */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	border-color: var(--input-border-focus);
+	box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.1),
+	            var(--shadow-sm);
+}
+
+/* ========================================
+   ENHANCED CARDS
+   ======================================== */
+
+.card-enhanced {
+	transition: var(--transition-normal);
+	box-shadow: var(--card-shadow);
+}
+
+.card-enhanced:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--card-shadow-hover);
+}
+
+/* Stacked card effect */
+.card-stacked {
+	position: relative;
+	box-shadow: var(--shadow-base);
+}
+
+.card-stacked::before {
+	content: '';
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	right: -4px;
+	bottom: -4px;
+	background: rgba(0, 150, 136, 0.04);
+	border-radius: inherit;
+	z-index: -1;
+	transition: var(--transition-normal);
+}
+
+.card-stacked:hover::before {
+	top: 6px;
+	left: 6px;
+	right: -6px;
+	bottom: -6px;
+	background: rgba(0, 150, 136, 0.08);
+}
+
+/* ========================================
+   STAGGER ANIMATIONS
+   ======================================== */
+
+/* Utility for staggered children */
+.stagger-container > * {
+	animation: fadeInUp var(--duration-medium) var(--ease-out) backwards;
+}
+
+.stagger-container > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-container > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-container > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-container > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-container > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-container > *:nth-child(6) { animation-delay: 250ms; }
+.stagger-container > *:nth-child(7) { animation-delay: 300ms; }
+.stagger-container > *:nth-child(8) { animation-delay: 350ms; }
+.stagger-container > *:nth-child(9) { animation-delay: 400ms; }
+.stagger-container > *:nth-child(10) { animation-delay: 450ms; }
+
+/* For longer lists, cap the delay */
+.stagger-container > *:nth-child(n+11) { animation-delay: 500ms; }
+
+/* Stagger from left */
+.stagger-left > * {
+	animation-name: slideInLeft;
+}
+
+/* Stagger from right */
+.stagger-right > * {
+	animation-name: slideInRight;
+}
+
+/* ========================================
+   IMPROVED ANIMATIONS
+   ======================================== */
+
+/* Smooth fade in up */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Smooth fade in down */
+@keyframes fadeInDown {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Smooth fade in left */
+@keyframes fadeInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* Smooth fade in right */
+@keyframes fadeInRight {
+	from {
+		opacity: 0;
+		transform: translateX(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+/* Smooth slide in left (for backgrounds) */
+@keyframes slideInLeft {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+/* Smooth slide in right */
+@keyframes slideInRight {
+	from {
+		transform: translateX(100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+/* Scale in */
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* Gentle bounce */
+@keyframes bounce {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+/* Pulse effect */
+@keyframes pulse {
+	0%, 100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.8;
+		transform: scale(1.05);
+	}
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+	0% {
+		background-position: -1000px 0;
+	}
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
+/* Spin animation */
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Shake animation for errors */
+@keyframes shake {
+	0%, 100% {
+		transform: translateX(0);
+	}
+	10%, 30%, 50%, 70%, 90% {
+		transform: translateX(-4px);
+	}
+	20%, 40%, 60%, 80% {
+		transform: translateX(4px);
+	}
+}
+
+/* Success checkmark animation */
+@keyframes checkmark {
+	0% {
+		stroke-dashoffset: 100;
+	}
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+
+/* ========================================
+   LOADING STATES
+   ======================================== */
+
+.loading {
+	position: relative;
+	pointer-events: none;
+	color: transparent !important;
+}
+
+.loading::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 16px;
+	height: 16px;
+	margin: -8px 0 0 -8px;
+	border: 2px solid var(--color-gray-300);
+	border-top-color: var(--color-primary);
+	border-radius: var(--radius-full);
+	animation: spin var(--duration-slower) var(--ease-linear) infinite;
+}
+
+/* Skeleton loader */
+.skeleton {
+	background: linear-gradient(
+		90deg,
+		var(--color-gray-100) 0%,
+		var(--color-gray-200) 50%,
+		var(--color-gray-100) 100%
+	);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s var(--ease-linear) infinite;
+	border-radius: var(--radius-md);
+}
+
+.skeleton-text {
+	height: 16px;
+	margin-bottom: var(--space-2);
+}
+
+.skeleton-heading {
+	height: 28px;
+	margin-bottom: var(--space-4);
+	width: 60%;
+}
+
+.skeleton-button {
+	height: 44px;
+	width: 120px;
+	border-radius: var(--button-radius);
+}
+
+/* Pulse loader */
+.pulse-loading {
+	animation: pulse var(--duration-slower) var(--ease-smooth) infinite;
+}
+
+/* ========================================
+   FORM ENHANCEMENTS
+   ======================================== */
+
+.form-group-enhanced {
+	position: relative;
+	margin-bottom: var(--space-5);
+}
+
+.form-group-enhanced input,
+.form-group-enhanced select,
+.form-group-enhanced textarea {
+	width: 100%;
+	padding: var(--input-padding);
+	border: var(--input-border-width) solid var(--input-border-color);
+	border-radius: var(--input-radius);
+	font-family: var(--font-family-primary);
+	font-size: var(--font-size-base);
+	transition: var(--input-transition);
+	background: var(--color-bg-primary);
+}
+
+.form-group-enhanced input:hover,
+.form-group-enhanced select:hover,
+.form-group-enhanced textarea:hover {
+	border-color: var(--color-gray-400);
+}
+
+.form-group-enhanced input:focus,
+.form-group-enhanced select:focus,
+.form-group-enhanced textarea:focus {
+	border-color: var(--input-border-focus);
+	box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.1);
+}
+
+/* Floating label effect */
+.form-floating {
+	position: relative;
+}
+
+.form-floating label {
+	position: absolute;
+	top: 50%;
+	left: var(--space-4);
+	transform: translateY(-50%);
+	background: var(--color-bg-primary);
+	padding: 0 var(--space-1);
+	color: var(--color-text-secondary);
+	transition: var(--transition-fast);
+	pointer-events: none;
+}
+
+.form-floating input:focus + label,
+.form-floating input:not(:placeholder-shown) + label {
+	top: 0;
+	font-size: var(--font-size-xs);
+	color: var(--color-primary);
+}
+
+/* Input with icon */
+.input-with-icon {
+	position: relative;
+}
+
+.input-with-icon input {
+	padding-left: var(--space-10);
+}
+
+.input-with-icon .icon {
+	position: absolute;
+	left: var(--space-4);
+	top: 50%;
+	transform: translateY(-50%);
+	color: var(--color-text-tertiary);
+	transition: var(--transition-fast);
+}
+
+.input-with-icon input:focus + .icon {
+	color: var(--color-primary);
+}
+
+/* Error state */
+.form-group-enhanced.error input,
+.form-group-enhanced.error select,
+.form-group-enhanced.error textarea {
+	border-color: var(--color-error);
+	animation: shake var(--duration-medium) var(--ease-smooth);
+}
+
+.form-group-enhanced.error .error-message {
+	display: block;
+	color: var(--color-error);
+	font-size: var(--font-size-sm);
+	margin-top: var(--space-2);
+}
+
+/* Success state */
+.form-group-enhanced.success input,
+.form-group-enhanced.success select,
+.form-group-enhanced.success textarea {
+	border-color: var(--color-success);
+}
+
+/* ========================================
+   MICRO-INTERACTIONS
+   ======================================== */
+
+/* Hover lift effect */
+.hover-lift {
+	transition: var(--transition-normal);
+}
+
+.hover-lift:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
+}
+
+/* Hover glow effect */
+.hover-glow {
+	transition: var(--transition-normal);
+	position: relative;
+}
+
+.hover-glow::before {
+	content: '';
+	position: absolute;
+	inset: -4px;
+	background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+	border-radius: inherit;
+	opacity: 0;
+	z-index: -1;
+	transition: var(--transition-normal);
+	filter: blur(8px);
+}
+
+.hover-glow:hover::before {
+	opacity: 0.6;
+}
+
+/* Hover scale */
+.hover-scale {
+	transition: var(--transition-fast);
+}
+
+.hover-scale:hover {
+	transform: scale(1.05);
+}
+
+/* Click feedback */
+.click-feedback:active {
+	transform: scale(0.95);
+	transition-duration: var(--duration-fast);
+}
+
+/* Underline animation */
+.underline-animated {
+	position: relative;
+	text-decoration: none;
+}
+
+.underline-animated::after {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 0;
+	height: 2px;
+	background: currentColor;
+	transition: width var(--duration-normal) var(--ease-out);
+}
+
+.underline-animated:hover::after {
+	width: 100%;
+}
+
+/* Badge pulse */
+.badge-pulse {
+	position: relative;
+}
+
+.badge-pulse::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: inherit;
+	background: inherit;
+	animation: pulse var(--duration-slower) var(--ease-smooth) infinite;
+	z-index: -1;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Smooth transitions */
+.transition-fast { transition: var(--transition-fast); }
+.transition-normal { transition: var(--transition-normal); }
+.transition-medium { transition: var(--transition-medium); }
+.transition-slow { transition: var(--transition-slow); }
+
+/* Shadows */
+.shadow-none { box-shadow: var(--shadow-none); }
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-base { box-shadow: var(--shadow-base); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+
+/* Elevation on hover */
+.hover-shadow-sm:hover { box-shadow: var(--shadow-sm); }
+.hover-shadow-base:hover { box-shadow: var(--shadow-base); }
+.hover-shadow-md:hover { box-shadow: var(--shadow-md); }
+.hover-shadow-lg:hover { box-shadow: var(--shadow-lg); }
+
+/* Border radius */
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded { border-radius: var(--radius-base); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* Animations */
+.animate-fade-in { animation: fadeInUp var(--duration-medium) var(--ease-out); }
+.animate-scale-in { animation: scaleIn var(--duration-medium) var(--ease-out); }
+.animate-bounce { animation: bounce var(--duration-slow) var(--ease-smooth) infinite; }
+.animate-pulse { animation: pulse var(--duration-slower) var(--ease-smooth) infinite; }
+.animate-spin { animation: spin var(--duration-slower) var(--ease-linear) infinite; }
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+
+@media (max-width: 768px) {
+	.card-enhanced:hover {
+		transform: none; /* Reduce motion on mobile */
+	}
+
+	.hover-lift:hover {
+		transform: translateY(-1px); /* Subtle lift on mobile */
+	}
+}
