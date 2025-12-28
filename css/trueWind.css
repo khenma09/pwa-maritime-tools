@@ -1,0 +1,459 @@
+/**
+ * True Wind Calculator Styles - Maritime Tools
+ * Consistent with ETA Calculator and design system
+ * Requires: design-tokens.css, enhanced-components.css
+ */
+
+/* ========================================
+   PAGE LAYOUT
+   ======================================== */
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	background: linear-gradient(135deg, #009688 0%, #00796b 100%);
+}
+
+.page-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: var(--space-5);
+	background: var(--color-white);
+	border-bottom: 1px solid var(--color-border-light);
+	width: 100%;
+	box-shadow: var(--shadow-sm);
+}
+
+.page-header h1 {
+	color: var(--color-primary-dark);
+	font-size: var(--font-size-2xl);
+	font-weight: var(--font-weight-bold);
+	margin: 0;
+}
+
+/* ========================================
+   CALCULATOR CONTAINER
+   ======================================== */
+
+.calculator-container {
+	max-width: 1400px;
+	width: 98%;
+	margin: var(--space-8) auto;
+	padding: var(--space-6);
+	background: var(--color-white);
+	border-radius: var(--radius-xl);
+	box-shadow: var(--shadow-lg);
+	transition: var(--transition-normal);
+}
+
+/* ========================================
+   CALCULATOR HEADER
+   ======================================== */
+
+.calc-header {
+	text-align: center;
+	margin-bottom: var(--space-8);
+	animation: fadeInDown var(--duration-medium) var(--ease-out);
+}
+
+.calc-header h1 {
+	color: var(--color-primary-dark);
+	font-size: var(--font-size-4xl);
+	font-weight: var(--font-weight-bold);
+	margin-bottom: var(--space-3);
+	line-height: var(--line-height-tight);
+}
+
+.calc-header p {
+	color: var(--color-text-secondary);
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-relaxed);
+}
+
+/* ========================================
+   GRID LAYOUT
+   ======================================== */
+
+.grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-6);
+	animation: fadeInUp var(--duration-medium) var(--ease-out);
+	animation-delay: 100ms;
+	animation-fill-mode: backwards;
+}
+
+@media (min-width: 860px) {
+	.grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (min-width: 1200px) {
+	.grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+
+.card {
+	background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
+	border-radius: var(--radius-xl);
+	border: 2px solid #e8f5f3;
+	border-left: 6px solid var(--color-primary);
+	box-shadow: var(--shadow-base);
+	overflow: hidden;
+	transition: var(--transition-normal);
+	animation: fadeInUp var(--duration-medium) var(--ease-out) backwards;
+}
+
+.card:nth-child(1) { animation-delay: 150ms; }
+.card:nth-child(2) { animation-delay: 250ms; }
+.card:nth-child(3) { animation-delay: 350ms; }
+
+.card:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-lg);
+	border-color: #d0ebe8;
+}
+
+.card__header {
+	padding: var(--space-5);
+	background: linear-gradient(135deg, #e8f5f3 0%, #d4ece9 100%);
+	border-bottom: 2px solid #d0ebe8;
+}
+
+.card__header h2 {
+	margin: 0;
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-bold);
+	color: var(--color-primary-dark);
+	letter-spacing: var(--letter-spacing-normal);
+}
+
+.card__body {
+	padding: var(--space-5);
+}
+
+.layout--two {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-5);
+	align-items: center;
+}
+
+@media (min-width: 600px) {
+	.layout--two {
+		grid-template-columns: 1fr auto;
+	}
+}
+
+/* ========================================
+   FORM ELEMENTS
+   ======================================== */
+
+.form label {
+	display: block;
+	margin-bottom: var(--space-4);
+	color: var(--color-text-primary);
+	font-weight: var(--font-weight-semibold);
+	font-size: var(--font-size-base);
+}
+
+.form input[type="number"] {
+	width: 100%;
+	max-width: 200px;
+	background: var(--color-white);
+	color: var(--color-text-primary);
+	border: 2px solid var(--color-border-light);
+	border-radius: var(--radius-base);
+	padding: var(--space-3);
+	font-family: var(--font-family-primary);
+	font-size: var(--font-size-base);
+	transition: var(--transition-normal);
+}
+
+.form input[type="number"]:hover {
+	border-color: var(--color-gray-400);
+}
+
+.form input[type="number"]:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.15),
+	            var(--shadow-sm);
+}
+
+/* ========================================
+   SEGMENTED CONTROL
+   ======================================== */
+
+.segmented {
+	display: inline-flex;
+	border: 2px solid var(--color-border-light);
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	margin: var(--space-2) 0 var(--space-4);
+	box-shadow: var(--shadow-sm);
+}
+
+.segmented__btn {
+	background: var(--color-white);
+	color: var(--color-text-primary);
+	border: none;
+	padding: var(--space-3) var(--space-6);
+	cursor: pointer;
+	font-weight: var(--font-weight-semibold);
+	font-size: var(--font-size-base);
+	transition: var(--transition-fast);
+	font-family: var(--font-family-primary);
+}
+
+.segmented__btn:hover:not(.segmented__btn--active) {
+	background: var(--color-gray-50);
+}
+
+.segmented__btn--active {
+	background: var(--color-bg-brand);
+	color: var(--color-white);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   METER (Progress Bar)
+   ======================================== */
+
+.meter {
+	height: 12px;
+	background: var(--color-gray-100);
+	border-radius: var(--radius-lg);
+	border: 1px solid var(--color-border-light);
+	overflow: hidden;
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.meter__bar {
+	height: 100%;
+	background: var(--color-bg-brand);
+	transition: width var(--duration-medium) var(--ease-out);
+	box-shadow: 0 0 8px rgba(0, 150, 136, 0.5);
+}
+
+/* ========================================
+   VISUALIZATION (SVG)
+   ======================================== */
+
+.viz {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-3);
+}
+
+.ring {
+	fill: none;
+	stroke: var(--color-border-light);
+	stroke-width: 4;
+}
+
+.arrow {
+	stroke: var(--color-info);
+	stroke-width: 3.5;
+	stroke-linecap: round;
+}
+
+.arrow-tip {
+	fill: var(--color-info);
+}
+
+.dial-arrow {
+	transition: transform var(--duration-medium) var(--ease-out);
+}
+
+#vesselArrow,
+#relativeArrow {
+	transform-origin: 60px 60px;
+}
+
+#trueArrow {
+	transform-origin: 80px 80px;
+}
+
+.tick {
+	stroke: var(--color-border-light);
+	stroke-width: 3;
+}
+
+.ship {
+	fill: var(--color-gray-400);
+}
+
+.compass-label {
+	fill: var(--color-text-secondary);
+	font-size: 14px;
+	font-weight: var(--font-weight-semibold);
+	font-family: var(--font-family-primary);
+}
+
+.arc {
+	fill: none;
+	stroke-width: 8;
+	opacity: 0.3;
+}
+
+.arc--vs {
+	stroke: var(--color-success);
+}
+
+.arc--rw {
+	stroke: var(--color-warning);
+}
+
+/* ========================================
+   DETAILS SECTION
+   ======================================== */
+
+.details {
+	display: grid;
+	gap: var(--space-3);
+}
+
+.details__row {
+	display: flex;
+	justify-content: space-between;
+	gap: var(--space-4);
+	padding: var(--space-3);
+	background: var(--color-gray-50);
+	border-radius: var(--radius-base);
+	border-left: 3px solid var(--color-primary);
+}
+
+.details .label {
+	color: var(--color-text-secondary);
+	font-weight: var(--font-weight-semibold);
+	font-size: var(--font-size-sm);
+}
+
+.details__row span:last-child {
+	color: var(--color-primary-dark);
+	font-weight: var(--font-weight-bold);
+	font-size: var(--font-size-base);
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.btn-home {
+	background: var(--color-gray-100);
+	color: var(--color-text-secondary);
+	padding: var(--space-3) var(--space-5);
+	box-shadow: var(--shadow-sm);
+	border: none;
+	border-radius: var(--radius-base);
+	font-family: var(--font-family-primary);
+	font-weight: var(--font-weight-semibold);
+	font-size: var(--font-size-base);
+	cursor: pointer;
+	transition: var(--transition-normal);
+	text-decoration: none;
+	display: inline-block;
+}
+
+.btn-home:hover {
+	background: var(--color-gray-300);
+	transform: translateY(-1px);
+	box-shadow: var(--shadow-base);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.page__footer {
+	width: 100%;
+	max-width: 1400px;
+	margin: var(--space-8) auto var(--space-4);
+	text-align: center;
+}
+
+.footer {
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+	border-radius: var(--radius-2xl);
+	padding: var(--space-8);
+	text-align: center;
+}
+
+.footer-content {
+	color: white;
+}
+
+.footer-text {
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-medium);
+	margin-bottom: var(--space-2);
+}
+
+.footer-subtitle {
+	font-size: var(--font-size-sm);
+	opacity: 0.8;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+	.page-header {
+		flex-direction: column;
+		gap: var(--space-3);
+		text-align: center;
+	}
+
+	.page-header h1 {
+		font-size: var(--font-size-xl);
+	}
+
+	.calc-header h1 {
+		font-size: var(--font-size-3xl);
+	}
+
+	.calculator-container {
+		padding: var(--space-4);
+		margin: var(--space-4) auto;
+	}
+
+	.grid {
+		grid-template-columns: 1fr;
+	}
+
+	.form input[type="number"] {
+		max-width: none;
+	}
+}
+
+@media (max-width: 480px) {
+	.page-header h1 {
+		font-size: var(--font-size-lg);
+	}
+
+	.calc-header h1 {
+		font-size: var(--font-size-2xl);
+	}
+
+	.card__header h2 {
+		font-size: var(--font-size-lg);
+	}
+
+	.viz svg {
+		max-width: 140px;
+		height: auto;
+	}
+}

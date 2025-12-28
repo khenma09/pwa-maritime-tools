@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+		/>
+		<title>True Wind Calculator - Maritime Tools</title>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+		/>
+		<link rel="stylesheet" href="css/design-tokens.css" />
+		<link rel="stylesheet" href="css/enhanced-components.css" />
+		<link rel="stylesheet" href="css/trueWind.css" />
+	</head>
+	<body>
+		<div class="page-header">
+			<h1>🌊 True Wind Calculator</h1>
+			<a href="index.html" class="btn-home">🏠 Back to Dashboard</a>
+		</div>
+		<main class="container">
+			<div class="calculator-container">
+				<div class="calc-header">
+					<h1>True Wind Calculator</h1>
+					<p>
+						Calculate true wind direction and speed from apparent wind observations
+					</p>
+				</div>
+
+			<section class="grid">
+				<!-- Vessel Card -->
+				<article class="card">
+					<div class="card__header">
+						<h2>Vessel</h2>
+					</div>
+					<div class="card__body layout--two">
+						<div class="form">
+							<label
+								>Heading (°)
+								<input
+									id="v-heading"
+									type="number"
+									min="0"
+									max="359"
+									value="172"
+								/>
+							</label>
+							<label
+								>Speed (kn)
+								<input
+									id="v-speed"
+									type="number"
+									min="0"
+									max="50"
+									step="0.1"
+									value="15"
+								/>
+							</label>
+							<div class="meter">
+								<div
+									id="v-speed-bar"
+									class="meter__bar"
+									style="width: 50%"
+								></div>
+							</div>
+						</div>
+						<div class="viz">
+							<svg
+								id="vesselDial"
+								viewBox="0 0 120 120"
+								width="120"
+								height="120"
+								aria-label="vessel heading"
+							>
+								<circle cx="60" cy="60" r="52" class="ring" />
+								<path id="vSpeedArc" class="arc arc--vs" d="" />
+								<g id="vesselArrow" class="dial-arrow">
+									<line x1="60" y1="60" x2="60" y2="14" class="arrow" />
+									<polygon points="60,6 56,16 64,16" class="arrow-tip" />
+								</g>
+								<text x="60" y="110" text-anchor="middle" class="compass-label">
+									N
+								</text>
+							</svg>
+						</div>
+					</div>
+				</article>
+
+				<!-- Relative Wind Card -->
+				<article class="card">
+					<div class="card__header">
+						<h2>Relative Wind</h2>
+					</div>
+					<div class="card__body layout--two">
+						<div class="form">
+							<label
+								>Angle off bow (°)
+								<input
+									id="rw-angle"
+									type="number"
+									min="0"
+									max="180"
+									value="53"
+								/>
+							</label>
+							<div class="segmented">
+								<button
+									id="side-port"
+									class="segmented__btn segmented__btn--active"
+									data-side="port"
+								>
+									P
+								</button>
+								<button
+									id="side-starboard"
+									class="segmented__btn"
+									data-side="starboard"
+								>
+									S
+								</button>
+							</div>
+							<label
+								>Speed (kn)
+								<input
+									id="rw-speed"
+									type="number"
+									min="0"
+									max="50"
+									step="0.1"
+									value="11.6"
+								/>
+							</label>
+							<div class="meter">
+								<div
+									id="rw-speed-bar"
+									class="meter__bar"
+									style="width: 35%"
+								></div>
+							</div>
+						</div>
+						<div class="viz">
+							<svg
+								id="relativeDial"
+								viewBox="0 0 120 120"
+								width="120"
+								height="120"
+								aria-label="relative wind"
+							>
+								<circle cx="60" cy="60" r="52" class="ring" />
+								<g id="shipIcon">
+									<rect
+										x="56"
+										y="40"
+										width="8"
+										height="40"
+										rx="3"
+										class="ship"
+									/>
+								</g>
+								<path id="rwArc" class="arc arc--rw" d="" />
+								<g id="relativeArrow" class="dial-arrow">
+									<line x1="60" y1="60" x2="60" y2="12" class="arrow" />
+									<polygon points="60,4 56,16 64,16" class="arrow-tip" />
+								</g>
+							</svg>
+						</div>
+					</div>
+				</article>
+
+				<!-- True Wind Card -->
+				<article class="card">
+					<div class="card__header">
+						<h2>True Wind</h2>
+					</div>
+					<div class="card__body layout--two">
+						<div class="details">
+							<div class="details__row">
+								<span class="label">Direction:</span><span id="tw-dir">—</span>
+							</div>
+							<div class="details__row">
+								<span class="label">Speed:</span><span id="tw-speed">—</span>
+							</div>
+							<div class="details__row">
+								<span class="label">Beaufort scale:</span
+								><span id="tw-bft">—</span>
+							</div>
+							<div class="details__row">
+								<span class="label">Description:</span
+								><span id="tw-desc">—</span>
+							</div>
+						</div>
+						<div class="viz">
+							<svg
+								id="compass"
+								viewBox="0 0 160 160"
+								width="160"
+								height="160"
+								aria-label="true wind compass"
+							>
+								<circle cx="80" cy="80" r="70" class="ring" />
+								<g class="ticks">
+									<line x1="80" y1="10" x2="80" y2="22" class="tick" />
+									<line x1="80" y1="138" x2="80" y2="150" class="tick" />
+									<line x1="10" y1="80" x2="22" y2="80" class="tick" />
+									<line x1="138" y1="80" x2="150" y2="80" class="tick" />
+								</g>
+								<text x="80" y="30" text-anchor="middle" class="compass-label">
+									N
+								</text>
+								<text x="140" y="84" class="compass-label">E</text>
+								<text x="80" y="155" text-anchor="middle" class="compass-label">
+									S
+								</text>
+								<text x="20" y="84" text-anchor="end" class="compass-label">
+									W
+								</text>
+								<g id="trueArrow" class="dial-arrow">
+									<line x1="80" y1="80" x2="80" y2="20" class="arrow" />
+									<polygon points="80,12 74,28 86,28" class="arrow-tip" />
+								</g>
+							</svg>
+						</div>
+					</div>
+				</article>
+			</section>
+
+			</div>
+		</main>
+
+		<div class="page__footer">
+			<div class="footer">
+				<div class="footer-content">
+					<p class="footer-text">
+						Copyright &copy;
+						<script>
+							const startYear = 2022;
+							const currentYear = new Date().getFullYear();
+							document.write(
+								startYear + (startYear < currentYear ? "-" + currentYear : "")
+							);
+						</script>
+						2/OFF John Paulo C. Magpantay
+					</p>
+					<p class="footer-subtitle">
+						All Rights Reserved | Maritime Professional Tools
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/true-wind.js"></script>
+	</body>
+</html>
