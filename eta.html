@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+		/>
+		<title>ETA Calculator - Maritime Tools</title>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+		/>
+		<link rel="stylesheet" href="css/home.css" />
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				min-height: 100vh;
+			}
+			.page-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 20px;
+				background: white;
+				border-bottom: 1px solid #e0e0e0;
+				width: 100%;
+			}
+
+			.page-header h1 {
+				color: #00796b;
+				font-size: 24px;
+				margin: 0;
+			}
+			.calculator-container {
+				max-width: 1600px;
+				width: 98%;
+				margin: 30px auto;
+				padding: 24px;
+				background: white;
+				border-radius: 12px;
+				box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			#etaForm {
+				width: 100%;
+				max-width: 900px;
+			}
+
+			.calc-header {
+				text-align: center;
+				margin-bottom: 30px;
+			}
+
+			.calc-header h1 {
+				color: #00796b;
+				font-size: 32px;
+				margin-bottom: 10px;
+			}
+
+			.calc-header p {
+				color: #666;
+				font-size: 14px;
+			}
+
+			.calc-form {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 22px;
+				margin: 0 auto 30px;
+				max-width: 900px;
+				width: 100%;
+			}
+
+			.form-group {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.form-group label {
+				font-weight: 600;
+				color: #333;
+				margin-bottom: 8px;
+				font-size: 14px;
+			}
+
+			.form-group input,
+			.form-group select {
+				padding: 12px;
+				border: 2px solid #e0e0e0;
+				border-radius: 6px;
+				font-family: "Montserrat", sans-serif;
+				font-size: 14px;
+				transition: border-color 0.3s ease;
+			}
+
+			.form-group input:focus,
+			.form-group select:focus {
+				outline: none;
+				border-color: #009688;
+				box-shadow: 0 0 5px rgba(0, 150, 136, 0.2);
+			}
+
+			.form-group.full-width {
+				grid-column: 1 / -1;
+			}
+
+			.divider {
+				grid-column: 1 / -1;
+				height: 2px;
+				background: linear-gradient(to right, #e0e0e0, transparent);
+				margin: 10px 0;
+			}
+
+			.section-title {
+				grid-column: 1 / -1;
+				font-weight: 600;
+				color: #00796b;
+				font-size: 16px;
+				margin-top: 10px;
+				padding-top: 10px;
+				border-top: 2px solid #e0e0e0;
+			}
+
+			.button-group {
+				grid-column: 1 / -1;
+				display: flex;
+				gap: 12px;
+				justify-content: center;
+				align-items: center;
+				flex-wrap: wrap;
+				margin-top: 22px;
+				width: 100%;
+			}
+
+			.btn {
+				padding: 12px 30px;
+				border: none;
+				border-radius: 6px;
+				font-family: "Montserrat", sans-serif;
+				font-weight: 600;
+				font-size: 14px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				min-width: 180px;
+				text-align: center;
+			}
+
+			.btn-calculate {
+				background: linear-gradient(135deg, #009688 0%, #00796b 100%);
+				color: white;
+				flex: 1;
+				max-width: 200px;
+			}
+
+			.btn-calculate:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(0, 150, 136, 0.4);
+			}
+
+			.btn-clear {
+				background: #f5f5f5;
+				color: #666;
+				flex: 1;
+				max-width: 200px;
+			}
+
+			.btn-clear:hover {
+				background: #e0e0e0;
+			}
+
+			.btn-home {
+				background: #f5f5f5;
+				color: #666;
+				padding: 10px 20px;
+			}
+
+			.btn-home:hover {
+				background: #e0e0e0;
+			}
+
+			.results-container {
+				display: none;
+				margin: 30px auto 0;
+				max-width: 1600px;
+				width: 100%;
+				text-align: center;
+				padding: 28px;
+				border-radius: 12px;
+				background: linear-gradient(135deg, #f9fffe 0%, #ffffff 100%);
+				border: 2px solid #e0ebe8;
+				box-shadow: 0 4px 16px rgba(0, 150, 136, 0.08);
+			}
+
+			.results-container.show {
+				display: block;
+				animation: slideIn 0.3s ease;
+			}
+			@keyframes slideIn {
+				from {
+					opacity: 0;
+					transform: translateY(-10px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			.results-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 18px;
+				margin: 0 auto 30px;
+				justify-content: center;
+				align-items: stretch;
+				width: 100%;
+			}
+
+			.result-card {
+				background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
+				padding: 22px;
+				border-radius: 12px;
+				border: 2px solid #e8f5f3;
+				border-left: 6px solid #009688;
+				box-shadow: 0 3px 12px rgba(0, 150, 136, 0.08);
+				transition: all 0.3s ease;
+				text-align: center;
+				flex: 0 0 auto;
+				width: 300px;
+			}
+
+			.result-card:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 5px 16px rgba(0, 150, 136, 0.12);
+				border-color: #d0ebe8;
+			}
+
+			.result-label {
+				font-size: 12px;
+				color: #666;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				font-weight: 700;
+			}
+
+			.result-value {
+				font-weight: 800;
+				font-size: 30px;
+				color: #00796b;
+				margin: 10px 0 6px;
+				word-break: normal;
+				overflow-wrap: break-word;
+			}
+
+			.result-unit {
+				font-size: 11px;
+				color: #999;
+				font-weight: 500;
+				margin-top: 6px;
+			}
+
+			.timeline-container {
+				background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
+				padding: 22px;
+				border-radius: 10px;
+				margin-top: 20px;
+				border: 2px solid #e8f5f3;
+				box-shadow: 0 3px 12px rgba(0, 150, 136, 0.06);
+			}
+
+			.timeline-item {
+				display: flex;
+				align-items: center;
+				margin-bottom: 14px;
+				font-size: 14px;
+				padding: 8px 0;
+			}
+
+			.timeline-item:last-child {
+				margin-bottom: 0;
+			}
+
+			.timeline-icon {
+				width: 32px;
+				height: 32px;
+				background: linear-gradient(135deg, #009688 0%, #00796b 100%);
+				border-radius: 50%;
+				color: white;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 14px;
+				font-weight: 700;
+				margin-right: 14px;
+				flex-shrink: 0;
+				box-shadow: 0 2px 6px rgba(0, 150, 136, 0.25);
+			}
+
+			.timeline-text {
+				color: #444;
+				font-size: 14px;
+				flex: 1;
+			}
+
+			.timeline-text .time {
+				font-weight: 700;
+				color: #00796b;
+				display: inline;
+			}
+
+			.calc-steps {
+				background: linear-gradient(135deg, #f0f9f8 0%, #f8fffe 100%);
+				padding: 18px;
+				border-radius: 10px;
+				border: 2px solid #d0ebe8;
+				border-left: 5px solid #009688;
+			}
+
+			.calc-step {
+				margin-bottom: 16px;
+				padding: 12px 0 12px 12px;
+				border-bottom: 1px solid #e0ebe8;
+				border-left: 3px solid #009688;
+			}
+
+			.calc-step:last-child {
+				margin-bottom: 0;
+				border-bottom: none;
+			}
+
+			.calc-step strong {
+				display: block;
+				color: #00796b;
+				margin-bottom: 6px;
+				font-size: 14px;
+				font-weight: 700;
+			}
+
+			.step-detail {
+				background: white;
+				padding: 10px 14px;
+				border-radius: 6px;
+				border: 1px solid #e8f5f3;
+				font-family: "Courier New", "Courier", monospace;
+				font-size: 13px;
+				color: #333;
+				margin-top: 6px;
+				white-space: pre-wrap;
+				word-break: break-word;
+				line-height: 1.4;
+			}
+
+			.note-box {
+				background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f5 100%);
+				border-left: 5px solid #4caf50;
+				border: 2px solid #c8e6c9;
+				padding: 14px 16px;
+				margin-top: 20px;
+				border-radius: 8px;
+				font-size: 13px;
+				color: #2e7d32;
+				line-height: 1.5;
+			}
+
+			.error-message {
+				background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+				border-left: 5px solid #f44336;
+				border: 2px solid #ef5350;
+				padding: 14px 16px;
+				margin-top: 15px;
+				border-radius: 8px;
+				font-size: 13px;
+				color: #c62828;
+				display: none;
+				line-height: 1.5;
+			}
+
+			.error-message.show {
+				display: block;
+			}
+
+			@media (max-width: 600px) {
+				.calc-form {
+					grid-template-columns: 1fr;
+				}
+
+				.button-group {
+					flex-direction: column;
+				}
+
+				.btn-calculate,
+				.btn-clear {
+					max-width: none;
+				}
+
+				.results-container {
+					padding: 18px;
+				}
+
+				.results-grid {
+					flex-direction: column;
+					align-items: center;
+				}
+
+				.result-card {
+					width: 100%;
+					max-width: 320px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="page-header">
+			<h1>⏱️ ETA Calculator</h1>
+			<a href="index.html" class="btn-home">🏠 Back to Dashboard</a>
+		</div>
+		<main class="container">
+			<div class="calculator-container">
+				<div class="calc-header">
+					<h1>Calculate Estimated Time of Arrival (ETA)</h1>
+					<p>
+						Enter vessel information to calculate ETA based on distance, speed,
+						and operational factors
+					</p>
+				</div>
+
+				<form id="etaForm">
+					<div class="calc-form">
+						<!-- Departure Information -->
+						<div class="section-title">📍 Departure Information</div>
+
+						<div class="form-group">
+							<label for="departurePort">Departure Port</label>
+							<input
+								type="text"
+								id="departurePort"
+								placeholder="e.g., Kaohsiung, Taiwan"
+							/>
+						</div>
+
+						<div class="form-group">
+							<label for="departureTime">Departure Time (Local)</label>
+							<input type="datetime-local" id="departureTime" required />
+						</div>
+
+						<div class="form-group">
+							<label for="departureTimeZone"
+								>Departure Time Zone (UTC Offset)</label
+							>
+							<select id="departureTimeZone">
+								<option value="-12">Baker Island (UTC-12)</option>
+								<option value="-11">SST - Samoa (UTC-11)</option>
+								<option value="-10">HST - Hawaii (UTC-10)</option>
+								<option value="-9">AKST - Alaska (UTC-9)</option>
+								<option value="-8">PST - Pacific (UTC-8)</option>
+								<option value="-7">MST - Mountain (UTC-7)</option>
+								<option value="-6">CST - Central (UTC-6)</option>
+								<option value="-5">EST - Eastern (UTC-5)</option>
+								<option value="-4">AST - Atlantic (UTC-4)</option>
+								<option value="-3.5">NST - Newfoundland (UTC-3:30)</option>
+								<option value="-3">ART - Argentina (UTC-3)</option>
+								<option value="-2">South Georgia (UTC-2)</option>
+								<option value="-1">Azores (UTC-1)</option>
+								<option value="0" selected>UTC/GMT (±0)</option>
+								<option value="1">CET - Central Europe (UTC+1)</option>
+								<option value="2">EET - Eastern Europe (UTC+2)</option>
+								<option value="3">MSK - Moscow (UTC+3)</option>
+								<option value="4">GST - Gulf (UTC+4)</option>
+								<option value="4.5">AFT - Afghanistan (UTC+4:30)</option>
+								<option value="5">PKT - Pakistan (UTC+5)</option>
+								<option value="5.5">IST - India (UTC+5:30)</option>
+								<option value="5.75">NPT - Nepal (UTC+5:45)</option>
+								<option value="6">BST - Bangladesh (UTC+6)</option>
+								<option value="6.5">MMT - Myanmar (UTC+6:30)</option>
+								<option value="7">ICT - Indochina (UTC+7)</option>
+								<option value="8">CST - China/Singapore (UTC+8)</option>
+								<option value="9">JST - Japan (UTC+9)</option>
+								<option value="9.5">ACST - Central Australia (UTC+9:30)</option>
+								<option value="10">AEST - East Australia (UTC+10)</option>
+								<option value="11">SBT - Solomon Islands (UTC+11)</option>
+								<option value="12">NZST - New Zealand (UTC+12)</option>
+								<option value="13">PHOT - Phoenix Islands (UTC+13)</option>
+								<option value="14">LINT - Line Islands (UTC+14)</option>
+							</select>
+						</div>
+
+						<!-- Arrival Information -->
+						<div class="section-title">🎯 Arrival Information</div>
+
+						<div class="form-group">
+							<label for="arrivalPort">Arrival Port</label>
+							<input
+								type="text"
+								id="arrivalPort"
+								placeholder="e.g., Valparaiso, Chile"
+							/>
+						</div>
+
+						<div class="form-group">
+							<label for="arrivalTimeZone"
+								>Arrival Time Zone (UTC Offset)</label
+							>
+							<select id="arrivalTimeZone">
+								<option value="-12">Baker Island (UTC-12)</option>
+								<option value="-11">SST - Samoa (UTC-11)</option>
+								<option value="-10">HST - Hawaii (UTC-10)</option>
+								<option value="-9">AKST - Alaska (UTC-9)</option>
+								<option value="-8">PST - Pacific (UTC-8)</option>
+								<option value="-7">MST - Mountain (UTC-7)</option>
+								<option value="-6">CST - Central (UTC-6)</option>
+								<option value="-5">EST - Eastern (UTC-5)</option>
+								<option value="-4">AST - Atlantic (UTC-4)</option>
+								<option value="-3.5">NST - Newfoundland (UTC-3:30)</option>
+								<option value="-3">ART - Argentina (UTC-3)</option>
+								<option value="-2">South Georgia (UTC-2)</option>
+								<option value="-1">Azores (UTC-1)</option>
+								<option value="0" selected>UTC/GMT (±0)</option>
+								<option value="1">CET - Central Europe (UTC+1)</option>
+								<option value="2">EET - Eastern Europe (UTC+2)</option>
+								<option value="3">MSK - Moscow (UTC+3)</option>
+								<option value="4">GST - Gulf (UTC+4)</option>
+								<option value="4.5">AFT - Afghanistan (UTC+4:30)</option>
+								<option value="5">PKT - Pakistan (UTC+5)</option>
+								<option value="5.5">IST - India (UTC+5:30)</option>
+								<option value="5.75">NPT - Nepal (UTC+5:45)</option>
+								<option value="6">BST - Bangladesh (UTC+6)</option>
+								<option value="6.5">MMT - Myanmar (UTC+6:30)</option>
+								<option value="7">ICT - Indochina (UTC+7)</option>
+								<option value="8">CST - China/Singapore (UTC+8)</option>
+								<option value="9">JST - Japan (UTC+9)</option>
+								<option value="9.5">ACST - Central Australia (UTC+9:30)</option>
+								<option value="10">AEST - East Australia (UTC+10)</option>
+								<option value="11">SBT - Solomon Islands (UTC+11)</option>
+								<option value="12">NZST - New Zealand (UTC+12)</option>
+								<option value="13">PHOT - Phoenix Islands (UTC+13)</option>
+								<option value="14">LINT - Line Islands (UTC+14)</option>
+							</select>
+						</div>
+
+						<!-- Navigation Data -->
+						<div
+							class="section-title"
+							style="grid-column: 1 / -1; margin-top: 20px"
+						>
+							🧭 Navigation Data
+						</div>
+
+						<div class="form-group">
+							<label for="distance"
+								>Distance to Destination (Nautical Miles)</label
+							>
+							<input
+								type="number"
+								id="distance"
+								min="0"
+								step="0.1"
+								placeholder="e.g., 250"
+								required
+							/>
+						</div>
+
+						<div class="form-group">
+							<label for="averageSpeed">Average Speed (Knots)</label>
+							<input
+								type="number"
+								id="averageSpeed"
+								min="0"
+								step="0.5"
+								placeholder="e.g., 15"
+								required
+							/>
+						</div>
+
+						<!-- Operational Factors -->
+						<div
+							class="section-title"
+							style="grid-column: 1 / -1; margin-top: 20px"
+						>
+							⚙️ Operational Factors
+						</div>
+
+						<div class="form-group">
+							<label for="weatherFactor">Weather Delay (Hours)</label>
+							<input
+								type="number"
+								id="weatherFactor"
+								min="0"
+								step="0.5"
+								value="0"
+								placeholder="e.g., 2"
+							/>
+						</div>
+
+						<div class="form-group">
+							<label for="portDelay">Port/Navigation Delays (Hours)</label>
+							<input
+								type="number"
+								id="portDelay"
+								min="0"
+								step="0.5"
+								value="0"
+								placeholder="e.g., 1.5"
+							/>
+						</div>
+
+						<div class="form-group">
+							<label for="canalDelay">Canal Passage Transit (Hours)</label>
+							<input
+								type="number"
+								id="canalDelay"
+								min="0"
+								step="0.5"
+								value="0"
+								placeholder="e.g., Panama Canal (8-10h), Suez (12-16h)"
+							/>
+						</div>
+						<div class="form-group full-width">
+							<label for="notes">Notes / Special Conditions</label>
+							<input
+								type="text"
+								id="notes"
+								placeholder="e.g., Heavy sea state, traffic congestion"
+							/>
+						</div>
+					</div>
+
+					<div class="button-group">
+						<button type="button" class="btn btn-calculate" id="calculateBtn">
+							📊 Calculate ETA
+						</button>
+						<button type="reset" class="btn btn-clear" id="clearBtn">
+							🔄 Clear
+						</button>
+					</div>
+				</form>
+
+				<div class="error-message" id="errorMessage"></div>
+
+				<div class="results-container" id="results">
+					<div class="results-grid">
+						<div class="result-card">
+							<div class="result-label">Distance (D)</div>
+							<div class="result-value">
+								<span id="distanceDisplay">--</span>
+							</div>
+							<div class="result-unit">nautical miles</div>
+						</div>
+						<div class="result-card">
+							<div class="result-label">Speed (S)</div>
+							<div class="result-value"><span id="speedDisplay">--</span></div>
+							<div class="result-unit">knots</div>
+						</div>
+						<div class="result-card">
+							<div class="result-label">Steaming Time</div>
+							<div class="result-value">
+								<span id="steamingTime">--</span>
+							</div>
+							<div class="result-unit">D ÷ S = Time</div>
+						</div>
+						<div class="result-card">
+							<div class="result-label">Total Delay</div>
+							<div class="result-value"><span id="totalDelay">--</span></div>
+							<div class="result-unit">operational factors</div>
+						</div>
+						<div class="result-card">
+							<div class="result-label">Total Transit Time</div>
+							<div class="result-value"><span id="totalTime">--</span></div>
+							<div class="result-unit">steaming + delay</div>
+						</div>
+						<div class="result-card">
+							<div class="result-label">Arrival ETA</div>
+							<div class="result-value"><span id="arrivalEta">--</span></div>
+							<div class="result-unit">arrival local time</div>
+						</div>
+					</div>
+
+					<div class="timeline-container">
+						<div
+							style="
+								font-weight: 700;
+								color: #00796b;
+								margin-bottom: 16px;
+								font-size: 15px;
+								padding-bottom: 10px;
+								border-bottom: 2px solid #d0ebe8;
+							"
+						>
+							📅 Calculation Breakdown
+						</div>
+						<div class="calc-steps">
+							<div class="calc-step">
+								<strong>Steaming Time Formula:</strong> T = D ÷ S
+								<div class="step-detail" id="formulaDisplay">--</div>
+							</div>
+							<div class="calc-step">
+								<strong>Hours Conversion:</strong>
+								<div class="step-detail" id="hoursDisplay">--</div>
+							</div>
+							<div class="calc-step">
+								<strong>Days/Hours/Minutes Conversion:</strong>
+								<div class="step-detail" id="conversionDisplay">--</div>
+							</div>
+							<div class="calc-step">
+								<strong>Departure (Local Time & GMT):</strong>
+								<div class="step-detail" id="departureDisplay">--</div>
+							</div>
+							<div class="calc-step">
+								<strong>Arrival (GMT & Local Time):</strong>
+								<div class="step-detail" id="arrivalDisplay">--</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="timeline-container" style="margin-top: 20px">
+						<div
+							style="
+								font-weight: 700;
+								color: #00796b;
+								margin-bottom: 16px;
+								font-size: 15px;
+								padding-bottom: 10px;
+								border-bottom: 2px solid #d0ebe8;
+							"
+						>
+							⏱️ Timeline Summary
+						</div>
+						<div class="timeline-item">
+							<div class="timeline-icon">D</div>
+							<div class="timeline-text">
+								Departure Port: <span class="time" id="depPort">--</span> at
+								<span class="time" id="depTime">--</span>
+							</div>
+						</div>
+						<div class="timeline-item">
+							<div class="timeline-icon">+</div>
+							<div class="timeline-text">
+								Steaming Time: <span class="time" id="sailDur">--</span>
+							</div>
+						</div>
+						<div class="timeline-item">
+							<div class="timeline-icon">+</div>
+							<div class="timeline-text">
+								Operational Delays: <span class="time" id="delayDur">--</span>
+							</div>
+						</div>
+						<div class="timeline-item">
+							<div class="timeline-icon">A</div>
+							<div class="timeline-text">
+								Arrival Port: <span class="time" id="arrPort">--</span> at
+								<span class="time" id="arrTime">--</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="note-box">
+						💡 <strong>Note:</strong> This calculator provides estimates based
+						on provided inputs. Actual arrival times may vary due to unforeseen
+						circumstances such as unexpected weather, mechanical issues, or
+						changes in navigational routes.
+					</div>
+				</div>
+			</div>
+		</main>
+		<script src="js/eta.js"></script>
+	</body>
+</html>
