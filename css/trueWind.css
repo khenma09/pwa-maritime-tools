@@ -277,12 +277,9 @@ body {
 }
 
 #vesselArrow,
-#relativeArrow {
-	transform-origin: 60px 60px;
-}
-
+#relativeArrow,
 #trueArrow {
-	transform-origin: 80px 80px;
+	transform-origin: 60px 60px;
 }
 
 .tick {
