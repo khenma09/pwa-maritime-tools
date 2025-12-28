@@ -13,6 +13,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	min-height: 100vh;
+	font-family: var(--font-family-primary);
 }
 
 .page-header {

@@ -14,6 +14,7 @@ body {
 	align-items: center;
 	min-height: 100vh;
 	background: linear-gradient(135deg, #009688 0%, #00796b 100%);
+	font-family: var(--font-family-primary);
 }
 
 .page-header {
