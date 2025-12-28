@@ -412,18 +412,22 @@ document.addEventListener("DOMContentLoaded", function () {
 			return;
 		}
 
-		if (userQuestionCount && userQuestionCount > 0) {
-			// Enforce minimum of 5 questions
-			if (userQuestionCount < minimumQuestions) {
-				alert(`Please enter at least ${minimumQuestions} questions.`);
-				return; // Stop quiz from starting
-			}
-			// Use user input, but cap it at total available questions
-			questionLimit = Math.min(userQuestionCount, totalAvailableQuestions);
-		} else {
-			// If no input or invalid, use all questions
-			questionLimit = totalAvailableQuestions;
+		// Check if question count is empty or not provided
+		if (!questionCountInput.value || isNaN(userQuestionCount) || userQuestionCount <= 0) {
+			alert(`Please enter the number of questions. Minimum ${minimumQuestions} questions required.`);
+			questionCountInput.focus();
+			return;
 		}
+
+		// Enforce minimum of 5 questions
+		if (userQuestionCount < minimumQuestions) {
+			alert(`Please enter at least ${minimumQuestions} questions.`);
+			questionCountInput.focus();
+			return; // Stop quiz from starting
+		}
+
+		// Use user input, but cap it at total available questions
+		questionLimit = Math.min(userQuestionCount, totalAvailableQuestions);
 
 		// hide home box
 		homeBox.classList.add("hide");

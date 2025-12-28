@@ -382,6 +382,17 @@ body {
 		font-size: 28px;
 		line-height: 34px;
 	}
+	/* Improve select dropdown for mobile */
+	.custom-select {
+		padding: 16px 15px;
+		font-size: 18px;
+		min-height: 50px;
+	}
+	.input-number {
+		padding: 16px 15px;
+		font-size: 18px;
+		min-height: 50px;
+	}
 }
 
 /* Additional responsive improvements */
@@ -396,6 +407,17 @@ body {
 	.quiz-box .option-container .option {
 		font-size: 12px;
 		padding: 10px 12px;
+	}
+	/* Ensure select and input remain large enough on smallest screens */
+	.custom-select {
+		padding: 15px 12px;
+		font-size: 17px;
+		min-height: 48px;
+	}
+	.input-number {
+		padding: 15px 12px;
+		font-size: 17px;
+		min-height: 48px;
 	}
 }
 /*
