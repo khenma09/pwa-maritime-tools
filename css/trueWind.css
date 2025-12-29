@@ -27,21 +27,11 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: center;
 	width: 100%;
-	padding: 0 var(--space-4);
+	padding: var(--space-6) var(--space-4);
 	box-sizing: border-box;
 	min-height: calc(100vh - 80px);
-}
-
-/* Hide mobile navigation */
-.mobile-nav {
-	display: none !important;
-}
-
-/* Remove bottom padding since nav is hidden */
-body.pb-nav {
-	padding-bottom: 0 !important;
 }
 
 .page-header {
@@ -49,7 +39,7 @@ body.pb-nav {
 	justify-content: space-between;
 	align-items: center;
 	padding: var(--space-5);
-	background: var(--color-bg-card);
+	background: #1a1a26;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 	width: 100%;
 	position: fixed;
@@ -63,7 +53,7 @@ body.pb-nav {
 	font-size: var(--font-size-2xl);
 	font-weight: var(--font-weight-bold);
 	margin: 0;
-	color: var(--color-text-primary);
+	color: #ffffff;
 }
 
 /* ========================================
@@ -71,15 +61,16 @@ body.pb-nav {
    ======================================== */
 
 .calculator-container {
-	max-width: 1600px;
-	width: 95%;
-	margin: var(--space-6);
-	padding: 36px;
-	background: var(--color-bg-card);
-	border-radius: var(--radius-xl);
-	border: 1px solid rgba(255, 255, 255, 0.08);
-	box-shadow: var(--shadow-md);
+	max-width: 1900px;
+	width: 98%;
+	margin: 40px auto 0;
+	padding: 60px;
+	background: #1a1a26;
+	border-radius: 16px;
+	border: 1px solid rgba(99, 102, 241, 0.3);
 	transition: var(--transition-normal);
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 /* ========================================
@@ -102,19 +93,78 @@ body.pb-nav {
 	animation-delay: 100ms;
 	animation-fill-mode: backwards;
 	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
 	.grid {
 		grid-template-columns: repeat(2, 1fr);
-		gap: 28px;
+		gap: 24px;
 	}
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1100px) {
 	.grid {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 32px;
+	}
+}
+
+/* Large desktop screens */
+@media (min-width: 1400px) {
+	.calculator-container {
+		padding: 64px;
+	}
+
+	.grid {
+		gap: 36px;
+	}
+
+	.card__header {
+		padding: 20px 28px;
+	}
+
+	.card__header h2 {
+		font-size: var(--font-size-xl);
+	}
+
+	.card__body {
+		padding: 36px;
+	}
+
+	.viz svg {
+		width: 130px;
+		height: 130px;
+	}
+
+	.details__row {
+		padding: 14px 18px;
+	}
+
+	.form input[type="number"] {
+		padding: 14px 16px;
+	}
+}
+
+/* Extra large screens */
+@media (min-width: 1800px) {
+	.calculator-container {
+		max-width: 2000px;
+		padding: 72px;
+	}
+
+	.grid {
+		gap: 40px;
+	}
+
+	.card__body {
+		padding: 40px;
+	}
+
+	.viz svg {
+		width: 150px;
+		height: 150px;
 	}
 }
 
@@ -123,18 +173,18 @@ body.pb-nav {
    ======================================== */
 
 .card {
-	background: var(--color-bg-card);
-	border-radius: var(--radius-xl);
-	border: 1px solid rgba(255, 255, 255, 0.08);
-	box-shadow: var(--shadow-sm);
-	overflow: hidden;
+	background: #0f0f14;
+	border-radius: 12px;
+	border: 1px solid rgba(99, 102, 241, 0.2);
 	transition: var(--transition-normal);
+	box-sizing: border-box;
+	width: 100%;
 	min-width: 0;
+	max-width: 100%;
 }
 
 .card:hover {
-	box-shadow: var(--shadow-md);
-	border-color: rgba(99, 102, 241, 0.3);
+	border-color: rgba(99, 102, 241, 0.4);
 }
 
 .card__header {
@@ -153,25 +203,46 @@ body.pb-nav {
 .card__body {
 	padding: 28px;
 	color: var(--color-text-primary);
+	box-sizing: border-box;
 }
 
 .layout--two {
 	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
-	justify-content: space-between;
-	gap: 28px;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .layout--two .form,
 .layout--two .details {
-	flex: 1;
-	min-width: 180px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .layout--two .viz {
 	flex-shrink: 0;
-	min-width: 150px;
+	order: -1;
+}
+
+/* Keep vertical layout for better text readability */
+@media (min-width: 1400px) {
+	.layout--two {
+		flex-direction: column;
+		align-items: center;
+		gap: 28px;
+	}
+
+	.layout--two .viz {
+		order: -1;
+		flex-shrink: 0;
+	}
+
+	.layout--two .form,
+	.layout--two .details {
+		width: 100%;
+	}
 }
 
 /* ========================================
@@ -335,8 +406,8 @@ body.pb-nav {
 }
 
 .viz svg {
-	width: 150px;
-	height: 150px;
+	width: 120px;
+	height: 120px;
 }
 
 .ring {
@@ -403,6 +474,8 @@ body.pb-nav {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .details__row {
@@ -414,12 +487,13 @@ body.pb-nav {
 	background: var(--color-bg-dark);
 	border-radius: var(--radius-md);
 	border: 1px solid rgba(255, 255, 255, 0.06);
+	box-sizing: border-box;
 }
 
 .details .label {
-	color: var(--color-text-muted);
+	color: #9ca3af;
 	font-weight: var(--font-weight-medium);
-	font-size: var(--font-size-base);
+	font-size: var(--font-size-sm);
 	white-space: nowrap;
 	flex-shrink: 0;
 }
@@ -427,9 +501,9 @@ body.pb-nav {
 .details__row span:last-child {
 	color: var(--color-text-primary);
 	font-weight: var(--font-weight-bold);
-	font-size: var(--font-size-base);
+	font-size: var(--font-size-sm);
 	text-align: right;
-	white-space: nowrap;
+	word-break: break-word;
 }
 
 /* ========================================
@@ -438,7 +512,7 @@ body.pb-nav {
 
 .btn-home {
 	background: rgba(255, 255, 255, 0.05);
-	color: var(--color-text-primary);
+	color: #ffffff;
 	padding: var(--space-3) var(--space-5);
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: var(--radius-md);
@@ -454,6 +528,7 @@ body.pb-nav {
 .btn-home:hover {
 	background: rgba(99, 102, 241, 0.2);
 	border-color: rgba(99, 102, 241, 0.4);
+	color: #ffffff;
 }
 
 /* ========================================
@@ -483,8 +558,8 @@ body.pb-nav {
 	}
 
 	.calculator-container {
-		padding: var(--space-5);
-		margin: var(--space-4) auto;
+		padding: 20px;
+		margin: 90px auto 0;
 		width: 95%;
 	}
 
@@ -500,25 +575,9 @@ body.pb-nav {
 		padding: 20px;
 	}
 
-	.layout--two {
-		flex-direction: column;
-		gap: 20px;
-		align-items: center;
-	}
-
-	.layout--two .form,
-	.layout--two .details {
-		width: 100%;
-		min-width: unset;
-	}
-
-	.layout--two .viz {
-		order: -1;
-	}
-
 	.viz svg {
-		width: 140px;
-		height: 140px;
+		width: 110px;
+		height: 110px;
 	}
 
 	.form {
@@ -570,7 +629,8 @@ body.pb-nav {
 	}
 
 	.calculator-container {
-		padding: var(--space-4);
+		padding: 16px;
+		margin: 90px auto 0;
 		width: 100%;
 	}
 
@@ -591,8 +651,8 @@ body.pb-nav {
 	}
 
 	.viz svg {
-		width: 130px;
-		height: 130px;
+		width: 100px;
+		height: 100px;
 	}
 
 	.form {

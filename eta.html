@@ -32,7 +32,7 @@
 		<main class="container">
 			<div class="calculator-container">
 				<div class="calc-header">
-					<h1 id="calcTitle">Calculate Estimated Time of Arrival (ETA)</h1>
+					<h2 id="calcTitle">Calculate Estimated Time of Arrival (ETA)</h2>
 					<p id="calcDescription">and operational factors</p>
 				</div>
 
@@ -41,18 +41,18 @@
 					role="radiogroup"
 					aria-label="Calculation mode"
 				>
+					<input
+						type="radio"
+						name="calcMode"
+						id="modeEta"
+						value="eta"
+						checked
+					/>
 					<label class="mode-option active" for="modeEta">
-						<input
-							type="radio"
-							name="calcMode"
-							id="modeEta"
-							value="eta"
-							checked
-						/>
 						Calculate ETA
 					</label>
+					<input type="radio" name="calcMode" id="modeSpeed" value="speed" />
 					<label class="mode-option" for="modeSpeed">
-						<input type="radio" name="calcMode" id="modeSpeed" value="speed" />
 						Required Speed
 					</label>
 				</div>
@@ -174,7 +174,7 @@
 							</select>
 						</div>
 
-						<div class="form-group speed-only" style="grid-column: 1 / -1">
+						<div class="form-group speed-only full-width">
 							<label for="targetArrivalTime"
 								>Target Arrival Time (Local ETA)</label
 							>
@@ -182,9 +182,7 @@
 						</div>
 
 						<!-- Navigation Data -->
-						<div
-							class="section-title"
-							style="grid-column: 1 / -1; margin-top: 20px"
+						<div class="section-title"
 						>
 							🧭 Navigation Data
 						</div>
@@ -217,9 +215,7 @@
 						</div>
 
 						<!-- Operational Factors -->
-						<div
-							class="section-title"
-							style="grid-column: 1 / -1; margin-top: 20px"
+						<div class="section-title"
 						>
 							⚙️ Operational Factors
 						</div>
@@ -326,14 +322,7 @@
 
 					<div class="timeline-container">
 						<div
-							style="
-								font-weight: 700;
-								color: #00796b;
-								margin-bottom: 16px;
-								font-size: 15px;
-								padding-bottom: 10px;
-								border-bottom: 2px solid #d0ebe8;
-							"
+							class="timeline-header"
 						>
 							📅 Calculation Breakdown
 						</div>
@@ -361,40 +350,33 @@
 						</div>
 					</div>
 
-					<div class="timeline-container" style="margin-top: 20px">
+					<div class="timeline-container">
 						<div
-							style="
-								font-weight: 700;
-								color: #00796b;
-								margin-bottom: 16px;
-								font-size: 15px;
-								padding-bottom: 10px;
-								border-bottom: 2px solid #d0ebe8;
-							"
+							class="timeline-header"
 						>
 							⏱️ Timeline Summary
 						</div>
 						<div class="timeline-item">
-							<div class="timeline-icon">D</div>
+							<div class="timeline-icon" aria-label="Departure">D</div>
 							<div class="timeline-text">
 								Departure Port: <span class="time" id="depPort">--</span> at
 								<span class="time" id="depTime">--</span>
 							</div>
 						</div>
 						<div class="timeline-item">
-							<div class="timeline-icon">+</div>
+							<div class="timeline-icon" aria-label="Addition">+</div>
 							<div class="timeline-text">
 								Steaming Time: <span class="time" id="sailDur">--</span>
 							</div>
 						</div>
 						<div class="timeline-item">
-							<div class="timeline-icon">+</div>
+							<div class="timeline-icon" aria-label="Addition">+</div>
 							<div class="timeline-text">
 								Operational Delays: <span class="time" id="delayDur">--</span>
 							</div>
 						</div>
 						<div class="timeline-item">
-							<div class="timeline-icon">A</div>
+							<div class="timeline-icon" aria-label="Arrival">A</div>
 							<div class="timeline-text">
 								Arrival Port: <span class="time" id="arrPort">--</span> at
 								<span class="time" id="arrTime">--</span>

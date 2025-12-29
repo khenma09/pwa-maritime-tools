@@ -188,33 +188,70 @@ label {
    HEADER / NAVIGATION
    ======================================== */
 .page-header {
-	background: var(--color-bg-darker);
-	border-bottom: var(--border-subtle);
-	padding: var(--space-md);
-	position: sticky;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: var(--space-5);
+	background: #1a1a26;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	width: 100%;
+	position: fixed;
 	top: 0;
+	left: 0;
 	z-index: 100;
-	backdrop-filter: blur(10px);
-	box-shadow: var(--shadow-xl);
+	height: 80px;
+	box-shadow: var(--shadow-md);
 }
 
 .page-header h1 {
-	font-size: var(--font-size-xl);
-	background: var(--gradient-primary);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-clip: text;
+	font-size: 22px !important;
+	font-weight: var(--font-weight-bold);
 	margin: 0;
-	animation: tealGlow 3s ease-in-out infinite;
+	color: #ffffff;
 }
 
-@media (min-width: 640px) {
+.btn-home {
+	background: rgba(255, 255, 255, 0.05);
+	color: #ffffff;
+	padding: var(--space-2) var(--space-4);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: var(--radius-md);
+	family: var(--font-family-primary);
+	font-weight: var(--font-weight-semibold);
+	font-size: 12px;
+	cursor: pointer;
+	transition: var(--transition-normal);
+	text-decoration: none;
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.btn-home:hover {
+	background: rgba(99, 102, 241, 0.2);
+	border-color: rgba(99, 102, 241, 0.4);
+	color: #ffffff;
+}
+
+/* Hide back button on mobile - use bottom nav instead */
+@media (max-width: 768px) {
+	.page-header .btn-home {
+		display: none !important;
+	}
+
 	.page-header {
-		padding: var(--space-lg);
+		justify-content: center !important;
 	}
 
 	.page-header h1 {
-		font-size: var(--font-size-2xl);
+		font-size: 20px !important;
+		text-align: center !important;
+		width: 100%;
+	}
+}
+
+@media (max-width: 480px) {
+	.page-header h1 {
+		font-size: 18px !important;
 	}
 }
 
@@ -338,7 +375,7 @@ label {
 }
 
 .pb-nav {
-	padding-bottom: calc(60px + env(safe-area-inset-bottom));
+	padding-bottom: calc(100px + env(safe-area-inset-bottom));
 }
 
 /* ========================================
