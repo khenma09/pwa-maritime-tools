@@ -3,12 +3,12 @@
 	const el = {
 		vHeading: document.getElementById("v-heading"),
 		vSpeed: document.getElementById("v-speed"),
+		vSpeedSlider: document.getElementById("v-speed-slider"),
 		rwAngle: document.getElementById("rw-angle"),
 		rwSpeed: document.getElementById("rw-speed"),
+		rwSpeedSlider: document.getElementById("rw-speed-slider"),
 		sidePort: document.getElementById("side-port"),
 		sideStarboard: document.getElementById("side-starboard"),
-		vSpeedBar: document.getElementById("v-speed-bar"),
-		rwSpeedBar: document.getElementById("rw-speed-bar"),
 		vesselArrow: document.getElementById("vesselArrow"),
 		relativeArrow: document.getElementById("relativeArrow"),
 		trueArrow: document.getElementById("trueArrow"),
@@ -106,16 +106,14 @@
 	function update() {
 		const r = compute();
 
-		// update bars
-		el.vSpeedBar.style.width = Math.min(100, (r.vSpeed / 30) * 100) + "%";
-		el.rwSpeedBar.style.width = Math.min(100, (r.rwSpeed / 30) * 100) + "%";
+		// sync sliders with number inputs
+		el.vSpeedSlider.value = r.vSpeed;
+		el.rwSpeedSlider.value = r.rwSpeed;
 
 		// rotate dials (CSS transforms for smooth animation)
 		el.vesselArrow.style.transform = `rotate(${norm360(r.heading)}deg)`;
 		el.relativeArrow.style.transform = `rotate(${norm360(r.rwFromBearing)}deg)`;
 		el.trueArrow.style.transform = `rotate(${norm360(r.twFromBearing)}deg)`;
-
-		// no arcs
 
 		// textual details
 		el.twDir.textContent = formatDir(r.twFromBearing);
@@ -124,8 +122,6 @@
 		const [bft, desc] = beaufort(r.twSpeed);
 		el.twBft.textContent = String(bft);
 		el.twDesc.textContent = desc;
-
-		// keep arrow color consistent via CSS tokens
 	}
 
 	// events
@@ -134,6 +130,18 @@
 		el.vSpeed.addEventListener(evt, update);
 		el.rwAngle.addEventListener(evt, update);
 		el.rwSpeed.addEventListener(evt, update);
+	});
+
+	// Slider events - sync with number inputs
+	["input", "change"].forEach((evt) => {
+		el.vSpeedSlider.addEventListener(evt, () => {
+			el.vSpeed.value = el.vSpeedSlider.value;
+			update();
+		});
+		el.rwSpeedSlider.addEventListener(evt, () => {
+			el.rwSpeed.value = el.rwSpeedSlider.value;
+			update();
+		});
 	});
 
 	el.sidePort.addEventListener("click", () => setSide("port"));

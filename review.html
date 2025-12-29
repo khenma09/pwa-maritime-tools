@@ -5,8 +5,16 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta
 			name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+			content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
 		/>
+		<meta name="theme-color" content="#0a0a0f" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<link rel="stylesheet" href="css/dark-purple-tokens.css" />
+		<link rel="stylesheet" href="css/mobile-components.css" />
 		<link rel="stylesheet" href="css/design-tokens.css" />
 		<link rel="stylesheet" href="css/enhanced-components.css" />
 		<link rel="stylesheet" href="css/style.css" />
@@ -18,7 +26,7 @@
 		<title>Review Results</title>
 		<link rel="stylesheet" href="css/review.css" />
 	</head>
-	<body>
+	<body class="pb-nav">
 		<div class="review-container">
 			<div class="centered-intro">
 				<h1>📊 Review Results</h1>
@@ -42,28 +50,28 @@
 			<div class="text-center mt-30">
 				<button id="back-btn" class="back-button">🏠 Back to Quiz</button>
 			</div>
-
-			<!-- Footer -->
-			<div class="footer" style="margin-top: 40px;">
-				<div class="footer-content">
-					<p class="footer-text">
-						Copyright &copy;
-						<script>
-							const startYear = 2022;
-							const currentYear = new Date().getFullYear();
-							document.write(
-								startYear + (startYear < currentYear ? "-" + currentYear : "")
-							);
-						</script>
-						2/OFF John Paulo C. Magpantay
-					</p>
-					<p class="footer-subtitle">
-						All Rights Reserved | Maritime Professional Tools
-					</p>
-				</div>
-			</div>
 		</div>
 
 		<script src="js/review.js"></script>
+
+		<!-- Mobile Bottom Navigation -->
+		<nav class="mobile-nav">
+			<a href="index.html">
+				<span class="mobile-nav-icon">🏠</span>
+				<span>Home</span>
+			</a>
+			<a href="start.html" class="active">
+				<span class="mobile-nav-icon">📚</span>
+				<span>Quiz</span>
+			</a>
+			<a href="eta.html">
+				<span class="mobile-nav-icon">⏱️</span>
+				<span>ETA</span>
+			</a>
+			<a href="leaderboard.html">
+				<span class="mobile-nav-icon">🏆</span>
+				<span>Ranks</span>
+			</a>
+		</nav>
 	</body>
 </html>

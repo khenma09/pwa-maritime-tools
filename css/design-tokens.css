@@ -159,9 +159,9 @@
 		0 30px 60px rgba(0, 0, 0, 0.18);
 
 	/* Brand-colored shadows */
-	--shadow-primary-sm: 0 2px 8px rgba(0, 150, 136, 0.15);
-	--shadow-primary-md: 0 4px 12px rgba(0, 150, 136, 0.25);
-	--shadow-primary-lg: 0 6px 16px rgba(0, 150, 136, 0.35);
+	--shadow-primary-sm: 0 2px 8px rgba(45, 212, 191, 0.15);
+	--shadow-primary-md: 0 4px 12px rgba(45, 212, 191, 0.25);
+	--shadow-primary-lg: 0 6px 16px rgba(45, 212, 191, 0.35);
 
 	--shadow-success: 0 4px 12px rgba(40, 167, 69, 0.25);
 	--shadow-error: 0 4px 12px rgba(220, 53, 69, 0.25);
@@ -261,7 +261,7 @@
 
 	/* Focus States */
 	--focus-ring-width: 3px;
-	--focus-ring-color: rgba(0, 150, 136, 0.4);
+	--focus-ring-color: rgba(45, 212, 191, 0.4);
 	--focus-ring-offset: 2px;
 }
 

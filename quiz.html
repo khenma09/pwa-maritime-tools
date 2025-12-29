@@ -5,8 +5,16 @@
 		<title>Reviewer</title>
 		<meta
 			name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+			content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
 		/>
+		<meta name="theme-color" content="#0a0a0f" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<link rel="stylesheet" href="css/dark-purple-tokens.css" />
+		<link rel="stylesheet" href="css/mobile-components.css" />
 		<link rel="stylesheet" href="css/design-tokens.css" />
 		<link rel="stylesheet" href="css/enhanced-components.css" />
 		<link rel="stylesheet" href="css/style.css" />
@@ -19,7 +27,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="css/quiz.css" />
 	</head>
-	<body class="page-bg-green">
+	<body class="page-bg-green pb-nav">
 		<!-- Background image LEFT - with reveal overlays -->
 		<div id="bg-wrap-left" class="bg-reveal-wrapper left">
 			<img
@@ -211,11 +219,18 @@
 				<button type="button" id="review-btn" class="btn start-cta action-btn">
 					📝 Review Answers
 				</button>
-				<button type="button" id="leaderboard-btn" class="btn start-cta action-btn">
+				<button
+					type="button"
+					id="leaderboard-btn"
+					class="btn start-cta action-btn"
+				>
 					🏆 View Leaderboard
 				</button>
 			</div>
-			<div class="action-group" style="justify-content: center; margin-top: 15px;">
+			<div
+				class="action-group"
+				style="justify-content: center; margin-top: 15px"
+			>
 				<button
 					type="button"
 					id="home-btn"
@@ -228,29 +243,29 @@
 
 		<!-- End of result-box -->
 
-		<!-- Footer -->
-		<div class="footer" style="margin-top: 40px;">
-			<div class="footer-content">
-				<p class="footer-text">
-					Copyright &copy;
-					<script>
-						const startYear = 2022;
-						const currentYear = new Date().getFullYear();
-						document.write(
-							startYear + (startYear < currentYear ? "-" + currentYear : "")
-						);
-					</script>
-					2/OFF John Paulo C. Magpantay
-				</p>
-				<p class="footer-subtitle">
-					All Rights Reserved | Maritime Professional Tools
-				</p>
-			</div>
-		</div>
-
 		<!-- Rest of the code remains the same -->
 		<script src="js/question.js"></script>
 		<script src="js/question-categories.js"></script>
 		<script src="js/app.js"></script>
+
+		<!-- Mobile Bottom Navigation -->
+		<nav class="mobile-nav">
+			<a href="index.html">
+				<span class="mobile-nav-icon">🏠</span>
+				<span>Home</span>
+			</a>
+			<a href="start.html" class="active">
+				<span class="mobile-nav-icon">📚</span>
+				<span>Quiz</span>
+			</a>
+			<a href="eta.html">
+				<span class="mobile-nav-icon">⏱️</span>
+				<span>ETA</span>
+			</a>
+			<a href="leaderboard.html">
+				<span class="mobile-nav-icon">🏆</span>
+				<span>Ranks</span>
+			</a>
+		</nav>
 	</body>
 </html>

@@ -1,0 +1,211 @@
+/**
+ * Dark Purple Design Tokens - Maritime Tools
+ * Premium purple/magenta theme inspired by modern SaaS platforms
+ * Mobile-first dark theme with purple-pink gradients
+ */
+
+:root {
+	/* Dark Purple Color Palette */
+	--color-bg-dark: #0a0a0f;
+	--color-bg-darker: #050508;
+	--color-bg-card: #16161f;
+	--color-bg-card-hover: #1d1d28;
+
+	/* Purple & Magenta Accents */
+	--color-primary: #6366f1;
+	--color-primary-light: #818cf8;
+	--color-primary-dark: #4f46e5;
+	--color-secondary: #8b5cf6;
+	--color-accent-pink: #a78bfa;
+	--color-accent-purple: #8b5cf6;
+	--color-accent-blue: #6366f1;
+
+	/* Gradients */
+	--gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+	--gradient-secondary: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+	--gradient-hero: linear-gradient(
+		180deg,
+		rgba(99, 102, 241, 0.1) 0%,
+		rgba(10, 10, 15, 0.95) 100%
+	);
+	--gradient-card: linear-gradient(
+		135deg,
+		rgba(99, 102, 241, 0.03) 0%,
+		rgba(139, 92, 246, 0.03) 100%
+	);
+
+	/* Text Colors */
+	--color-text-primary: #f8f9fa;
+	--color-text-secondary: #d1d5db;
+	--color-text-muted: #9ca3af;
+	--color-text-gradient: var(--gradient-primary);
+
+	/* Borders & Shadows */
+	--border-subtle: 1px solid rgba(99, 102, 241, 0.15);
+	--border-primary: 2px solid rgba(99, 102, 241, 0.3);
+	--shadow-sm: 0 2px 8px rgba(99, 102, 241, 0.1);
+	--shadow-md: 0 4px 20px rgba(99, 102, 241, 0.15),
+		0 0 40px rgba(139, 92, 246, 0.1);
+	--shadow-lg: 0 8px 32px rgba(99, 102, 241, 0.2),
+		0 0 60px rgba(139, 92, 246, 0.15);
+	--shadow-glow: 0 0 20px rgba(99, 102, 241, 0.4);
+
+	/* Mobile-First Spacing */
+	--space-xs: 0.25rem; /* 4px */
+	--space-sm: 0.5rem; /* 8px */
+	--space-md: 1rem; /* 16px */
+	--space-lg: 1.5rem; /* 24px */
+	--space-xl: 2rem; /* 32px */
+	--space-2xl: 3rem; /* 48px */
+	--space-3xl: 4rem; /* 64px */
+	--space-4xl: 6rem; /* 96px */
+
+	/* Typography - Mobile Optimized */
+	--font-size-xs: 0.75rem; /* 12px */
+	--font-size-sm: 0.875rem; /* 14px */
+	--font-size-base: 1rem; /* 16px */
+	--font-size-lg: 1.125rem; /* 18px */
+	--font-size-xl: 1.25rem; /* 20px */
+	--font-size-2xl: 1.5rem; /* 24px */
+	--font-size-3xl: 2rem; /* 32px */
+	--font-size-4xl: 2.5rem; /* 40px */
+	--font-size-5xl: 3rem; /* 48px */
+	--font-size-6xl: 4rem; /* 64px */
+
+	/* Font Weights */
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+	--font-weight-extrabold: 800;
+
+	/* Border Radius */
+	--radius-sm: 0.5rem;
+	--radius-md: 0.75rem;
+	--radius-lg: 1rem;
+	--radius-xl: 1.5rem;
+	--radius-2xl: 2rem;
+	--radius-full: 9999px;
+
+	/* Mobile Touch Targets */
+	--touch-target-min: 44px;
+
+	/* Transitions */
+	--transition-fast: 150ms ease;
+	--transition-base: 250ms ease;
+	--transition-slow: 350ms ease;
+
+	/* Z-Index Scale */
+	--z-base: 1;
+	--z-dropdown: 10;
+	--z-sticky: 100;
+	--z-fixed: 200;
+	--z-modal: 300;
+	--z-popover: 400;
+	--z-tooltip: 500;
+}
+
+/* Mobile-First Base Styles */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "Inter", "Montserrat", -apple-system, BlinkMacSystemFont,
+		"Segoe UI", sans-serif;
+	background: var(--color-bg-dark);
+	color: var(--color-text-primary);
+	font-size: var(--font-size-base);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
+}
+
+/* Gradient Text Utility */
+.text-gradient {
+	background: var(--gradient-primary);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* Purple Glow Animations */
+@keyframes purplePulse {
+	0%,
+	100% {
+		filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0.4));
+	}
+	50% {
+		filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.6));
+	}
+}
+
+@keyframes purpleGlow {
+	0%,
+	100% {
+		box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+	}
+	50% {
+		box-shadow: 0 0 30px rgba(99, 102, 241, 0.5),
+			0 0 60px rgba(139, 92, 246, 0.3);
+	}
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Geometric Background Patterns */
+.bg-geometric {
+	position: relative;
+	overflow: hidden;
+}
+
+.bg-geometric::before {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: radial-gradient(
+			circle at 30% 20%,
+			rgba(99, 102, 241, 0.08) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			circle at 70% 60%,
+			rgba(139, 92, 246, 0.06) 0%,
+			transparent 50%
+		);
+	animation: rotate 30s linear infinite;
+	pointer-events: none;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

@@ -4,19 +4,27 @@
 		<meta charset="UTF-8" />
 		<meta
 			name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+			content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+		/>
+		<meta name="theme-color" content="#0a0a0f" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
 		/>
 		<title>ETA Calculator - Maritime Tools</title>
 		<link
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
 		/>
+		<link rel="stylesheet" href="css/dark-purple-tokens.css" />
+		<link rel="stylesheet" href="css/mobile-components.css" />
 		<link rel="stylesheet" href="css/design-tokens.css" />
 		<link rel="stylesheet" href="css/enhanced-components.css" />
 		<link rel="stylesheet" href="css/home.css" />
 		<link rel="stylesheet" href="css/eta-calculator.css" />
 	</head>
-	<body>
+	<body class="pb-nav">
 		<div class="page-header">
 			<h1>⏱️ ETA Calculator</h1>
 			<a href="index.html" class="btn-home">🏠 Back to Dashboard</a>
@@ -402,28 +410,27 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="page__footer">
-				<div class="footer">
-					<div class="footer-content">
-						<p class="footer-text">
-							Copyright &copy;
-							<script>
-								const startYear = 2022;
-								const currentYear = new Date().getFullYear();
-								document.write(
-									startYear + (startYear < currentYear ? "-" + currentYear : "")
-								);
-							</script>
-							2/OFF John Paulo C. Magpantay
-						</p>
-						<p class="footer-subtitle">
-							All Rights Reserved | Maritime Professional Tools
-						</p>
-					</div>
-				</div>
-			</div>
 		</main>
 		<script src="js/eta.js"></script>
+
+		<!-- Mobile Bottom Navigation -->
+		<nav class="mobile-nav">
+			<a href="index.html">
+				<span class="mobile-nav-icon">🏠</span>
+				<span>Home</span>
+			</a>
+			<a href="start.html">
+				<span class="mobile-nav-icon">📚</span>
+				<span>Quiz</span>
+			</a>
+			<a href="eta.html" class="active">
+				<span class="mobile-nav-icon">⏱️</span>
+				<span>ETA</span>
+			</a>
+			<a href="leaderboard.html">
+				<span class="mobile-nav-icon">🏆</span>
+				<span>Ranks</span>
+			</a>
+		</nav>
 	</body>
 </html>

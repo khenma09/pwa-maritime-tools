@@ -1,0 +1,220 @@
+/**
+ * Dark Teal Design Tokens - Maritime Tools
+ * Sleek and modern dark theme with teal and cyan highlights.
+ * Mobile-first dark theme with cool-toned gradients.
+ */
+
+:root {
+	/* Dark Teal Color Palette */
+	--color-bg-dark: #0f172a; /* Slate 900 */
+	--color-bg-darker: #020617; /* Slate 950 */
+	--color-bg-card: #1e293b; /* Slate 800 */
+	--color-bg-card-hover: #334155; /* Slate 700 */
+
+	/* Teal & Cyan Accents */
+	--color-primary: #2dd4bf; /* Teal 400 */
+	--color-primary-light: #5eead4; /* Teal 300 */
+	--color-primary-dark: #14b8a6; /* Teal 500 */
+	--color-secondary: #06b6d4; /* Cyan 500 */
+	--color-accent-cyan: #22d3ee; /* Cyan 400 */
+	--color-accent-sky: #38bdf8; /* Sky 400 */
+	--color-accent-blue: #60a5fa; /* Blue 400 */
+
+	/* Gradients */
+	--gradient-primary: linear-gradient(135deg, #2dd4bf 0%, #06b6d4 100%);
+	--gradient-secondary: linear-gradient(135deg, #22d3ee 0%, #38bdf8 100%);
+	--gradient-hero: linear-gradient(
+		180deg,
+		rgba(45, 212, 191, 0.1) 0%,
+		rgba(15, 23, 42, 0.95) 100%
+	);
+	--gradient-card: linear-gradient(
+		135deg,
+		rgba(45, 212, 191, 0.05) 0%,
+		rgba(6, 182, 212, 0.05) 100%
+	);
+
+	/* Text Colors */
+	--color-text-primary: #f8fafc; /* Slate 50 */
+	--color-text-secondary: #94a3b8; /* Slate 400 */
+	--color-text-muted: #475569; /* Slate 600 */
+	--color-text-gradient: var(--gradient-primary);
+	--color-success-bg: rgba(40, 167, 69, 0.1);
+	--color-error-bg: rgba(220, 53, 69, 0.1);
+	--color-success-text: #28a745;
+	--color-error-text: #dc3545;
+
+	/* Borders & Shadows */
+	--border-subtle: 1px solid rgba(45, 212, 191, 0.15);
+	--border-primary: 2px solid rgba(45, 212, 191, 0.3);
+	--color-success: #28a745;
+	--color-error: #dc3545;
+	--border-success: 2px solid var(--color-success);
+	--border-error: 2px solid var(--color-error);
+	--shadow-sm: 0 2px 8px rgba(20, 184, 166, 0.1);
+	--shadow-md: 0 4px 20px rgba(20, 184, 166, 0.15),
+		0 0 40px rgba(6, 182, 212, 0.1);
+	--shadow-lg: 0 8px 32px rgba(20, 184, 166, 0.2),
+		0 0 60px rgba(6, 182, 212, 0.15);
+	--shadow-glow: 0 0 20px rgba(45, 212, 191, 0.4);
+	--shadow-warning: 0 2px 8px rgba(255, 152, 0, 0.3);
+
+	/* Mobile-First Spacing */
+	--space-xs: 0.25rem; /* 4px */
+	--space-sm: 0.5rem; /* 8px */
+	--space-md: 1rem; /* 16px */
+	--space-lg: 1.5rem; /* 24px */
+	--space-xl: 2rem; /* 32px */
+	--space-2xl: 3rem; /* 48px */
+	--space-3xl: 4rem; /* 64px */
+	--space-4xl: 6rem; /* 96px */
+
+	/* Typography - Mobile Optimized */
+	--font-size-xs: 0.75rem; /* 12px */
+	--font-size-sm: 0.875rem; /* 14px */
+	--font-size-base: 1rem; /* 16px */
+	--font-size-lg: 1.125rem; /* 18px */
+	--font-size-xl: 1.25rem; /* 20px */
+	--font-size-2xl: 1.5rem; /* 24px */
+	--font-size-3xl: 2rem; /* 32px */
+	--font-size-4xl: 2.5rem; /* 40px */
+	--font-size-5xl: 3rem; /* 48px */
+	--font-size-6xl: 4rem; /* 64px */
+
+	/* Font Weights */
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+	--font-weight-extrabold: 800;
+
+	/* Border Radius */
+	--radius-sm: 0.5rem;
+	--radius-md: 0.75rem;
+	--radius-lg: 1rem;
+	--radius-xl: 1.5rem;
+	--radius-2xl: 2rem;
+	--radius-full: 9999px;
+
+	/* Mobile Touch Targets */
+	--touch-target-min: 44px;
+
+	/* Transitions */
+	--transition-fast: 150ms ease;
+	--transition-base: 250ms ease;
+	--transition-slow: 350ms ease;
+
+	/* Z-Index Scale */
+	--z-base: 1;
+	--z-dropdown: 10;
+	--z-sticky: 100;
+	--z-fixed: 200;
+	--z-modal: 300;
+	--z-popover: 400;
+	--z-tooltip: 500;
+}
+
+/* Mobile-First Base Styles */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: "Inter", "Montserrat", -apple-system, BlinkMacSystemFont,
+		"Segoe UI", sans-serif;
+	background: var(--color-bg-dark);
+	color: var(--color-text-primary);
+	font-size: var(--font-size-base);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
+}
+
+/* Gradient Text Utility */
+.text-gradient {
+	background: var(--gradient-primary);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* Teal Glow Animations */
+@keyframes tealPulse {
+	0%,
+	100% {
+		filter: drop-shadow(0 0 5px rgba(45, 212, 191, 0.4));
+	}
+	50% {
+		filter: drop-shadow(0 0 20px rgba(45, 212, 191, 0.6));
+	}
+}
+
+@keyframes tealGlow {
+	0%,
+	100% {
+		box-shadow: 0 0 15px rgba(45, 212, 191, 0.3);
+	}
+	50% {
+		box-shadow: 0 0 30px rgba(45, 212, 191, 0.5),
+			0 0 60px rgba(6, 182, 212, 0.3);
+	}
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Geometric Background Patterns */
+.bg-geometric {
+	position: relative;
+	overflow: hidden;
+}
+
+.bg-geometric::before {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: radial-gradient(
+			circle at 30% 20%,
+			rgba(45, 212, 191, 0.08) 0%,
+			transparent 50%
+		),
+		radial-gradient(
+			circle at 70% 60%,
+			rgba(6, 182, 212, 0.06) 0%,
+			transparent 50%
+		);
+	animation: rotate 30s linear infinite;
+	pointer-events: none;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

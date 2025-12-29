@@ -4,83 +4,76 @@
 		<meta charset="UTF-8" />
 		<meta
 			name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+			content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
 		/>
-		<title>Start Quiz - Quiz Application</title>
+		<meta name="theme-color" content="#0a0a0f" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<title>Maritime Quiz - Maritime Tools</title>
 		<link
 			rel="stylesheet"
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
 		/>
 		<link rel="stylesheet" href="css/design-tokens.css" />
+		<link rel="stylesheet" href="css/dark-purple-tokens.css" />
+		<link rel="stylesheet" href="css/mobile-components.css" />
 		<link rel="stylesheet" href="css/enhanced-components.css" />
-		<link rel="stylesheet" href="css/login.css" />
+		<link rel="stylesheet" href="css/start-quiz.css" />
 	</head>
-	<body>
-		<div class="container">
-			<div class="center-container">
-				<form id="startForm">
-					<div style="text-align: left; margin-bottom: 15px">
-						<a
-							href="index.html"
-							style="
-								color: #009688;
-								text-decoration: none;
-								font-size: 14px;
-								display: inline-flex;
-								align-items: center;
-								gap: 5px;
-							"
-						>
-							← Back to Home
-						</a>
+	<body class="pb-nav">
+		<div class="page-header">
+			<h1>📝 Maritime Quiz</h1>
+			<a href="index.html" class="btn-home">🏠 Back to Dashboard</a>
+		</div>
+		<main class="container">
+			<div class="quiz-container">
+				<h2>Welcome!</h2>
+				<p class="subtitle">Please enter your details to start the quiz</p>
+				<form id="startForm" class="quiz-form">
+					<div class="form-group">
+						<label for="userName">Name:</label>
+						<input
+							type="text"
+							id="userName"
+							name="userName"
+							placeholder="Enter your name"
+							required
+						/>
 					</div>
-					<h1>Welcome!</h1>
-					<p
-						style="
-							text-align: center;
-							color: #666;
-							margin-bottom: 25px;
-							font-size: 14px;
-						"
-					>
-						Please enter your details to start the quiz
-					</p>
-					<label for="userName">Name:</label>
-					<input
-						type="text"
-						id="userName"
-						name="userName"
-						placeholder="Enter your name"
-						required
-					/>
-					<label for="userDob">Date of Birth:</label>
-					<input type="date" id="userDob" name="userDob" required />
-					<input type="submit" value="Start Quiz" />
-					<div class="create-account-container" style="justify-content: center">
+					<div class="form-group">
+						<label for="userDob">Date of Birth:</label>
+						<input type="date" id="userDob" name="userDob" required />
+					</div>
+					<button type="submit" class="btn-submit">Start Quiz</button>
+					<div class="leaderboard-link">
 						<a href="leaderboard.html">🏆 View Leaderboard</a>
 					</div>
 				</form>
-				<!-- Footer -->
-				<div class="footer" style="margin-top: 30px;">
-					<div class="footer-content">
-						<p class="footer-text">
-							Copyright &copy;
-							<script>
-								const startYear = 2022;
-								const currentYear = new Date().getFullYear();
-								document.write(
-									startYear + (startYear < currentYear ? "-" + currentYear : "")
-								);
-							</script>
-							2/OFF John Paulo C. Magpantay
-						</p>
-						<p class="footer-subtitle">
-							All Rights Reserved | Maritime Professional Tools
-						</p>
-					</div>
-				</div>
 			</div>
-		</div>
+		</main>
 		<script src="js/start.js"></script>
+
+		<!-- Mobile Bottom Navigation (hidden by CSS) -->
+		<nav class="mobile-nav">
+			<a href="index.html">
+				<span class="mobile-nav-icon">🏠</span>
+				<span>Home</span>
+			</a>
+			<a href="start.html" class="active">
+				<span class="mobile-nav-icon">📚</span>
+				<span>Quiz</span>
+			</a>
+			<a href="eta.html">
+				<span class="mobile-nav-icon">⏱️</span>
+				<span>ETA</span>
+			</a>
+			<a href="leaderboard.html">
+				<span class="mobile-nav-icon">🏆</span>
+				<span>Ranks</span>
+			</a>
+		</nav>
 	</body>
 </html>
