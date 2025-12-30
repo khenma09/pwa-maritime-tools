@@ -19,6 +19,61 @@ document.addEventListener("DOMContentLoaded", function () {
 	let selectedCategory = "All Categories"; // Track selected category
 	let categoryQuestions = []; // Store questions for selected category
 
+	// Custom Dropdown Functionality
+	function initCustomDropdowns() {
+		const dropdowns = document.querySelectorAll(".custom-dropdown");
+
+		dropdowns.forEach((dropdown) => {
+			const trigger = dropdown.querySelector(".dropdown-trigger");
+			const options = dropdown.querySelectorAll(".dropdown-option");
+			const valueDisplay = dropdown.querySelector(".dropdown-value");
+
+			if (!trigger) return;
+
+			// Toggle dropdown on click
+			trigger.addEventListener("click", (e) => {
+				e.stopPropagation();
+				closeAllDropdowns();
+				dropdown.classList.toggle("open");
+			});
+
+			// Select option on click
+			options.forEach((option) => {
+				option.addEventListener("click", () => {
+					// Update selected state
+					options.forEach((opt) => opt.classList.remove("selected"));
+					option.classList.add("selected");
+
+					// Update display value
+					valueDisplay.textContent = option.textContent;
+
+					// Close dropdown
+					dropdown.classList.remove("open");
+
+					// Trigger category info update
+					updateCategoryInfo();
+				});
+			});
+		});
+
+		// Close dropdowns when clicking outside
+		document.addEventListener("click", closeAllDropdowns);
+	}
+
+	function closeAllDropdowns() {
+		document.querySelectorAll(".custom-dropdown.open").forEach((d) => {
+			d.classList.remove("open");
+		});
+	}
+
+	function getDropdownValue(dropdownName) {
+		const dropdown = document.querySelector(
+			`[data-dropdown="${dropdownName}"]`
+		);
+		const selected = dropdown?.querySelector(".dropdown-option.selected");
+		return selected?.dataset.value || "All Categories";
+	}
+
 	// push the questions into availableQuestions Array based on selected category
 	function setAvailableQuestions() {
 		// Get questions for selected category
@@ -382,9 +437,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	// #### STARTING POINT ####
 
 	function startQuiz() {
-		// Get selected category
-		const categorySelect = document.getElementById("category-select");
-		selectedCategory = categorySelect.value;
+		// Get selected category from custom dropdown
+		selectedCategory = getDropdownValue("category");
 
 		// Get questions for selected category
 		let categoryQuestionPool;
@@ -444,8 +498,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	// Function to update question count based on category
 	function updateCategoryInfo() {
-		const categorySelect = document.getElementById("category-select");
-		const selectedCat = categorySelect.value;
+		const selectedCat = getDropdownValue("category");
 
 		let categoryQuestionCount;
 		if (selectedCat === "All Categories") {
@@ -478,14 +531,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	window.onload = function () {
+		// Initialize custom dropdowns
+		initCustomDropdowns();
+
 		// Initialize category info
 		updateCategoryInfo();
-
-		// Add event listener for category change
-		const categorySelect = document.getElementById("category-select");
-		if (categorySelect) {
-			categorySelect.addEventListener("change", updateCategoryInfo);
-		}
 	};
 
 	// Add event listeners
@@ -496,18 +546,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	const reviewBtn = document.querySelector("#review-btn");
 	const leaderboardBtn = document.querySelector("#leaderboard-btn");
 
-	// Add focus/blur listeners for accessibility (replace inline handlers)
-	const categorySelectEl = document.getElementById("category-select");
+	// Add focus/blur listeners for accessibility
 	const questionCountEl = document.getElementById("question-count");
-
-	if (categorySelectEl) {
-		categorySelectEl.addEventListener("focus", () => {
-			categorySelectEl.classList.add("focused");
-		});
-		categorySelectEl.addEventListener("blur", () => {
-			categorySelectEl.classList.remove("focused");
-		});
-	}
 
 	if (questionCountEl) {
 		questionCountEl.addEventListener("focus", () => {

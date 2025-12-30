@@ -13,9 +13,9 @@
 			name="apple-mobile-web-app-status-bar-style"
 			content="black-translucent"
 		/>
+		<link rel="stylesheet" href="css/design-tokens.css" />
 		<link rel="stylesheet" href="css/dark-purple-tokens.css" />
 		<link rel="stylesheet" href="css/mobile-components.css" />
-		<link rel="stylesheet" href="css/design-tokens.css" />
 		<link rel="stylesheet" href="css/enhanced-components.css" />
 		<link rel="stylesheet" href="css/style.css" />
 		<link
@@ -79,18 +79,22 @@
 			</div>
 
 			<div class="mb-30">
-				<label for="category-select" class="form-label"
-					>🎯 Select Quiz Category</label
-				>
-				<select id="category-select" class="form-control custom-select">
-					<option value="All Categories">All Categories</option>
-					<option value="GMDSS">GMDSS & Communications</option>
-					<option value="Navigation">Navigation</option>
-					<option value="IMDG">IMDG Code</option>
-					<option value="COLREG">COLREGS</option>
-					<option value="Safety">Safety & Security</option>
-					<option value="Signals">Signals & Flags</option>
-				</select>
+				<label class="form-label">🎯 Select Quiz Category</label>
+				<div class="custom-dropdown" data-dropdown="category">
+					<button type="button" class="dropdown-trigger" aria-haspopup="listbox">
+						<span class="dropdown-value">All Categories</span>
+						<span class="dropdown-arrow"></span>
+					</button>
+					<ul class="dropdown-menu" role="listbox">
+						<li class="dropdown-option selected" data-value="All Categories">All Categories</li>
+						<li class="dropdown-option" data-value="GMDSS">GMDSS & Communications</li>
+						<li class="dropdown-option" data-value="Navigation">Navigation</li>
+						<li class="dropdown-option" data-value="IMDG">IMDG Code</li>
+						<li class="dropdown-option" data-value="COLREG">COLREGS</li>
+						<li class="dropdown-option" data-value="Safety">Safety & Security</li>
+						<li class="dropdown-option" data-value="Signals">Signals & Flags</li>
+					</ul>
+				</div>
 				<small id="category-info" class="category-info"
 					>💡
 					<i
