@@ -29,6 +29,7 @@
 		/>
 		<link rel="stylesheet" href="css/quiz.css" />
 		<link rel="stylesheet" href="css/leaderboard.css" />
+		<link rel="stylesheet" href="css/custom-modal.css" />
 	</head>
 	<body class="page-bg-green pb-nav">
 		<!-- Page Header -->
@@ -137,19 +138,20 @@
 
 			<!-- Action Buttons -->
 			<div class="action-group">
-				<button type="button" id="back-btn" class="btn start-cta action-btn">
+				<a href="index.html" id="back-btn" class="btn btn-primary action-btn">
 					🏠 Back to Home
-				</button>
+				</a>
 				<button
 					type="button"
 					id="clear-leaderboard-btn"
-					class="btn-neutral btn-home action-btn"
+					class="btn btn-danger action-btn"
 				>
 					🗑️ Clear Leaderboard
 				</button>
 			</div>
 		</div>
 
+		<script src="js/custom-modal.js"></script>
 		<script src="js/leaderboard.js"></script>
 
 		<!-- Mobile Bottom Navigation -->

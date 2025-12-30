@@ -13,25 +13,31 @@ class CustomModal {
 	 * Initialize modal elements in the DOM
 	 */
 	init() {
-		// Create overlay if it doesn't exist
-		if (!document.querySelector(".custom-modal-overlay")) {
-			const overlay = document.createElement("div");
-			overlay.className = "custom-modal-overlay";
-			overlay.innerHTML = `
-				<div class="custom-modal">
-					<div class="modal-content">
-						<h2 class="modal-title" id="modalTitle">Alert</h2>
-						<p class="modal-message" id="modalMessage">Message</p>
-					</div>
-					<div class="modal-buttons" id="modalButtons">
-						<button class="modal-btn modal-btn-primary" data-action="ok">OK</button>
-					</div>
-				</div>
-			`;
-			document.body.appendChild(overlay);
-			this.overlay = overlay;
-			this.modal = overlay.querySelector(".custom-modal");
+		// Check if overlay already exists
+		const existingOverlay = document.querySelector(".custom-modal-overlay");
+		if (existingOverlay) {
+			this.overlay = existingOverlay;
+			this.modal = existingOverlay.querySelector(".custom-modal");
+			return;
 		}
+
+		// Create overlay if it doesn't exist
+		const overlay = document.createElement("div");
+		overlay.className = "custom-modal-overlay";
+		overlay.innerHTML = `
+			<div class="custom-modal">
+				<div class="modal-content">
+					<h2 class="modal-title" id="modalTitle">Alert</h2>
+					<p class="modal-message" id="modalMessage">Message</p>
+				</div>
+				<div class="modal-buttons" id="modalButtons">
+					<button class="modal-btn modal-btn-primary" data-action="ok">OK</button>
+				</div>
+			</div>
+		`;
+		document.body.appendChild(overlay);
+		this.overlay = overlay;
+		this.modal = overlay.querySelector(".custom-modal");
 	}
 
 	/**

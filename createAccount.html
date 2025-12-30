@@ -28,6 +28,7 @@
 		<script src="js/custom-modal.js"></script>
 		<script src="js/custom-dropdown.js"></script>
 		<script src="js/username-validation.js"></script>
+		<script src="js/password-validation.js"></script>
 	</head>
 	<body class="pb-nav">
 		<!-- Page Header -->
@@ -108,7 +109,11 @@
 						type="password"
 						id="password"
 						name="password"
-						placeholder="Create a password"
+						placeholder="8-22 chars, no spaces"
+						minlength="8"
+						maxlength="22"
+						pattern="^\S{8,22}$"
+						title="Password must be 8-22 characters with no spaces"
 						required
 					/>
 					<label for="email">Email:</label>

@@ -213,25 +213,27 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	}
 
+	// Initialize custom modal
+	const customModal = new CustomModal();
+	customModal.init();
+
 	// Clear leaderboard
-	function clearLeaderboard() {
-		const confirmation = confirm(
-			"Are you sure you want to clear the entire leaderboard? This action cannot be undone."
+	async function clearLeaderboard() {
+		const confirmed = await customModal.confirm(
+			"Are you sure you want to clear the entire leaderboard? This action cannot be undone.",
+			"Clear Leaderboard"
 		);
-		if (confirmation) {
+		if (confirmed) {
 			localStorage.removeItem("quizLeaderboard");
 			displayLeaderboard();
-			alert("Leaderboard has been cleared!");
+			await customModal.alert(
+				"Leaderboard has been cleared successfully!",
+				"Success"
+			);
 		}
 	}
 
 	// Event listeners
-	if (backBtn) {
-		backBtn.addEventListener("click", function () {
-			window.location.href = "index.html";
-		});
-	}
-
 	if (clearLeaderboardBtn) {
 		clearLeaderboardBtn.addEventListener("click", clearLeaderboard);
 	}

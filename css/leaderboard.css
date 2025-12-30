@@ -222,6 +222,62 @@
 	content: "🥉 ";
 }
 
+/* ========================================
+   ACTION BUTTONS
+   ======================================== */
+.action-group {
+	display: flex;
+	gap: 16px;
+	justify-content: center;
+	align-items: center;
+	margin-top: 24px;
+}
+
+.action-btn {
+	flex: 1;
+	max-width: 280px;
+	padding: 14px 24px;
+	font-size: 15px;
+	font-weight: 600;
+	font-family: "Montserrat", sans-serif;
+	border-radius: 12px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	text-align: center;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+}
+
+.action-btn.btn-primary {
+	background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+	color: #ffffff;
+	border: none;
+	box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.action-btn.btn-primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.action-btn.btn-danger {
+	background: rgba(239, 68, 68, 0.15);
+	color: #f87171;
+	border: 1px solid rgba(239, 68, 68, 0.4);
+	box-shadow: 0 2px 8px rgba(239, 68, 68, 0.1);
+}
+
+.action-btn.btn-danger:hover {
+	background: rgba(239, 68, 68, 0.25);
+	border-color: rgba(239, 68, 68, 0.6);
+	color: #fca5a5;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+}
+
 .no-data-message {
 	padding: 60px 20px;
 	text-align: center;
@@ -440,9 +496,11 @@
 
 	.action-group {
 		flex-direction: column;
+		gap: 12px;
 	}
 
 	.action-btn {
 		width: 100%;
+		max-width: none;
 	}
 }
