@@ -21,6 +21,7 @@
 		<link rel="stylesheet" href="css/mobile-components.css" />
 		<link rel="stylesheet" href="css/design-tokens.css" />
 		<link rel="stylesheet" href="css/enhanced-components.css" />
+		<link rel="stylesheet" href="css/custom-dropdown.css" />
 		<link rel="stylesheet" href="css/home.css" />
 		<link rel="stylesheet" href="css/eta-calculator.css" />
 	</head>
@@ -52,9 +53,7 @@
 						Calculate ETA
 					</label>
 					<input type="radio" name="calcMode" id="modeSpeed" value="speed" />
-					<label class="mode-option" for="modeSpeed">
-						Required Speed
-					</label>
+					<label class="mode-option" for="modeSpeed"> Required Speed </label>
 				</div>
 				<div class="mode-hint">
 					Toggle between calculating ETA or the speed needed to meet a target
@@ -85,44 +84,114 @@
 								>Departure Time Zone (UTC Offset)</label
 							>
 							<div class="custom-dropdown" data-dropdown="departureTimeZone">
-								<button type="button" class="dropdown-trigger" aria-haspopup="listbox">
+								<button
+									type="button"
+									class="dropdown-trigger"
+									aria-haspopup="listbox"
+								>
 									<span class="dropdown-value">UTC/GMT (±0)</span>
 									<span class="dropdown-arrow"></span>
 								</button>
 								<ul class="dropdown-menu" role="listbox">
-									<li class="dropdown-option" data-value="-12">Baker Island (UTC-12)</li>
-									<li class="dropdown-option" data-value="-11">SST - Samoa (UTC-11)</li>
-									<li class="dropdown-option" data-value="-10">HST - Hawaii (UTC-10)</li>
-									<li class="dropdown-option" data-value="-9">AKST - Alaska (UTC-9)</li>
-									<li class="dropdown-option" data-value="-8">PST - Pacific (UTC-8)</li>
-									<li class="dropdown-option" data-value="-7">MST - Mountain (UTC-7)</li>
-									<li class="dropdown-option" data-value="-6">CST - Central (UTC-6)</li>
-									<li class="dropdown-option" data-value="-5">EST - Eastern (UTC-5)</li>
-									<li class="dropdown-option" data-value="-4">AST - Atlantic (UTC-4)</li>
-									<li class="dropdown-option" data-value="-3.5">NST - Newfoundland (UTC-3:30)</li>
-									<li class="dropdown-option" data-value="-3">ART - Argentina (UTC-3)</li>
-									<li class="dropdown-option" data-value="-2">South Georgia (UTC-2)</li>
-									<li class="dropdown-option" data-value="-1">Azores (UTC-1)</li>
-									<li class="dropdown-option selected" data-value="0">UTC/GMT (±0)</li>
-									<li class="dropdown-option" data-value="1">CET - Central Europe (UTC+1)</li>
-									<li class="dropdown-option" data-value="2">EET - Eastern Europe (UTC+2)</li>
-									<li class="dropdown-option" data-value="3">MSK - Moscow (UTC+3)</li>
-									<li class="dropdown-option" data-value="4">GST - Gulf (UTC+4)</li>
-									<li class="dropdown-option" data-value="4.5">AFT - Afghanistan (UTC+4:30)</li>
-									<li class="dropdown-option" data-value="5">PKT - Pakistan (UTC+5)</li>
-									<li class="dropdown-option" data-value="5.5">IST - India (UTC+5:30)</li>
-									<li class="dropdown-option" data-value="5.75">NPT - Nepal (UTC+5:45)</li>
-									<li class="dropdown-option" data-value="6">BST - Bangladesh (UTC+6)</li>
-									<li class="dropdown-option" data-value="6.5">MMT - Myanmar (UTC+6:30)</li>
-									<li class="dropdown-option" data-value="7">ICT - Indochina (UTC+7)</li>
-									<li class="dropdown-option" data-value="8">CST - China/Singapore (UTC+8)</li>
-									<li class="dropdown-option" data-value="9">JST - Japan (UTC+9)</li>
-									<li class="dropdown-option" data-value="9.5">ACST - Central Australia (UTC+9:30)</li>
-									<li class="dropdown-option" data-value="10">AEST - East Australia (UTC+10)</li>
-									<li class="dropdown-option" data-value="11">SBT - Solomon Islands (UTC+11)</li>
-									<li class="dropdown-option" data-value="12">NZST - New Zealand (UTC+12)</li>
-									<li class="dropdown-option" data-value="13">PHOT - Phoenix Islands (UTC+13)</li>
-									<li class="dropdown-option" data-value="14">LINT - Line Islands (UTC+14)</li>
+									<li class="dropdown-option" data-value="-12">
+										Baker Island (UTC-12)
+									</li>
+									<li class="dropdown-option" data-value="-11">
+										SST - Samoa (UTC-11)
+									</li>
+									<li class="dropdown-option" data-value="-10">
+										HST - Hawaii (UTC-10)
+									</li>
+									<li class="dropdown-option" data-value="-9">
+										AKST - Alaska (UTC-9)
+									</li>
+									<li class="dropdown-option" data-value="-8">
+										PST - Pacific (UTC-8)
+									</li>
+									<li class="dropdown-option" data-value="-7">
+										MST - Mountain (UTC-7)
+									</li>
+									<li class="dropdown-option" data-value="-6">
+										CST - Central (UTC-6)
+									</li>
+									<li class="dropdown-option" data-value="-5">
+										EST - Eastern (UTC-5)
+									</li>
+									<li class="dropdown-option" data-value="-4">
+										AST - Atlantic (UTC-4)
+									</li>
+									<li class="dropdown-option" data-value="-3.5">
+										NST - Newfoundland (UTC-3:30)
+									</li>
+									<li class="dropdown-option" data-value="-3">
+										ART - Argentina (UTC-3)
+									</li>
+									<li class="dropdown-option" data-value="-2">
+										South Georgia (UTC-2)
+									</li>
+									<li class="dropdown-option" data-value="-1">
+										Azores (UTC-1)
+									</li>
+									<li class="dropdown-option selected" data-value="0">
+										UTC/GMT (±0)
+									</li>
+									<li class="dropdown-option" data-value="1">
+										CET - Central Europe (UTC+1)
+									</li>
+									<li class="dropdown-option" data-value="2">
+										EET - Eastern Europe (UTC+2)
+									</li>
+									<li class="dropdown-option" data-value="3">
+										MSK - Moscow (UTC+3)
+									</li>
+									<li class="dropdown-option" data-value="4">
+										GST - Gulf (UTC+4)
+									</li>
+									<li class="dropdown-option" data-value="4.5">
+										AFT - Afghanistan (UTC+4:30)
+									</li>
+									<li class="dropdown-option" data-value="5">
+										PKT - Pakistan (UTC+5)
+									</li>
+									<li class="dropdown-option" data-value="5.5">
+										IST - India (UTC+5:30)
+									</li>
+									<li class="dropdown-option" data-value="5.75">
+										NPT - Nepal (UTC+5:45)
+									</li>
+									<li class="dropdown-option" data-value="6">
+										BST - Bangladesh (UTC+6)
+									</li>
+									<li class="dropdown-option" data-value="6.5">
+										MMT - Myanmar (UTC+6:30)
+									</li>
+									<li class="dropdown-option" data-value="7">
+										ICT - Indochina (UTC+7)
+									</li>
+									<li class="dropdown-option" data-value="8">
+										CST - China/Singapore (UTC+8)
+									</li>
+									<li class="dropdown-option" data-value="9">
+										JST - Japan (UTC+9)
+									</li>
+									<li class="dropdown-option" data-value="9.5">
+										ACST - Central Australia (UTC+9:30)
+									</li>
+									<li class="dropdown-option" data-value="10">
+										AEST - East Australia (UTC+10)
+									</li>
+									<li class="dropdown-option" data-value="11">
+										SBT - Solomon Islands (UTC+11)
+									</li>
+									<li class="dropdown-option" data-value="12">
+										NZST - New Zealand (UTC+12)
+									</li>
+									<li class="dropdown-option" data-value="13">
+										PHOT - Phoenix Islands (UTC+13)
+									</li>
+									<li class="dropdown-option" data-value="14">
+										LINT - Line Islands (UTC+14)
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -144,44 +213,114 @@
 								>Arrival Time Zone (UTC Offset)</label
 							>
 							<div class="custom-dropdown" data-dropdown="arrivalTimeZone">
-								<button type="button" class="dropdown-trigger" aria-haspopup="listbox">
+								<button
+									type="button"
+									class="dropdown-trigger"
+									aria-haspopup="listbox"
+								>
 									<span class="dropdown-value">UTC/GMT (±0)</span>
 									<span class="dropdown-arrow"></span>
 								</button>
 								<ul class="dropdown-menu" role="listbox">
-									<li class="dropdown-option" data-value="-12">Baker Island (UTC-12)</li>
-									<li class="dropdown-option" data-value="-11">SST - Samoa (UTC-11)</li>
-									<li class="dropdown-option" data-value="-10">HST - Hawaii (UTC-10)</li>
-									<li class="dropdown-option" data-value="-9">AKST - Alaska (UTC-9)</li>
-									<li class="dropdown-option" data-value="-8">PST - Pacific (UTC-8)</li>
-									<li class="dropdown-option" data-value="-7">MST - Mountain (UTC-7)</li>
-									<li class="dropdown-option" data-value="-6">CST - Central (UTC-6)</li>
-									<li class="dropdown-option" data-value="-5">EST - Eastern (UTC-5)</li>
-									<li class="dropdown-option" data-value="-4">AST - Atlantic (UTC-4)</li>
-									<li class="dropdown-option" data-value="-3.5">NST - Newfoundland (UTC-3:30)</li>
-									<li class="dropdown-option" data-value="-3">ART - Argentina (UTC-3)</li>
-									<li class="dropdown-option" data-value="-2">South Georgia (UTC-2)</li>
-									<li class="dropdown-option" data-value="-1">Azores (UTC-1)</li>
-									<li class="dropdown-option selected" data-value="0">UTC/GMT (±0)</li>
-									<li class="dropdown-option" data-value="1">CET - Central Europe (UTC+1)</li>
-									<li class="dropdown-option" data-value="2">EET - Eastern Europe (UTC+2)</li>
-									<li class="dropdown-option" data-value="3">MSK - Moscow (UTC+3)</li>
-									<li class="dropdown-option" data-value="4">GST - Gulf (UTC+4)</li>
-									<li class="dropdown-option" data-value="4.5">AFT - Afghanistan (UTC+4:30)</li>
-									<li class="dropdown-option" data-value="5">PKT - Pakistan (UTC+5)</li>
-									<li class="dropdown-option" data-value="5.5">IST - India (UTC+5:30)</li>
-									<li class="dropdown-option" data-value="5.75">NPT - Nepal (UTC+5:45)</li>
-									<li class="dropdown-option" data-value="6">BST - Bangladesh (UTC+6)</li>
-									<li class="dropdown-option" data-value="6.5">MMT - Myanmar (UTC+6:30)</li>
-									<li class="dropdown-option" data-value="7">ICT - Indochina (UTC+7)</li>
-									<li class="dropdown-option" data-value="8">CST - China/Singapore (UTC+8)</li>
-									<li class="dropdown-option" data-value="9">JST - Japan (UTC+9)</li>
-									<li class="dropdown-option" data-value="9.5">ACST - Central Australia (UTC+9:30)</li>
-									<li class="dropdown-option" data-value="10">AEST - East Australia (UTC+10)</li>
-									<li class="dropdown-option" data-value="11">SBT - Solomon Islands (UTC+11)</li>
-									<li class="dropdown-option" data-value="12">NZST - New Zealand (UTC+12)</li>
-									<li class="dropdown-option" data-value="13">PHOT - Phoenix Islands (UTC+13)</li>
-									<li class="dropdown-option" data-value="14">LINT - Line Islands (UTC+14)</li>
+									<li class="dropdown-option" data-value="-12">
+										Baker Island (UTC-12)
+									</li>
+									<li class="dropdown-option" data-value="-11">
+										SST - Samoa (UTC-11)
+									</li>
+									<li class="dropdown-option" data-value="-10">
+										HST - Hawaii (UTC-10)
+									</li>
+									<li class="dropdown-option" data-value="-9">
+										AKST - Alaska (UTC-9)
+									</li>
+									<li class="dropdown-option" data-value="-8">
+										PST - Pacific (UTC-8)
+									</li>
+									<li class="dropdown-option" data-value="-7">
+										MST - Mountain (UTC-7)
+									</li>
+									<li class="dropdown-option" data-value="-6">
+										CST - Central (UTC-6)
+									</li>
+									<li class="dropdown-option" data-value="-5">
+										EST - Eastern (UTC-5)
+									</li>
+									<li class="dropdown-option" data-value="-4">
+										AST - Atlantic (UTC-4)
+									</li>
+									<li class="dropdown-option" data-value="-3.5">
+										NST - Newfoundland (UTC-3:30)
+									</li>
+									<li class="dropdown-option" data-value="-3">
+										ART - Argentina (UTC-3)
+									</li>
+									<li class="dropdown-option" data-value="-2">
+										South Georgia (UTC-2)
+									</li>
+									<li class="dropdown-option" data-value="-1">
+										Azores (UTC-1)
+									</li>
+									<li class="dropdown-option selected" data-value="0">
+										UTC/GMT (±0)
+									</li>
+									<li class="dropdown-option" data-value="1">
+										CET - Central Europe (UTC+1)
+									</li>
+									<li class="dropdown-option" data-value="2">
+										EET - Eastern Europe (UTC+2)
+									</li>
+									<li class="dropdown-option" data-value="3">
+										MSK - Moscow (UTC+3)
+									</li>
+									<li class="dropdown-option" data-value="4">
+										GST - Gulf (UTC+4)
+									</li>
+									<li class="dropdown-option" data-value="4.5">
+										AFT - Afghanistan (UTC+4:30)
+									</li>
+									<li class="dropdown-option" data-value="5">
+										PKT - Pakistan (UTC+5)
+									</li>
+									<li class="dropdown-option" data-value="5.5">
+										IST - India (UTC+5:30)
+									</li>
+									<li class="dropdown-option" data-value="5.75">
+										NPT - Nepal (UTC+5:45)
+									</li>
+									<li class="dropdown-option" data-value="6">
+										BST - Bangladesh (UTC+6)
+									</li>
+									<li class="dropdown-option" data-value="6.5">
+										MMT - Myanmar (UTC+6:30)
+									</li>
+									<li class="dropdown-option" data-value="7">
+										ICT - Indochina (UTC+7)
+									</li>
+									<li class="dropdown-option" data-value="8">
+										CST - China/Singapore (UTC+8)
+									</li>
+									<li class="dropdown-option" data-value="9">
+										JST - Japan (UTC+9)
+									</li>
+									<li class="dropdown-option" data-value="9.5">
+										ACST - Central Australia (UTC+9:30)
+									</li>
+									<li class="dropdown-option" data-value="10">
+										AEST - East Australia (UTC+10)
+									</li>
+									<li class="dropdown-option" data-value="11">
+										SBT - Solomon Islands (UTC+11)
+									</li>
+									<li class="dropdown-option" data-value="12">
+										NZST - New Zealand (UTC+12)
+									</li>
+									<li class="dropdown-option" data-value="13">
+										PHOT - Phoenix Islands (UTC+13)
+									</li>
+									<li class="dropdown-option" data-value="14">
+										LINT - Line Islands (UTC+14)
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -194,10 +333,7 @@
 						</div>
 
 						<!-- Navigation Data -->
-						<div class="section-title"
-						>
-							🧭 Navigation Data
-						</div>
+						<div class="section-title">🧭 Navigation Data</div>
 
 						<div class="form-group">
 							<label for="distance"
@@ -227,10 +363,7 @@
 						</div>
 
 						<!-- Operational Factors -->
-						<div class="section-title"
-						>
-							⚙️ Operational Factors
-						</div>
+						<div class="section-title">⚙️ Operational Factors</div>
 
 						<div class="form-group">
 							<label for="weatherFactor">Weather Delay (Hours)</label>
@@ -333,11 +466,7 @@
 					</div>
 
 					<div class="timeline-container">
-						<div
-							class="timeline-header"
-						>
-							📅 Calculation Breakdown
-						</div>
+						<div class="timeline-header">📅 Calculation Breakdown</div>
 						<div class="calc-steps">
 							<div class="calc-step">
 								<strong>Steaming Time Formula:</strong> T = D ÷ S
@@ -363,11 +492,7 @@
 					</div>
 
 					<div class="timeline-container">
-						<div
-							class="timeline-header"
-						>
-							⏱️ Timeline Summary
-						</div>
+						<div class="timeline-header">⏱️ Timeline Summary</div>
 						<div class="timeline-item">
 							<div class="timeline-icon" aria-label="Departure">D</div>
 							<div class="timeline-text">

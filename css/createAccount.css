@@ -92,6 +92,49 @@ label:first-of-type {
 	margin-top: 0;
 }
 
+/* Title and Name row layout */
+.form-row-title-name {
+	display: flex;
+	gap: 24px;
+	align-items: flex-start;
+	margin-bottom: 8px;
+}
+
+/* Title dropdown - comfortable width for options like "Capt." */
+.form-group-title {
+	flex: 0 0 130px;
+	min-width: 130px;
+	max-width: 130px;
+}
+
+.form-group-title label {
+	margin-top: 0;
+}
+
+/* Name field takes remaining space */
+.form-group-name {
+	flex: 1;
+	min-width: 0;
+}
+
+.form-group-name label {
+	margin-top: 0;
+}
+
+/* Custom dropdown adjustments for title field */
+.form-group-title .custom-dropdown .dropdown-trigger {
+	padding: 12px 14px;
+	padding-right: 36px;
+}
+
+.form-group-title .custom-dropdown .dropdown-arrow {
+	margin-left: 8px;
+}
+
+.form-group-title .custom-dropdown .dropdown-menu {
+	min-width: 140px;
+}
+
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -105,9 +148,31 @@ input[type="date"] {
 	border: 1px solid rgba(99, 102, 241, 0.3);
 	border-radius: 8px;
 	font-size: 15px;
-	color: var(--color-text-primary);
+	color: #ffffff;
 	transition: all 0.2s ease;
 	box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder,
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder {
+	color: #6b7280;
+	opacity: 1;
+}
+
+/* Fix date input color for dark theme */
+input[type="date"]::-webkit-calendar-picker-indicator {
+	filter: invert(1);
+	cursor: pointer;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+	color: #ffffff;
+}
+
+input[type="date"]:not(:valid)::-webkit-datetime-edit {
+	color: #6b7280;
 }
 
 input[type="text"]:focus,
@@ -156,7 +221,7 @@ input[type="submit"]:hover {
 }
 
 a {
-	color: var(--color-primary);
+	color: #8b5cf6;
 	text-decoration: none;
 	font-size: 14px;
 	font-weight: 600;
@@ -164,15 +229,15 @@ a {
 }
 
 a:hover {
-	color: var(--color-text-primary);
+	color: #a78bfa;
 	text-decoration: underline;
-	text-shadow: 0 0 8px var(--color-accent-cyan);
+	text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
 }
 
 /* Override any inherited link focus states */
 a:focus,
 a:active {
-	color: var(--color-primary);
+	color: #8b5cf6;
 	border-color: transparent !important;
 	outline: none;
 }
@@ -191,7 +256,7 @@ a:active {
 
 .login-container a:focus-visible {
 	border: none !important;
-	outline: none !important !important;
+	outline: none !important;
 	box-shadow: none !important;
 }
 
@@ -264,6 +329,30 @@ a:active {
 	h1 {
 		font-size: 24px;
 		margin-bottom: 25px;
+	}
+
+	/* Stack title and name vertically on mobile */
+	.form-row-title-name {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+	}
+
+	.form-group-title {
+		flex: none;
+		min-width: 100%;
+		max-width: 100%;
+		width: 100%;
+	}
+
+	.form-group-title .custom-dropdown .dropdown-trigger {
+		padding: 12px 14px;
+		padding-right: 36px;
+		font-size: 15px;
+	}
+
+	.form-group-name {
+		width: 100%;
 	}
 
 	input[type="text"],

@@ -25,6 +25,7 @@
 		<link rel="stylesheet" href="css/custom-modal.css" />
 		<script src="script.js"></script>
 		<script src="js/custom-modal.js"></script>
+		<script src="js/username-validation.js"></script>
 	</head>
 	<body class="pb-nav">
 		<!-- Page Header -->
@@ -38,7 +39,17 @@
 				<form id="loginForm" action="quiz.html" method="GET">
 					<h1>Login</h1>
 					<label for="username">Username:</label>
-					<input type="text" id="username" name="username" required />
+					<input
+						type="text"
+						id="username"
+						name="username"
+						placeholder="8-12 chars, no spaces"
+						minlength="8"
+						maxlength="12"
+						pattern="^\S{8,12}$"
+						title="Username must be 8-12 characters with no spaces"
+						required
+					/>
 					<label for="password">Password:</label>
 					<input type="password" id="password" name="password" required />
 					<input type="submit" value="Login" />

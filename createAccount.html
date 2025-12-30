@@ -21,15 +21,18 @@
 		<link rel="stylesheet" href="css/mobile-components.css" />
 		<link rel="stylesheet" href="css/design-tokens.css" />
 		<link rel="stylesheet" href="css/enhanced-components.css" />
+		<link rel="stylesheet" href="css/custom-dropdown.css" />
 		<link rel="stylesheet" href="css/createAccount.css" />
 		<link rel="stylesheet" href="css/custom-modal.css" />
 		<script src="script.js"></script>
 		<script src="js/custom-modal.js"></script>
+		<script src="js/custom-dropdown.js"></script>
+		<script src="js/username-validation.js"></script>
 	</head>
 	<body class="pb-nav">
 		<!-- Page Header -->
 		<div class="page-header">
-			<h1>📝 Create Account</h1>
+			<h1>� Create Account</h1>
 			<a href="index.html" class="btn-home">🏠 Back to Dashboard</a>
 		</div>
 
@@ -37,20 +40,93 @@
 			<div class="center-container">
 				<form>
 					<h1>Create an Account</h1>
-					<div class="form-row">
-						<div class="form-group">
-							<label for="name">Name:</label>
-							<input type="text" id="name" name="name" required />
+					<div class="form-row-title-name">
+						<div class="form-group form-group-title">
+							<label for="title">Title:</label>
+							<div
+								class="custom-dropdown"
+								data-dropdown="title"
+								data-placeholder="Select"
+							>
+								<button
+									type="button"
+									class="dropdown-trigger"
+									aria-haspopup="listbox"
+								>
+									<span class="dropdown-value dropdown-placeholder"
+										>Select</span
+									>
+									<span class="dropdown-arrow"></span>
+								</button>
+								<ul class="dropdown-menu" role="listbox">
+									<li class="dropdown-option" data-value="Mr." role="option">
+										Mr.
+									</li>
+									<li class="dropdown-option" data-value="Mrs." role="option">
+										Mrs.
+									</li>
+									<li class="dropdown-option" data-value="Ms." role="option">
+										Ms.
+									</li>
+									<li class="dropdown-option" data-value="Dr." role="option">
+										Dr.
+									</li>
+									<li class="dropdown-option" data-value="Capt." role="option">
+										Capt.
+									</li>
+									<li class="dropdown-option" data-value="Engr." role="option">
+										Engr.
+									</li>
+								</ul>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="username">Username:</label>
-							<input type="text" id="username" name="username" required />
+						<div class="form-group form-group-name">
+							<label for="name">Name:</label>
+							<input
+								type="text"
+								id="name"
+								name="name"
+								placeholder="Enter your full name"
+								required
+							/>
 						</div>
 					</div>
+					<label for="username">Username:</label>
+					<input
+						type="text"
+						id="username"
+						name="username"
+						placeholder="8-12 chars, no spaces"
+						minlength="8"
+						maxlength="12"
+						pattern="^\S{8,12}$"
+						title="Username must be 8-12 characters with no spaces"
+						required
+					/>
 					<label for="password">Password:</label>
-					<input type="password" id="password" name="password" required />
+					<input
+						type="password"
+						id="password"
+						name="password"
+						placeholder="Create a password"
+						required
+					/>
 					<label for="email">Email:</label>
-					<input type="email" id="email" name="email" required />
+					<input
+						type="email"
+						id="email"
+						name="email"
+						placeholder="Enter your email address"
+						required
+					/>
+					<label for="instituteName">Institute Name:</label>
+					<input
+						type="text"
+						id="instituteName"
+						name="instituteName"
+						placeholder="Enter your school or institution"
+						required
+					/>
 					<div class="form-row">
 						<div class="form-group">
 							<label for="contactNumber">Contact Number:</label>
@@ -58,6 +134,7 @@
 								type="tel"
 								id="contactNumber"
 								name="contactNumber"
+								placeholder="+63 9XX XXX XXXX"
 								required
 							/>
 						</div>
