@@ -3,8 +3,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	if (!quizData || !quizData.userAnswers) {
 		document.getElementById("incorrect-questions").innerHTML =
-			"<p>No review data available. Please complete the quiz first.</p>";
+			"<p class='no-data-message'>No review data available. Please complete the quiz first.</p>";
 		return;
+	}
+
+	// Determine score class based on percentage
+	const percentage = parseFloat(quizData.percentage);
+	let scoreClass = "high";
+	if (percentage < 50) {
+		scoreClass = "low";
+	} else if (percentage < 75) {
+		scoreClass = "medium";
 	}
 
 	// Display summary
@@ -34,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		<div class="percentage-card">
 			<div class="stats-label">Your Score</div>
-			<div class="score-number">${quizData.percentage}%</div>
+			<div class="score-number ${scoreClass}">${quizData.percentage}%</div>
 			<div class="note-small">Review your answers below to improve!</div>
 		</div>
 	`;

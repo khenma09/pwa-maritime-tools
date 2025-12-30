@@ -34,30 +34,6 @@
 			<a href="index.html" class="btn-home">🏠 Back to Dashboard</a>
 		</div>
 
-		<!-- Background image LEFT - with reveal overlays -->
-		<div id="bg-wrap-left" class="bg-reveal-wrapper left">
-			<img
-				id="bg-img-left"
-				src="img/rick.jpg"
-				alt="Background decoration"
-				class="bg-wrap-img"
-			/>
-			<div id="overlay-top-left" class="reveal-overlay top"></div>
-			<div id="overlay-bottom-left" class="reveal-overlay bottom"></div>
-		</div>
-
-		<!-- Background image RIGHT - with reveal overlays -->
-		<div id="bg-wrap-right" class="bg-reveal-wrapper right">
-			<img
-				id="bg-img-right"
-				src="img/rick2.JPG"
-				alt="Background decoration"
-				class="bg-wrap-img"
-			/>
-			<div id="overlay-top-right" class="reveal-overlay top"></div>
-			<div id="overlay-bottom-right" class="reveal-overlay bottom"></div>
-		</div>
-
 		<div class="home-box custom-box">
 			<div class="centered-intro">
 				<h2 class="intro-title">Welcome to the Quiz</h2>
@@ -81,18 +57,30 @@
 			<div class="mb-30">
 				<label class="form-label">🎯 Select Quiz Category</label>
 				<div class="custom-dropdown" data-dropdown="category">
-					<button type="button" class="dropdown-trigger" aria-haspopup="listbox">
+					<button
+						type="button"
+						class="dropdown-trigger"
+						aria-haspopup="listbox"
+					>
 						<span class="dropdown-value">All Categories</span>
 						<span class="dropdown-arrow"></span>
 					</button>
 					<ul class="dropdown-menu" role="listbox">
-						<li class="dropdown-option selected" data-value="All Categories">All Categories</li>
-						<li class="dropdown-option" data-value="GMDSS">GMDSS & Communications</li>
+						<li class="dropdown-option selected" data-value="All Categories">
+							All Categories
+						</li>
+						<li class="dropdown-option" data-value="GMDSS">
+							GMDSS & Communications
+						</li>
 						<li class="dropdown-option" data-value="Navigation">Navigation</li>
 						<li class="dropdown-option" data-value="IMDG">IMDG Code</li>
 						<li class="dropdown-option" data-value="COLREG">COLREGS</li>
-						<li class="dropdown-option" data-value="Safety">Safety & Security</li>
-						<li class="dropdown-option" data-value="Signals">Signals & Flags</li>
+						<li class="dropdown-option" data-value="Safety">
+							Safety & Security
+						</li>
+						<li class="dropdown-option" data-value="Signals">
+							Signals & Flags
+						</li>
 					</ul>
 				</div>
 				<small id="category-info" class="category-info"
@@ -139,35 +127,12 @@
 
 		<!-- Start of quiz-box -->
 		<div class="quiz-box custom-box hide">
-			<div class="flex-row-gap">
-				<!-- Left Image (Change display: none to display: block to show) -->
-				<div class="flex-fixed">
-					<img
-						src="img/side-image-left.png"
-						alt="Left decoration"
-						class="side-image"
-					/>
-				</div>
-
-				<!-- Main Content -->
-				<div class="flex-grow">
-					<div class="question-number"></div>
-					<div class="question-text"></div>
-					<div class="option-container"></div>
-					<!-- Next button added -->
-					<div class="next-question-btn" style="text-align: right">
-						<button type="button" class="btn next-cta">Next</button>
-					</div>
-				</div>
-
-				<!-- Right Image (Change display: none to display: block to show) -->
-				<div class="flex-fixed">
-					<img
-						src="img/side-image-right.png"
-						alt="Right decoration"
-						class="side-image"
-					/>
-				</div>
+			<div class="question-number"></div>
+			<div class="question-text"></div>
+			<div class="option-container"></div>
+			<!-- Next button added -->
+			<div class="next-question-btn" style="text-align: right">
+				<button type="button" class="btn next-cta">Next</button>
 			</div>
 		</div>
 		<!-- End of quiz-box -->

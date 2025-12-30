@@ -185,10 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			element.classList.add("wrong");
 			updateAnswerIndicator("wrong");
-
-			// Increment wrong answer counter and update progressive reveal
 			wrongAnswers++;
-			updateBackgroundReveal();
 		}
 		attempt++;
 
@@ -314,86 +311,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		wrongAnswers = 0;
 		availableQuestions = [];
 		userAnswers = [];
-
-		// Reset background reveal overlays to fully covering
-		const wrapLeft = document.getElementById("bg-wrap-left");
-		const wrapRight = document.getElementById("bg-wrap-right");
-		if (wrapLeft && wrapRight) {
-			const overlayTopL = document.getElementById("overlay-top-left");
-			const overlayBotL = document.getElementById("overlay-bottom-left");
-			const overlayTopR = document.getElementById("overlay-top-right");
-			const overlayBotR = document.getElementById("overlay-bottom-right");
-			if (overlayTopL && overlayBotL && overlayTopR && overlayBotR) {
-				overlayTopL.style.height = "50%";
-				overlayBotL.style.height = "50%";
-				overlayTopR.style.height = "50%";
-				overlayBotR.style.height = "50%";
-			}
-			wrapLeft.style.opacity = "0";
-			wrapRight.style.opacity = "0";
-			wrapLeft.style.display = "none";
-			wrapRight.style.display = "none";
-		}
-	}
-
-	function updateBackgroundReveal() {
-		const wrapLeft = document.getElementById("bg-wrap-left");
-		const wrapRight = document.getElementById("bg-wrap-right");
-		if (!wrapLeft || !wrapRight) {
-			console.warn("Wrappers not found");
-			return;
-		}
-
-		// Get overlay elements
-		const overlayTopL = document.getElementById("overlay-top-left");
-		const overlayBotL = document.getElementById("overlay-bottom-left");
-		const overlayTopR = document.getElementById("overlay-top-right");
-		const overlayBotR = document.getElementById("overlay-bottom-right");
-		if (!overlayTopL || !overlayBotL || !overlayTopR || !overlayBotR) {
-			console.warn("Overlay elements not found");
-			return;
-		}
-
-		// Show wrappers
-		wrapLeft.style.display = "block";
-		wrapRight.style.display = "block";
-		wrapLeft.style.opacity = wrongAnswers > 0 ? "0.95" : "0";
-		wrapRight.style.opacity = wrongAnswers > 0 ? "0.95" : "0";
-
-		// Calculate how many slices to reveal from top vs bottom
-		let topSlices = 0;
-		let bottomSlices = 0;
-		for (let i = 1; i <= wrongAnswers; i++) {
-			if (i % 2 === 1) topSlices++; // Odd = reveal from top
-			else bottomSlices++; // Even = reveal from bottom
-		}
-
-		// Each slice reveals (100 / questionLimit) percent of image height
-		const sliceSize = 100 / questionLimit;
-		const topReveal = topSlices * sliceSize;
-		const bottomReveal = bottomSlices * sliceSize;
-
-		// Calculate overlay heights (they start at 50% and shrink as we reveal)
-		const topOverlayHeight = Math.max(0, 50 - topReveal);
-		const bottomOverlayHeight = Math.max(0, 50 - bottomReveal);
-
-		overlayTopL.style.height = topOverlayHeight + "%";
-		overlayBotL.style.height = bottomOverlayHeight + "%";
-		overlayTopR.style.height = topOverlayHeight + "%";
-		overlayBotR.style.height = bottomOverlayHeight + "%";
-
-		console.log(
-			"Wrong answers:",
-			wrongAnswers,
-			"topSlices:",
-			topSlices,
-			"bottomSlices:",
-			bottomSlices,
-			"topHeight:",
-			topOverlayHeight + "%",
-			"bottomHeight:",
-			bottomOverlayHeight + "%"
-		);
 	}
 
 	function tryAgainQuiz() {
@@ -467,8 +384,14 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 
 		// Check if question count is empty or not provided
-		if (!questionCountInput.value || isNaN(userQuestionCount) || userQuestionCount <= 0) {
-			alert(`Please enter the number of questions. Minimum ${minimumQuestions} questions required.`);
+		if (
+			!questionCountInput.value ||
+			isNaN(userQuestionCount) ||
+			userQuestionCount <= 0
+		) {
+			alert(
+				`Please enter the number of questions. Minimum ${minimumQuestions} questions required.`
+			);
 			questionCountInput.focus();
 			return;
 		}
