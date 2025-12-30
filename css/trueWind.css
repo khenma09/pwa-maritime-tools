@@ -61,10 +61,10 @@ body {
    ======================================== */
 
 .calculator-container {
-	max-width: 1900px;
+	max-width: none;
 	width: 98%;
 	margin: 40px auto 0;
-	padding: 60px;
+	padding: 80px;
 	background: #1a1a26;
 	border-radius: 16px;
 	border: 1px solid rgba(99, 102, 241, 0.3);
@@ -87,8 +87,9 @@ body {
 
 .grid {
 	display: grid;
-	grid-template-columns: 1fr;
-	gap: 24px;
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	gap: 32px;
+	align-items: stretch;
 	animation: fadeInUp var(--duration-medium) var(--ease-out);
 	animation-delay: 100ms;
 	animation-fill-mode: backwards;
@@ -99,30 +100,31 @@ body {
 
 @media (min-width: 768px) {
 	.grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 24px;
+		grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+		gap: 28px;
 	}
 }
 
 @media (min-width: 1100px) {
 	.grid {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 32px;
+		grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+		gap: 40px;
 	}
 }
 
 /* Large desktop screens */
 @media (min-width: 1400px) {
 	.calculator-container {
-		padding: 64px;
+		width: 95%;
+		padding: 90px;
 	}
 
 	.grid {
-		gap: 36px;
+		gap: 50px;
 	}
 
 	.card__header {
-		padding: 20px 28px;
+		padding: 24px 32px;
 	}
 
 	.card__header h2 {
@@ -130,20 +132,20 @@ body {
 	}
 
 	.card__body {
-		padding: 36px;
+		padding: 48px;
 	}
 
 	.viz svg {
-		width: 130px;
-		height: 130px;
+		width: 140px;
+		height: 140px;
 	}
 
 	.details__row {
-		padding: 14px 18px;
+		padding: 16px 20px;
 	}
 
 	.form input[type="number"] {
-		padding: 14px 16px;
+		padding: 16px 18px;
 	}
 }
 
@@ -151,20 +153,20 @@ body {
 @media (min-width: 1800px) {
 	.calculator-container {
 		max-width: 2000px;
-		padding: 72px;
+		padding: 100px;
 	}
 
 	.grid {
-		gap: 40px;
+		gap: 56px;
 	}
 
 	.card__body {
-		padding: 40px;
+		padding: 52px;
 	}
 
 	.viz svg {
-		width: 150px;
-		height: 150px;
+		width: 160px;
+		height: 160px;
 	}
 }
 
@@ -181,6 +183,7 @@ body {
 	width: 100%;
 	min-width: 0;
 	max-width: 100%;
+	height: fit-content;
 }
 
 .card:hover {

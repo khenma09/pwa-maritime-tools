@@ -10,8 +10,9 @@ function addFadeInEffect() {
 // Show alert after the fade-in effect
 function showAlertOnLoad() {
 	window.addEventListener("load", function () {
-		alert(
-			"This site is still in development phase, you may login with any details for now and press the Login button in order to proceed with the test."
+		showAlert(
+			"This site is still in development phase, you may login with any details for now and press the Login button in order to proceed with the test.",
+			"Welcome to Maritime Tools"
 		);
 	});
 }
@@ -51,7 +52,7 @@ function handleCreateAccountFormSubmit() {
 		contactNumber.value = "";
 		dob.value = "";
 
-		alert("Account created successfully!");
+		showAlert("Account created successfully!", "Success");
 	});
 }
 

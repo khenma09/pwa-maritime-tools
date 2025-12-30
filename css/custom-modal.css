@@ -1,0 +1,189 @@
+/* ========================================
+   CUSTOM MODAL / ALERT STYLING
+   ======================================== */
+
+/* Modal overlay */
+.custom-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	display: none;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+	backdrop-filter: blur(2px);
+	animation: fadeIn 0.3s ease;
+}
+
+.custom-modal-overlay.show {
+	display: flex;
+}
+
+/* Modal container */
+.custom-modal {
+	background: #16161f;
+	border: 1px solid rgba(99, 102, 241, 0.3);
+	border-radius: 16px;
+	padding: 40px;
+	max-width: 420px;
+	width: 90%;
+	box-shadow: 0 20px 60px rgba(99, 102, 241, 0.2),
+		0 0 60px rgba(139, 92, 246, 0.15);
+	animation: slideUp 0.3s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Modal glow background */
+.custom-modal::before {
+	content: "";
+	position: absolute;
+	top: -50%;
+	right: -50%;
+	width: 300px;
+	height: 300px;
+	background: radial-gradient(
+		circle,
+		rgba(99, 102, 241, 0.1) 0%,
+		transparent 70%
+	);
+	pointer-events: none;
+}
+
+.custom-modal::after {
+	content: "";
+	position: absolute;
+	bottom: -50%;
+	left: -50%;
+	width: 300px;
+	height: 300px;
+	background: radial-gradient(
+		circle,
+		rgba(139, 92, 246, 0.08) 0%,
+		transparent 70%
+	);
+	pointer-events: none;
+}
+
+/* Modal content */
+.modal-content {
+	position: relative;
+	z-index: 1;
+}
+
+/* Modal title */
+.modal-title {
+	font-size: 24px;
+	font-weight: 700;
+	color: #ffffff;
+	margin-bottom: 12px;
+	letter-spacing: -0.01em;
+}
+
+/* Modal message */
+.modal-message {
+	font-size: 15px;
+	color: #d1d5db;
+	line-height: 1.6;
+	margin-bottom: 32px;
+}
+
+/* Modal buttons container */
+.modal-buttons {
+	display: flex;
+	gap: 12px;
+	justify-content: flex-end;
+}
+
+/* Modal button */
+.modal-btn {
+	padding: 12px 24px;
+	border-radius: 8px;
+	border: none;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	font-family: "Montserrat", sans-serif;
+	min-width: 80px;
+}
+
+/* Primary button (OK) */
+.modal-btn-primary {
+	background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+	color: #ffffff;
+	box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+	flex: 1;
+}
+
+.modal-btn-primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.modal-btn-primary:active {
+	transform: translateY(0);
+}
+
+/* Secondary button (Cancel) */
+.modal-btn-secondary {
+	background: rgba(255, 255, 255, 0.05);
+	color: #9ca3af;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-btn-secondary:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: #ffffff;
+	border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Modal animations */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+	.custom-modal {
+		padding: 30px;
+		max-width: 95%;
+	}
+
+	.modal-title {
+		font-size: 20px;
+	}
+
+	.modal-message {
+		font-size: 14px;
+		margin-bottom: 24px;
+	}
+
+	.modal-buttons {
+		flex-direction: column;
+	}
+
+	.modal-btn {
+		width: 100%;
+		min-width: unset;
+	}
+}
