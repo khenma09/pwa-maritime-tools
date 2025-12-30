@@ -68,7 +68,7 @@ body.page-bg-green::after {
 
 .review-container {
 	max-width: 800px;
-	margin: 120px auto 40px;
+	margin: 180px auto 40px;
 	background: #1a1a26;
 	padding: 40px;
 	border-radius: 16px;
@@ -259,7 +259,7 @@ body.page-bg-green::after {
 /* Responsive styles */
 @media (max-width: 768px) {
 	.review-container {
-		margin-top: 100px;
+		margin-top: 130px;
 		margin-bottom: 100px;
 		padding: 20px;
 		margin-left: 15px;
@@ -297,7 +297,7 @@ body.page-bg-green::after {
 
 @media (max-width: 480px) {
 	.review-container {
-		margin-top: 80px;
+		margin-top: 110px;
 		padding: 15px;
 	}
 	.summary-grid {
