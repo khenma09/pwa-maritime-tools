@@ -19,8 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
 			// Toggle dropdown on click
 			trigger.addEventListener("click", (e) => {
 				e.stopPropagation();
+				const wasOpen = dropdown.classList.contains("open");
 				closeAllDropdowns();
-				dropdown.classList.toggle("open");
+				if (!wasOpen) {
+					dropdown.classList.add("open");
+				}
 			});
 
 			// Select option on click
