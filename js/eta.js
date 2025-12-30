@@ -8,15 +8,85 @@ document.addEventListener("DOMContentLoaded", function () {
 	const modeRadios = document.querySelectorAll('input[name="calcMode"]');
 	const modeOptions = document.querySelectorAll(".mode-option");
 
-	// Debug: Check if elements exist
-	console.log("Form:", etaForm);
-	console.log("Calculate Button:", calculateBtn);
-	console.log("Results Container:", resultsContainer);
-
 	if (!calculateBtn || !etaForm || !resultsContainer) {
 		console.error("Critical elements not found in DOM");
 		return;
 	}
+
+	// Custom Dropdown Functionality
+	function initCustomDropdowns() {
+		const dropdowns = document.querySelectorAll(".custom-dropdown");
+
+		dropdowns.forEach((dropdown) => {
+			const trigger = dropdown.querySelector(".dropdown-trigger");
+			const options = dropdown.querySelectorAll(".dropdown-option");
+			const valueDisplay = dropdown.querySelector(".dropdown-value");
+
+			if (!trigger) return;
+
+			// Toggle dropdown on click
+			trigger.addEventListener("click", (e) => {
+				e.stopPropagation();
+				closeAllDropdowns();
+				dropdown.classList.toggle("open");
+			});
+
+			// Select option on click
+			options.forEach((option) => {
+				option.addEventListener("click", () => {
+					// Update selected state
+					options.forEach((opt) => opt.classList.remove("selected"));
+					option.classList.add("selected");
+
+					// Update display value
+					valueDisplay.textContent = option.textContent;
+
+					// Close dropdown
+					dropdown.classList.remove("open");
+				});
+			});
+		});
+
+		// Close dropdowns when clicking outside
+		document.addEventListener("click", closeAllDropdowns);
+	}
+
+	function closeAllDropdowns() {
+		document.querySelectorAll(".custom-dropdown.open").forEach((d) => {
+			d.classList.remove("open");
+		});
+	}
+
+	function getDropdownValue(dropdownName) {
+		const dropdown = document.querySelector(
+			`[data-dropdown="${dropdownName}"]`
+		);
+		const selected = dropdown?.querySelector(".dropdown-option.selected");
+		return selected?.dataset.value || "0";
+	}
+
+	function setDropdownValue(dropdownName, value) {
+		const dropdown = document.querySelector(
+			`[data-dropdown="${dropdownName}"]`
+		);
+		if (!dropdown) return;
+
+		const options = dropdown.querySelectorAll(".dropdown-option");
+		const valueDisplay = dropdown.querySelector(".dropdown-value");
+
+		options.forEach((option) => {
+			if (option.dataset.value === value) {
+				options.forEach((opt) => opt.classList.remove("selected"));
+				option.classList.add("selected");
+				if (valueDisplay) {
+					valueDisplay.textContent = option.textContent;
+				}
+			}
+		});
+	}
+
+	// Initialize custom dropdowns
+	initCustomDropdowns();
 
 	// Set current datetime as default
 	const now = new Date();
@@ -34,9 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const inputs = {
 		departurePort: document.getElementById("departurePort"),
 		departureTime: document.getElementById("departureTime"),
-		departureTimeZone: document.getElementById("departureTimeZone"),
 		arrivalPort: document.getElementById("arrivalPort"),
-		arrivalTimeZone: document.getElementById("arrivalTimeZone"),
 		targetArrivalTime: document.getElementById("targetArrivalTime"),
 		distance: document.getElementById("distance"),
 		averageSpeed: document.getElementById("averageSpeed"),
@@ -183,9 +251,11 @@ document.addEventListener("DOMContentLoaded", function () {
 			const portDelay = parseFloat(inputs.portDelay.value) || 0;
 			const canalDelay = parseFloat(inputs.canalDelay.value) || 0;
 			const departureTimeZoneOffset = parseFloat(
-				inputs.departureTimeZone.value
+				getDropdownValue("departureTimeZone")
 			);
-			const arrivalTimeZoneOffset = parseFloat(inputs.arrivalTimeZone.value);
+			const arrivalTimeZoneOffset = parseFloat(
+				getDropdownValue("arrivalTimeZone")
+			);
 			const targetArrivalInput = inputs.targetArrivalTime.value
 				? new Date(inputs.targetArrivalTime.value)
 				: null;
@@ -490,6 +560,9 @@ document.addEventListener("DOMContentLoaded", function () {
 				.toISOString()
 				.slice(0, 16);
 		}
+		// Reset custom dropdowns to UTC/GMT (±0)
+		setDropdownValue("departureTimeZone", "0");
+		setDropdownValue("arrivalTimeZone", "0");
 		// Reset mode to ETA
 		const etaRadio = document.getElementById("modeEta");
 		if (etaRadio) etaRadio.checked = true;
@@ -516,9 +589,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (data.portDelay) inputs.portDelay.value = data.portDelay;
 			if (data.canalDelay) inputs.canalDelay.value = data.canalDelay;
 			if (data.departureTimeZone)
-				inputs.departureTimeZone.value = data.departureTimeZone;
+				setDropdownValue("departureTimeZone", data.departureTimeZone);
 			if (data.arrivalTimeZone)
-				inputs.arrivalTimeZone.value = data.arrivalTimeZone;
+				setDropdownValue("arrivalTimeZone", data.arrivalTimeZone);
 			if (data.notes) inputs.notes.value = data.notes;
 			if (data.targetArrivalTime && inputs.targetArrivalTime)
 				inputs.targetArrivalTime.value = data.targetArrivalTime;
@@ -533,29 +606,37 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	// Save form data on input change
-	const formInputs = etaForm.querySelectorAll("input, select");
+	function saveFormData() {
+		const dataToSave = {
+			departurePort: inputs.departurePort.value,
+			arrivalPort: inputs.arrivalPort.value,
+			distance: inputs.distance.value,
+			averageSpeed: inputs.averageSpeed.value,
+			weatherFactor: inputs.weatherFactor.value,
+			portDelay: inputs.portDelay.value,
+			canalDelay: inputs.canalDelay.value,
+			departureTimeZone: getDropdownValue("departureTimeZone"),
+			arrivalTimeZone: getDropdownValue("arrivalTimeZone"),
+			notes: inputs.notes.value,
+			targetArrivalTime: inputs.targetArrivalTime
+				? inputs.targetArrivalTime.value
+				: "",
+			calcMode: getMode(),
+		};
+		localStorage.setItem("etaCalculatorData", JSON.stringify(dataToSave));
+	}
+
+	const formInputs = etaForm.querySelectorAll("input");
 	formInputs.forEach((input) => {
 		input.addEventListener("change", function () {
 			// Don't save departure time (as it would be stale)
 			if (this.id === "departureTime") return;
-
-			const dataToSave = {
-				departurePort: inputs.departurePort.value,
-				arrivalPort: inputs.arrivalPort.value,
-				distance: inputs.distance.value,
-				averageSpeed: inputs.averageSpeed.value,
-				weatherFactor: inputs.weatherFactor.value,
-				portDelay: inputs.portDelay.value,
-				canalDelay: inputs.canalDelay.value,
-				departureTimeZone: inputs.departureTimeZone.value,
-				arrivalTimeZone: inputs.arrivalTimeZone.value,
-				notes: inputs.notes.value,
-				targetArrivalTime: inputs.targetArrivalTime
-					? inputs.targetArrivalTime.value
-					: "",
-				calcMode: getMode(),
-			};
-			localStorage.setItem("etaCalculatorData", JSON.stringify(dataToSave));
+			saveFormData();
 		});
+	});
+
+	// Save when dropdown selection changes
+	document.querySelectorAll(".custom-dropdown .dropdown-option").forEach((option) => {
+		option.addEventListener("click", saveFormData);
 	});
 });

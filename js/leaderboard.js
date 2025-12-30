@@ -1,11 +1,64 @@
 document.addEventListener("DOMContentLoaded", function () {
 	const leaderboardBody = document.getElementById("leaderboard-body");
 	const leaderboardTable = document.getElementById("leaderboard-table");
-	const categoryFilter = document.getElementById("category-filter");
-	const sortFilter = document.getElementById("sort-filter");
 	const backBtn = document.getElementById("back-btn");
 	const clearLeaderboardBtn = document.getElementById("clear-leaderboard-btn");
 	const noDataMessage = document.getElementById("no-data-message");
+
+	// Custom Dropdown Functionality
+	function initCustomDropdowns() {
+		const dropdowns = document.querySelectorAll(".custom-dropdown");
+
+		dropdowns.forEach((dropdown) => {
+			const trigger = dropdown.querySelector(".dropdown-trigger");
+			const options = dropdown.querySelectorAll(".dropdown-option");
+			const valueDisplay = dropdown.querySelector(".dropdown-value");
+
+			if (!trigger) return;
+
+			// Toggle dropdown on click
+			trigger.addEventListener("click", (e) => {
+				e.stopPropagation();
+				closeAllDropdowns();
+				dropdown.classList.toggle("open");
+			});
+
+			// Select option on click
+			options.forEach((option) => {
+				option.addEventListener("click", () => {
+					// Update selected state
+					options.forEach((opt) => opt.classList.remove("selected"));
+					option.classList.add("selected");
+
+					// Update display value
+					valueDisplay.textContent = option.textContent;
+
+					// Close dropdown
+					dropdown.classList.remove("open");
+
+					// Trigger filter update
+					displayLeaderboard();
+				});
+			});
+		});
+
+		// Close dropdowns when clicking outside
+		document.addEventListener("click", closeAllDropdowns);
+	}
+
+	function closeAllDropdowns() {
+		document.querySelectorAll(".custom-dropdown.open").forEach((d) => {
+			d.classList.remove("open");
+		});
+	}
+
+	function getDropdownValue(dropdownName) {
+		const dropdown = document.querySelector(
+			`[data-dropdown="${dropdownName}"]`
+		);
+		const selected = dropdown?.querySelector(".dropdown-option.selected");
+		return selected?.dataset.value || "";
+	}
 
 	// Get leaderboard data from localStorage
 	function getLeaderboardData() {
@@ -23,15 +76,15 @@ document.addEventListener("DOMContentLoaded", function () {
 		let filtered = [...data];
 
 		// Filter by category
-		const selectedCategory = categoryFilter.value;
-		if (selectedCategory !== "All Categories") {
+		const selectedCategory = getDropdownValue("category");
+		if (selectedCategory && selectedCategory !== "All Categories") {
 			filtered = filtered.filter(
 				(entry) => entry.category === selectedCategory
 			);
 		}
 
 		// Sort data
-		const sortBy = sortFilter.value;
+		const sortBy = getDropdownValue("sort") || "score";
 		filtered.sort((a, b) => {
 			if (sortBy === "score") {
 				// Sort by score (descending), then by date (most recent first)
@@ -173,14 +226,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	// Event listeners
-	if (categoryFilter) {
-		categoryFilter.addEventListener("change", displayLeaderboard);
-	}
-
-	if (sortFilter) {
-		sortFilter.addEventListener("change", displayLeaderboard);
-	}
-
 	if (backBtn) {
 		backBtn.addEventListener("click", function () {
 			window.location.href = "index.html";
@@ -190,6 +235,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	if (clearLeaderboardBtn) {
 		clearLeaderboardBtn.addEventListener("click", clearLeaderboard);
 	}
+
+	// Initialize custom dropdowns
+	initCustomDropdowns();
 
 	// Initial display
 	displayLeaderboard();

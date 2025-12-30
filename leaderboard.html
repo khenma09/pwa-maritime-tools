@@ -45,26 +45,36 @@
 			<!-- Filter Section -->
 			<div class="filter-section">
 				<div class="filter-group">
-					<label for="category-filter" class="filter-label"
-						>Filter by Category:</label
-					>
-					<select id="category-filter" class="form-control custom-select">
-						<option value="All Categories">All Categories</option>
-						<option value="GMDSS">GMDSS & Communications</option>
-						<option value="Navigation">Navigation</option>
-						<option value="IMDG">IMDG Code</option>
-						<option value="COLREG">COLREGS</option>
-						<option value="Safety">Safety & Security</option>
-						<option value="Signals">Signals & Flags</option>
-					</select>
+					<label class="filter-label">Filter by Category:</label>
+					<div class="custom-dropdown" data-dropdown="category">
+						<button type="button" class="dropdown-trigger" aria-haspopup="listbox">
+							<span class="dropdown-value">All Categories</span>
+							<span class="dropdown-arrow"></span>
+						</button>
+						<ul class="dropdown-menu" role="listbox">
+							<li class="dropdown-option selected" data-value="All Categories">All Categories</li>
+							<li class="dropdown-option" data-value="GMDSS">GMDSS & Communications</li>
+							<li class="dropdown-option" data-value="Navigation">Navigation</li>
+							<li class="dropdown-option" data-value="IMDG">IMDG Code</li>
+							<li class="dropdown-option" data-value="COLREG">COLREGS</li>
+							<li class="dropdown-option" data-value="Safety">Safety & Security</li>
+							<li class="dropdown-option" data-value="Signals">Signals & Flags</li>
+						</ul>
+					</div>
 				</div>
 				<div class="filter-group">
-					<label for="sort-filter" class="filter-label">Sort by:</label>
-					<select id="sort-filter" class="form-control custom-select">
-						<option value="score">Highest Score</option>
-						<option value="recent">Most Recent</option>
-						<option value="questions">Most Questions</option>
-					</select>
+					<label class="filter-label">Sort by:</label>
+					<div class="custom-dropdown" data-dropdown="sort">
+						<button type="button" class="dropdown-trigger" aria-haspopup="listbox">
+							<span class="dropdown-value">Highest Score</span>
+							<span class="dropdown-arrow"></span>
+						</button>
+						<ul class="dropdown-menu" role="listbox">
+							<li class="dropdown-option selected" data-value="score">Highest Score</li>
+							<li class="dropdown-option" data-value="recent">Most Recent</li>
+							<li class="dropdown-option" data-value="questions">Most Questions</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 
