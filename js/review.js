@@ -114,19 +114,14 @@ document.addEventListener("DOMContentLoaded", function () {
 	window.renderQuestions = renderQuestions;
 	window.quizData = quizData;
 
-	// Hook up filter buttons and back button with event listeners (replace inline handlers)
+	// Hook up filter buttons with event listeners
 	const correctBtn = document.getElementById("filter-correct");
 	const incorrectBtn = document.getElementById("filter-incorrect");
-	const backBtn = document.getElementById("back-btn");
 
 	if (correctBtn)
 		correctBtn.addEventListener("click", () => filterQuestions("correct"));
 	if (incorrectBtn)
 		incorrectBtn.addEventListener("click", () => filterQuestions("incorrect"));
-	if (backBtn)
-		backBtn.addEventListener("click", () => {
-			window.location.href = "quiz.html";
-		});
 
 	// Add delegation for question header toggles
 	const reviewDiv = document.getElementById("incorrect-questions");
