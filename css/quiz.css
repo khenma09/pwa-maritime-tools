@@ -73,15 +73,86 @@ body {
 .home-box.custom-box,
 .quiz-box.custom-box,
 .result-box.custom-box {
-	background: #16161f;
-	border: 1px solid rgba(255, 255, 255, 0.06);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-	border-radius: var(--radius-lg);
+	background: var(--color-bg-card) !important;
+	border: 1px solid rgba(255, 255, 255, 0.08) !important;
+	box-shadow: var(--shadow-md) !important;
+	border-radius: var(--radius-xl) !important;
 }
 
 /* Space below fixed header */
-.home-box.custom-box {
-	margin-top: 100px;
+.home-box.custom-box,
+.quiz-box.custom-box,
+.result-box.custom-box {
+	margin-top: 120px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	max-width: 900px;
+	width: 90%;
+}
+
+/* ========================================
+   QUIZ BOX OVERRIDES (Override style.css)
+   ======================================== */
+
+/* Question number - purple gradient to match theme */
+.quiz-box .question-number {
+	background: linear-gradient(
+		135deg,
+		rgba(99, 102, 241, 0.15) 0%,
+		rgba(139, 92, 246, 0.1) 100%
+	) !important;
+	color: var(--color-primary) !important;
+	border-left: 4px solid var(--color-primary) !important;
+	border-radius: var(--radius-md) !important;
+	box-shadow: none !important;
+}
+
+/* Question text - dark theme */
+.quiz-box .question-text {
+	background: rgba(0, 0, 0, 0.2) !important;
+	color: var(--color-text-primary) !important;
+	border: 1px solid rgba(255, 255, 255, 0.08) !important;
+	border-radius: var(--radius-md) !important;
+}
+
+/* Options - dark theme */
+.quiz-box .option-container .option {
+	background: rgba(0, 0, 0, 0.3) !important;
+	color: var(--color-text-primary) !important;
+	border: 1px solid rgba(255, 255, 255, 0.1) !important;
+	border-radius: var(--radius-md) !important;
+	box-shadow: none !important;
+}
+
+.quiz-box .option-container .option:hover:not(.already-answered) {
+	background: rgba(99, 102, 241, 0.1) !important;
+	border-color: rgba(99, 102, 241, 0.4) !important;
+	box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+	transform: translateX(0) !important;
+}
+
+/* Correct/Wrong states - keep the slide animation but update colors */
+.quiz-box .option-container .option.correct {
+	color: #ffffff !important;
+	border-color: #22c55e !important;
+}
+
+.quiz-box .option-container .option.wrong {
+	color: #ffffff !important;
+	border-color: #ef4444 !important;
+}
+
+/* Next button - purple gradient */
+.quiz-box .btn {
+	background: var(--gradient-primary) !important;
+	border: none !important;
+	border-radius: var(--radius-md) !important;
+	box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25) !important;
+	color: #ffffff !important;
+}
+
+.quiz-box .btn:hover {
+	box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
 }
 
 /* Titles & headers */
@@ -140,21 +211,31 @@ body {
 .custom-select,
 .input-number,
 select.form-control,
-input.form-control {
-	background: rgba(0, 0, 0, 0.3);
-	border: 1px solid rgba(255, 255, 255, 0.12);
-	color: var(--color-text-primary);
-	border-radius: 8px;
+input.form-control,
+#question-count {
+	background: rgba(0, 0, 0, 0.3) !important;
+	border: 1px solid rgba(255, 255, 255, 0.12) !important;
+	color: #ffffff !important;
+	border-radius: 8px !important;
+	padding: 14px 16px !important;
+	font-size: 16px !important;
 }
 
 .custom-select:focus,
 .input-number:focus,
 select.form-control:focus,
-input.form-control:focus {
+input.form-control:focus,
+#question-count:focus {
 	outline: none;
-	border-color: rgba(255, 255, 255, 0.25);
-	box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-	background: rgba(255, 255, 255, 0.05);
+	border-color: rgba(99, 102, 241, 0.5) !important;
+	box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+	background: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Placeholder text */
+input::placeholder,
+#question-count::placeholder {
+	color: #9ca3af !important;
 }
 
 /* Options */
