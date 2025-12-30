@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+		/>
+		<meta name="theme-color" content="#0a0a0f" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<title>Welcome - Maritime Tools</title>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+		/>
+		<link rel="stylesheet" href="css/dark-purple-tokens.css" />
+		<link rel="stylesheet" href="css/onboarding.css" />
+	</head>
+	<body>
+		<div class="onboarding-container">
+			<!-- Slide 1 -->
+			<div class="onboarding-slide active" data-slide="0">
+				<div class="slide-content">
+					<div class="slide-icon">🚢</div>
+					<h1>Welcome to Maritime Tools</h1>
+					<p>
+						Your comprehensive companion for maritime education and
+						certification preparation.
+					</p>
+				</div>
+			</div>
+
+			<!-- Slide 2 -->
+			<div class="onboarding-slide" data-slide="1">
+				<div class="slide-content">
+					<div class="slide-icon">📚</div>
+					<h1>Master Your Exams</h1>
+					<p>
+						Practice with thousands of questions covering all maritime subjects
+						and certification requirements.
+					</p>
+				</div>
+			</div>
+
+			<!-- Slide 3 -->
+			<div class="onboarding-slide" data-slide="2">
+				<div class="slide-content">
+					<div class="slide-icon">⏱️</div>
+					<h1>Calculate ETA & More</h1>
+					<p>
+						Access essential maritime calculation tools including ETA, speed,
+						distance, and navigation aids.
+					</p>
+				</div>
+			</div>
+
+			<!-- Slide 4 -->
+			<div class="onboarding-slide" data-slide="3">
+				<div class="slide-content">
+					<div class="slide-icon">🏆</div>
+					<h1>Track Your Progress</h1>
+					<p>
+						Compete on leaderboards, earn achievements, and monitor your
+						improvement over time.
+					</p>
+				</div>
+			</div>
+
+			<!-- Navigation -->
+			<div class="onboarding-nav">
+				<div class="slide-indicators">
+					<span class="indicator active" data-slide="0"></span>
+					<span class="indicator" data-slide="1"></span>
+					<span class="indicator" data-slide="2"></span>
+					<span class="indicator" data-slide="3"></span>
+				</div>
+				<div class="nav-buttons">
+					<button class="btn-skip" id="btnSkip">Skip</button>
+					<button class="btn-next" id="btnNext">Next</button>
+					<a
+						href="createAccount.html"
+						class="btn-cta"
+						id="btnGetStarted"
+						style="display: none"
+						>Get Started</a
+					>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/onboarding.js"></script>
+	</body>
+</html>
