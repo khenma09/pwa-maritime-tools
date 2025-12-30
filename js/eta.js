@@ -126,7 +126,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		// Toggle active styling on labels
 		modeOptions.forEach((opt) => {
-			opt.classList.toggle("active", opt.querySelector("input").checked);
+			const radioId = opt.getAttribute("for");
+			const radioEl = radioId
+				? document.getElementById(radioId)
+				: opt.querySelector('input[type="radio"]');
+			opt.classList.toggle("active", !!radioEl && radioEl.checked);
 		});
 
 		// Show/hide relevant inputs
@@ -636,7 +640,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 
 	// Save when dropdown selection changes
-	document.querySelectorAll(".custom-dropdown .dropdown-option").forEach((option) => {
-		option.addEventListener("click", saveFormData);
-	});
+	document
+		.querySelectorAll(".custom-dropdown .dropdown-option")
+		.forEach((option) => {
+			option.addEventListener("click", saveFormData);
+		});
 });
