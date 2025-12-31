@@ -29,7 +29,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	padding: var(--space-6) var(--space-4);
+	padding: 100px 24px 80px;
 	box-sizing: border-box;
 	min-height: calc(100vh - 80px);
 }
@@ -61,10 +61,10 @@ body {
    ======================================== */
 
 .calculator-container {
-	max-width: none;
-	width: 98%;
-	margin: 40px auto 0;
-	padding: 80px;
+	max-width: 1400px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 40px;
 	background: #1a1a26;
 	border-radius: 16px;
 	border: 1px solid rgba(99, 102, 241, 0.3);
@@ -87,8 +87,8 @@ body {
 
 .grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-	gap: 32px;
+	grid-template-columns: 1fr;
+	gap: 24px;
 	align-items: stretch;
 	animation: fadeInUp var(--duration-medium) var(--ease-out);
 	animation-delay: 100ms;
@@ -100,31 +100,31 @@ body {
 
 @media (min-width: 768px) {
 	.grid {
-		grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-		gap: 28px;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 24px;
 	}
 }
 
 @media (min-width: 1100px) {
 	.grid {
-		grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-		gap: 40px;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 28px;
 	}
 }
 
 /* Large desktop screens */
 @media (min-width: 1400px) {
 	.calculator-container {
-		width: 95%;
-		padding: 90px;
+		max-width: 1600px;
+		padding: 50px;
 	}
 
 	.grid {
-		gap: 50px;
+		gap: 32px;
 	}
 
 	.card__header {
-		padding: 24px 32px;
+		padding: 20px 28px;
 	}
 
 	.card__header h2 {
@@ -132,41 +132,20 @@ body {
 	}
 
 	.card__body {
-		padding: 48px;
+		padding: 32px;
 	}
 
 	.viz svg {
-		width: 140px;
-		height: 140px;
+		width: 130px;
+		height: 130px;
 	}
 
 	.details__row {
-		padding: 16px 20px;
+		padding: 14px 18px;
 	}
 
 	.form input[type="number"] {
-		padding: 16px 18px;
-	}
-}
-
-/* Extra large screens */
-@media (min-width: 1800px) {
-	.calculator-container {
-		max-width: 2000px;
-		padding: 100px;
-	}
-
-	.grid {
-		gap: 56px;
-	}
-
-	.card__body {
-		padding: 52px;
-	}
-
-	.viz svg {
-		width: 160px;
-		height: 160px;
+		padding: 14px 16px;
 	}
 }
 
@@ -183,7 +162,8 @@ body {
 	width: 100%;
 	min-width: 0;
 	max-width: 100%;
-	height: fit-content;
+	display: flex;
+	flex-direction: column;
 }
 
 .card:hover {
@@ -207,15 +187,19 @@ body {
 	padding: 28px;
 	color: var(--color-text-primary);
 	box-sizing: border-box;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 .layout--two {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 20px;
+	gap: 24px;
 	width: 100%;
 	box-sizing: border-box;
+	flex: 1;
 }
 
 .layout--two .form,
@@ -229,8 +213,8 @@ body {
 	order: -1;
 }
 
-/* Keep vertical layout for better text readability */
-@media (min-width: 1400px) {
+/* Optimize layout for larger screens */
+@media (min-width: 1200px) {
 	.layout--two {
 		flex-direction: column;
 		align-items: center;
@@ -545,7 +529,7 @@ body {
 	}
 
 	.container {
-		padding: 0 var(--space-5);
+		padding: 90px 16px 60px;
 		min-height: calc(100vh - 100px);
 	}
 
@@ -561,9 +545,13 @@ body {
 	}
 
 	.calculator-container {
-		padding: 20px;
-		margin: 90px auto 0;
-		width: 95%;
+		padding: 24px;
+		margin: 0 auto;
+		width: 100%;
+	}
+
+	.grid {
+		gap: 20px;
 	}
 
 	.card__header {
@@ -623,7 +611,7 @@ body {
 	}
 
 	.container {
-		padding: 0 var(--space-4);
+		padding: 90px 12px 60px;
 		min-height: calc(100vh - 120px);
 	}
 
@@ -632,9 +620,13 @@ body {
 	}
 
 	.calculator-container {
-		padding: 16px;
-		margin: 90px auto 0;
+		padding: 20px;
+		margin: 0 auto;
 		width: 100%;
+	}
+
+	.grid {
+		gap: 16px;
 	}
 
 	.card__header h2 {
