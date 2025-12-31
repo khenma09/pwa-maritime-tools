@@ -1,7 +1,7 @@
 {
   "name": "pwa-maritime-tools",
   "version": "1.0.0",
-  "description": "",
+  "description": "Maritime Tools PWA - Quiz, ETA Calculator, and True Wind Calculator",
   "homepage": "https://github.com/khenma09/pwa-maritime-tools#readme",
   "bugs": {
     "url": "https://github.com/khenma09/pwa-maritime-tools/issues"
@@ -12,13 +12,7 @@
   },
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
-  "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "react": "^19.2.3",
-    "vite": "^7.3.0"
   }
 }
