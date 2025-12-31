@@ -176,5 +176,23 @@
 				<span>Ranks</span>
 			</a>
 		</nav>
+
+		<script>
+			// Handle form submission and redirect to login page
+			document.querySelector('form').addEventListener('submit', function(e) {
+				e.preventDefault();
+
+				// Show success message
+				showAlert(
+					'Your account has been created. Redirecting to login page...',
+					'Account Created Successfully!'
+				);
+
+				// Redirect to login page after 2 seconds
+				setTimeout(function() {
+					window.location.href = 'login.html';
+				}, 2000);
+			});
+		</script>
 	</body>
 </html>
