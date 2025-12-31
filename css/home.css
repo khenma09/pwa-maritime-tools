@@ -15,10 +15,16 @@ body {
 /* Hero Section */
 .hero-section {
 	background: #0a0a0f;
-	padding: 120px 20px 140px;
+	padding: 40px 20px 30px;
 	text-align: center;
-	position: relative;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	z-index: 100;
 	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .hero-section::before {
@@ -85,7 +91,7 @@ body {
 .container {
 	max-width: 1280px;
 	margin: 0 auto;
-	padding: 40px 24px 80px;
+	padding: 220px 24px 80px;
 	min-height: calc(100vh - 300px);
 	display: flex;
 	flex-direction: column;
@@ -309,7 +315,11 @@ body {
 	}
 
 	.hero-section {
-		padding: 40px 20px;
+		padding: 30px 20px 25px;
+	}
+
+	.container {
+		padding-top: 180px;
 	}
 }
 
@@ -343,14 +353,26 @@ body {
 		font-size: 15px;
 	}
 
+	.hero-section {
+		padding: 25px 15px 20px;
+	}
+
 	.container {
-		padding: 30px 15px 15px;
+		padding: 170px 15px 15px;
 	}
 }
 
 @media (max-width: 375px) {
 	.hero-title {
 		font-size: 24px;
+	}
+
+	.hero-section {
+		padding: 20px 15px 18px;
+	}
+
+	.container {
+		padding-top: 150px;
 	}
 
 	.tool-card.coming-soon::after {

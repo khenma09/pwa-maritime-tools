@@ -3,12 +3,22 @@
  * Matches the consistent dark theme across all pages
  */
 
+/* Override container styles from home.css for calculator pages */
+body:has(.calculator-container) .container {
+	padding: 100px 24px 80px !important;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: calc(100vh - 100px);
+}
+
 /* ========================================
    CALCULATOR CONTAINER
    ======================================== */
 .calculator-container {
 	max-width: 800px;
-	margin: 100px auto 0;
+	margin: 0 auto;
 	padding: 30px;
 	background: #1a1a26;
 	border-radius: 16px;
@@ -459,8 +469,12 @@ body.speed-mode .result-card.eta-only {
    RESPONSIVE DESIGN
    ======================================== */
 @media (max-width: 768px) {
+	body:has(.calculator-container) .container {
+		padding: 90px 16px 60px !important;
+	}
+
 	.calculator-container {
-		margin: 90px auto 0;
+		margin: 0 auto;
 		padding: 20px;
 		border-radius: 12px;
 	}
@@ -501,9 +515,13 @@ body.speed-mode .result-card.eta-only {
 }
 
 @media (max-width: 480px) {
+	body:has(.calculator-container) .container {
+		padding: 90px 12px 60px !important;
+	}
+
 	.calculator-container {
 		padding: 16px;
-		margin: 90px auto 0;
+		margin: 0 auto;
 	}
 
 	.calc-header h2 {
