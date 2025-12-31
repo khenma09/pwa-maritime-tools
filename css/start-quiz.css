@@ -10,7 +10,7 @@
 
 body {
 	margin: 0;
-	padding: 80px 0 0 0;
+	padding: 70px 0 0 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -27,11 +27,10 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	width: 100%;
-	padding: var(--space-6) var(--space-4);
+	padding: 0 var(--space-4);
 	box-sizing: border-box;
-	min-height: calc(100vh - 80px);
 }
 
 /* Mobile navigation - show on mobile, hide on desktop */
