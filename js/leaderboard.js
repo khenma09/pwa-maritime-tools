@@ -200,10 +200,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 			const safeName = escapeHTML(entry.name);
 			const safeCategory = escapeHTML(entry.category);
+			const safeAge = entry.age ? escapeHTML(entry.age) : "";
 
 			row.innerHTML = `
 				<td class="rank-cell">${index + 1}</td>
-				<td class="name-cell">${safeName} ${entry.age ? `(${entry.age})` : ""}</td>
+				<td class="name-cell">${safeName} ${safeAge ? `(${safeAge})` : ""}</td>
 				<td class="score-cell ${getScoreClass(
 					entry.percentage
 				)}">${entry.percentage.toFixed(1)}%</td>
