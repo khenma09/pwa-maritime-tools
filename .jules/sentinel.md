@@ -1,0 +1,4 @@
+## 2024-05-22 - Stored XSS in Leaderboard (Local Storage)
+**Vulnerability:** The leaderboard display logic in `js/leaderboard.js` was vulnerable to Stored XSS via `localStorage`. While `name` and `category` were escaped, `age`, `correctAnswers`, and `totalQuestions` were inserted directly into the DOM using `innerHTML`. An attacker who could modify `localStorage` (or if an input vector for these fields was introduced) could inject malicious scripts.
+**Learning:** Even internal data sources like `localStorage` should be treated as untrusted. Data structure assumptions (e.g., "age is always a number") can be violated if the storage is tampered with.
+**Prevention:** Always sanitize ALL variables injected into `innerHTML`, regardless of their expected type. For numeric fields, explicitly cast them to `Number()` or `parseInt()` before display. For string fields, use an HTML escaping function.

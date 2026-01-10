@@ -200,14 +200,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 			const safeName = escapeHTML(entry.name);
 			const safeCategory = escapeHTML(entry.category);
+			const safeAge = entry.age ? escapeHTML(entry.age) : "";
+
+			// Ensure numeric values are safe numbers
+			const safeCorrectAnswers = Number(entry.correctAnswers) || 0;
+			const safeTotalQuestions = Number(entry.totalQuestions) || 0;
 
 			row.innerHTML = `
 				<td class="rank-cell">${index + 1}</td>
-				<td class="name-cell">${safeName} ${entry.age ? `(${entry.age})` : ""}</td>
+				<td class="name-cell">${safeName} ${safeAge ? `(${safeAge})` : ""}</td>
 				<td class="score-cell ${getScoreClass(
 					entry.percentage
 				)}">${entry.percentage.toFixed(1)}%</td>
-				<td>${entry.correctAnswers}/${entry.totalQuestions}</td>
+				<td>${safeCorrectAnswers}/${safeTotalQuestions}</td>
 				<td><span class="category-badge">${safeCategory}</span></td>
 				<td class="date-cell">${formatDate(entry.date)}</td>
 			`;
