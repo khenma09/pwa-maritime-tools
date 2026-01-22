@@ -189,17 +189,10 @@ document.addEventListener("DOMContentLoaded", function () {
 				row.classList.add("top-3", `rank-${index + 1}`);
 			}
 
-			// Escape potentially unsafe text fields
-			const escapeHTML = (str) =>
-				String(str)
-					.replace(/&/g, "&amp;")
-					.replace(/</g, "&lt;")
-					.replace(/>/g, "&gt;")
-					.replace(/"/g, "&quot;")
-					.replace(/'/g, "&#39;");
-
-			const safeName = escapeHTML(entry.name);
-			const safeCategory = escapeHTML(entry.category);
+			// Escape potentially unsafe text fields using centralized Security module
+			// Fail-closed: if Security is missing, this will throw an error rather than rendering unsafe content
+			const safeName = window.Security.escapeHTML(entry.name);
+			const safeCategory = window.Security.escapeHTML(entry.category);
 
 			row.innerHTML = `
 				<td class="rank-cell">${index + 1}</td>

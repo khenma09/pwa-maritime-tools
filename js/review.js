@@ -49,14 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	`;
 
 	// Simple HTML escape to prevent DOM injection when rendering text
-	function escapeHTML(str) {
-		return String(str)
-			.replace(/&/g, "&amp;")
-			.replace(/</g, "&lt;")
-			.replace(/>/g, "&gt;")
-			.replace(/"/g, "&quot;")
-			.replace(/'/g, "&#39;");
-	}
+	// Fail-closed: if Security is missing, this will throw an error rather than rendering unsafe content
+	const escapeHTML = (str) => window.Security.escapeHTML(str);
 
 	// Function to render questions based on filter
 	function renderQuestions(filter = "all") {
