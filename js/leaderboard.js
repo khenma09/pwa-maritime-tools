@@ -189,21 +189,15 @@ document.addEventListener("DOMContentLoaded", function () {
 				row.classList.add("top-3", `rank-${index + 1}`);
 			}
 
-			// Escape potentially unsafe text fields
-			const escapeHTML = (str) =>
-				String(str)
-					.replace(/&/g, "&amp;")
-					.replace(/</g, "&lt;")
-					.replace(/>/g, "&gt;")
-					.replace(/"/g, "&quot;")
-					.replace(/'/g, "&#39;");
-
-			const safeName = escapeHTML(entry.name);
-			const safeCategory = escapeHTML(entry.category);
+			// Escape potentially unsafe text fields using global Security utility
+			const safeName = Security.escapeHTML(entry.name);
+			const safeCategory = Security.escapeHTML(entry.category);
+			// Also escape age as it comes from user input (sessionStorage)
+			const safeAge = Security.escapeHTML(entry.age);
 
 			row.innerHTML = `
 				<td class="rank-cell">${index + 1}</td>
-				<td class="name-cell">${safeName} ${entry.age ? `(${entry.age})` : ""}</td>
+				<td class="name-cell">${safeName} ${safeAge ? `(${safeAge})` : ""}</td>
 				<td class="score-cell ${getScoreClass(
 					entry.percentage
 				)}">${entry.percentage.toFixed(1)}%</td>
