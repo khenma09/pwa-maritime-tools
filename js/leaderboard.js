@@ -189,17 +189,14 @@ document.addEventListener("DOMContentLoaded", function () {
 				row.classList.add("top-3", `rank-${index + 1}`);
 			}
 
-			// Escape potentially unsafe text fields
-			const escapeHTML = (str) =>
-				String(str)
-					.replace(/&/g, "&amp;")
-					.replace(/</g, "&lt;")
-					.replace(/>/g, "&gt;")
-					.replace(/"/g, "&quot;")
-					.replace(/'/g, "&#39;");
+			// Ensure Security module is loaded
+			if (!window.Security) {
+				console.error("Security module not loaded");
+				throw new Error("Security module is required");
+			}
 
-			const safeName = escapeHTML(entry.name);
-			const safeCategory = escapeHTML(entry.category);
+			const safeName = Security.escapeHTML(entry.name);
+			const safeCategory = Security.escapeHTML(entry.category);
 
 			row.innerHTML = `
 				<td class="rank-cell">${index + 1}</td>
