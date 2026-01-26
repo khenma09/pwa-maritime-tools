@@ -1,19 +1,24 @@
 // Add fade-in effect on page load
 function addFadeInEffect() {
-	let container = document.querySelector(".container");
-
-	window.onload = function () {
-		container.classList.add("fade-in");
-	};
+	window.addEventListener("load", function () {
+		let container = document.querySelector(".container");
+		if (container) {
+			container.classList.add("fade-in");
+		}
+	});
 }
 
 // Show alert after the fade-in effect
 function showAlertOnLoad() {
+	// Only show alert on specific pages if needed, currently seems global but controlled by where script.js is included
+	// Check if showAlert exists (it comes from custom-modal.js)
 	window.addEventListener("load", function () {
-		showAlert(
-			"This site is still in development phase, you may login with any details for now and press the Login button in order to proceed with the test.",
-			"Welcome to Maritime Tools"
-		);
+		if (typeof showAlert === "function") {
+			showAlert(
+				"This site is still in development phase, you may login with any details for now and press the Login button in order to proceed with the test.",
+				"Welcome to Maritime Tools"
+			);
+		}
 	});
 }
 
@@ -38,21 +43,29 @@ function handleCreateAccountFormSubmit() {
 	const email = document.getElementById("email");
 	const contactNumber = document.getElementById("contactNumber");
 	const dob = document.getElementById("dob");
+
+	// Ensure we are on the create account page before attaching listeners
+	if (!name) return;
+
 	const submitBtn = document.querySelector("input[type=submit]");
+
+	if (!submitBtn) return;
 
 	submitBtn.addEventListener("click", function (event) {
 		event.preventDefault();
 
 		// Do NOT store sensitive personal data or credentials on the client.
 		// Just clear the form and show a success message for demo purposes.
-		name.value = "";
-		username.value = "";
-		password.value = "";
-		email.value = "";
-		contactNumber.value = "";
-		dob.value = "";
+		if (name) name.value = "";
+		if (username) username.value = "";
+		if (password) password.value = "";
+		if (email) email.value = "";
+		if (contactNumber) contactNumber.value = "";
+		if (dob) dob.value = "";
 
-		showAlert("Account created successfully!", "Success");
+		if (typeof showAlert === "function") {
+			showAlert("Account created successfully!", "Success");
+		}
 	});
 }
 
@@ -74,9 +87,11 @@ function handleDropdownInteraction() {
 	}
 }
 
-// Call the functions to execute
-addFadeInEffect();
-showAlertOnLoad();
-handleLoginFormSubmit();
-handleCreateAccountFormSubmit();
-handleDropdownInteraction();
+// Call the functions to execute when DOM is ready
+document.addEventListener("DOMContentLoaded", function () {
+	addFadeInEffect();
+	showAlertOnLoad();
+	handleLoginFormSubmit();
+	handleCreateAccountFormSubmit();
+	handleDropdownInteraction();
+});
