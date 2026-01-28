@@ -190,16 +190,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 
 			// Escape potentially unsafe text fields
-			const escapeHTML = (str) =>
-				String(str)
-					.replace(/&/g, "&amp;")
-					.replace(/</g, "&lt;")
-					.replace(/>/g, "&gt;")
-					.replace(/"/g, "&quot;")
-					.replace(/'/g, "&#39;");
-
-			const safeName = escapeHTML(entry.name);
-			const safeCategory = escapeHTML(entry.category);
+			const safeName = Security.escapeHTML(entry.name);
+			const safeCategory = Security.escapeHTML(entry.category);
 
 			row.innerHTML = `
 				<td class="rank-cell">${index + 1}</td>
