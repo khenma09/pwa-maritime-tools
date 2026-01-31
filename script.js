@@ -33,6 +33,8 @@ function handleLoginFormSubmit() {
 // Handle form submission for createAccount.html
 function handleCreateAccountFormSubmit() {
 	const name = document.getElementById("name");
+	if (!name) return;
+
 	const username = document.getElementById("username");
 	const password = document.getElementById("password");
 	const email = document.getElementById("email");
@@ -75,8 +77,10 @@ function handleDropdownInteraction() {
 }
 
 // Call the functions to execute
-addFadeInEffect();
-showAlertOnLoad();
-handleLoginFormSubmit();
-handleCreateAccountFormSubmit();
-handleDropdownInteraction();
+document.addEventListener("DOMContentLoaded", function () {
+	addFadeInEffect();
+	showAlertOnLoad();
+	handleLoginFormSubmit();
+	handleCreateAccountFormSubmit();
+	handleDropdownInteraction();
+});
