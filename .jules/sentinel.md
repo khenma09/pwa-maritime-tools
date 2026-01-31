@@ -1,0 +1,4 @@
+## 2024-05-23 - [Sensitive Data in URL & Script Loading Race Condition]
+**Vulnerability:** Login form used `GET` method, exposing passwords in URL query parameters. Additionally, `script.js` executed in `<head>` without `defer` or `DOMContentLoaded`, causing event listeners to fail attachment, which forced the browser to default to the insecure `GET` submission.
+**Learning:** Shared scripts loaded in `<head>` must ensure DOM readiness before querying elements. Also, shared logic (like form handlers) must check for element existence before proceeding to avoid crashing other scripts on pages where those elements don't exist.
+**Prevention:** Always use `POST` for sensitive forms. Wrap initialization logic in `document.addEventListener('DOMContentLoaded', ...)` or use `defer` attribute on script tags. Add null checks for elements in shared utility functions.
